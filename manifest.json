@@ -6,11 +6,11 @@
     "display": "fullscreen",
     "orientation": "any",
     "scope": "./",
-    "start_url": "./",
+    "start_url": ".",
     "description": "Web Schuladministrations Software Kanton Bern",
     "icons": [
         {
-            "src": "maskable_icon_x48.png",
+            "src": "./maskable_icon_x48.png",
             "sizes": "48x48",
             "type": "image/png"
           },
