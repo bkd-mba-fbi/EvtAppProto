@@ -7,7 +7,7 @@ window.schoolApp.appsettings = {
     "RedirectUrl": "https://evtapp.netlify.app",
     "RestUrl": "https://eventoapp-test.erz.be.ch/restApi",
     "Scope": 'Tutoring',
-    "Instance": 'BsSCHE'
+    "Instance": 'BsTest'
   },
 
   "Instances": [
