@@ -146,8 +146,8 @@ window.schoolApp.appsettings = {
       window._RoomReservationConfig = {
       "tokenType": "urn:ietf:params:oauth:token-type:jwt-bearer",
       "webBaseUrl": "",
-      "apiUrl": `+AppConfiguration.RestUrl+`,
-      "oauthUrl": `+AppConfiguration.OAuthUrl+`,
+      "apiUrl": "https://eventoapp-test.erz.be.ch/restApi",
+      "oauthUrl": "https://eventoapp-test.erz.be.ch/OAuth",
       "clientId": "Roomreservation",
       "instanceId": 0,
       "appScope": "NG",
