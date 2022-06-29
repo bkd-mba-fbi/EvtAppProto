@@ -1,0 +1,1 @@
+define(["ember","application"],function(a,b){b.ValidationController=a.Controller.extend({cannotGoBack:a.computed.not("model.everythingIsChecked"),cannotContinue:a.computed("model.everythingIsChecked","model.thereAreOnlyErrors",function(){return!this.get("model.everythingIsChecked")||this.get("model.thereAreOnlyErrors")})})});

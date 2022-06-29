@@ -1,0 +1,1 @@
+define(["ember","text!App/HtmlTemplates/validation.html"],function(a,b){a.TEMPLATES.validation=a.Handlebars.compile(b)});

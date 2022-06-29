@@ -1,0 +1,1 @@
+define(["ember","application","App/Controllers/application","App/Templates/application","App/Templates/navigation","App/Routes/index","App/Routes/input","App/Routes/validation","App/Routes/result"],function(a,b){b.Router=a.Router.extend(),b.Router.map(function(){this.route("input"),this.route("validation"),this.route("result")})});

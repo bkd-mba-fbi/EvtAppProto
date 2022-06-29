@@ -1,0 +1,1 @@
+define(["ember","main_settings"],function(a,b){var c=a.Object.extend(b),d=c.extend({});return d.create()});

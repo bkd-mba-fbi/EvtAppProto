@@ -1,0 +1,1 @@
+define(["ember","application","translate"],function(a,b){b.IndexRoute=a.Route.extend({beforeModel:function(){this.transitionTo("input")}})});

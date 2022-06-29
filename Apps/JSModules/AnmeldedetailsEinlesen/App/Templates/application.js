@@ -1,0 +1,1 @@
+define(["ember","text!App/HtmlTemplates/application.html"],function(a,b){a.TEMPLATES.application=a.Handlebars.compile(b)});

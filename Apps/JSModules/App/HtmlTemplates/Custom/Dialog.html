@@ -1,0 +1,35 @@
+﻿{{#if hasFields}}
+<div class="fieldDialog">
+    {{#each field in model.Fields itemController="dialogField"}}
+    <div class="fieldDialogSection" style="{{field.Style}}" id="{{field.FieldId}}">
+        <div class="dialogLabel">
+            {{field.Caption}}
+        </div>
+        <div class="dialogValue">
+            {{#if field.IsBrowsable}}
+                <div class="browseText">{{field.Value}}</div>
+                <button class="browseButton" disabled={{field.BrowseDisabled}} {{action 'openDialog' field.BrowseDataKey field.BrowseDataClassId}}>{{{field.BrowseIcon}}}</button>
+            {{else}}
+                {{#if field.IsBool}}
+                    {{{field.BoolIcon}}}
+                {{else}}
+                    {{#if field.IsMultiline}}
+                        <pre>{{field.Value}}</pre>
+                    {{else}}
+                        {{{field.Value}}}
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}
+{{#if hasHierarchy}}
+{{#each hierarchyNode in model.HierarchyList}}
+    {{hierarchy-node node=hierarchyNode}}
+{{/each}}
+{{/if}}
+{{#if hasList}}
+<div class="dialogList"></div>
+{{/if}}

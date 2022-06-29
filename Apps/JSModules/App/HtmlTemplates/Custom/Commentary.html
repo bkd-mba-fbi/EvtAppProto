@@ -1,0 +1,11 @@
+﻿<div class="dialogBlock fillVertical">
+    <div id="divAddCommentaryTitle" class="dialogSubTitle">{{translate 'addCommentary'}}</div>
+    <div id="divCommentaryTitle" class="dialogSubTitle" style="display: none;">{{translate 'commentary'}}</div>
+    <div class="dialogElement">
+        {{textarea value=model.newCommentary disabled=isEditable id="txtCommentary"}}
+        <button id="btnSaveCommentary" disabled={{isEditable}} type="button" class="buttonRight" title="{{translate 'save'}}" {{action 'postCommentary' }}>
+            {{{saveIcon}}}
+        </button>
+    </div>
+    <div id="divCommentary" class="dialogElement"><pre>{{model.Commentary}}</pre></div>
+</div>

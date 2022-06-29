@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>School App</title>
+  <meta charset="utf-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" id="viewport" />
+  <meta name="mobile-ready" content="yes" id="mobile-indicator" />
+  <meta name="Description" content="Schulverwaltungsapp">
+  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="site.css">
+  <script src="./lib/jquery/dist/jquery.min.js"></script>
+  <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="appsettings.js"></script>
+
+
+
+  <script src="framework.js"></script>
+
+
+</head>
+
+<body>
+
+<!-- Modal -->
+<div class="modal fade" id="schoolChange" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog instance-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="headerSchoolChange" class="modal-title" id="ModalLabel">Schule auswählen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bitte wählen Sie eine Schule aus in der Sie sich einloggen wollen.
+        <div class="mt-1">
+          <select name="instances" id="instances" class="custom-select">
+          </select>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button" onclick="changeInstance()" class="btn btn-primary">Übernehmen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  renderinstances();
+</script>
+</body>
+
+</html>

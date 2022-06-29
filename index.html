@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>School App</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="mobile-ready" content="yes" id="mobile-indicator" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta http-equiv="expires" content="-1" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#005189" />
+  <meta name="Description" content="Schulverwaltungsapp">
+  <link runat="server" rel="icon" href="favicon.ico" type="image/ico" />
+  <link rel="stylesheet" href="./Apps/webapp-schulverwaltung/styles.css">
+  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="site.css">
+  <script src="./lib/jquery/dist/jquery.min.js"></script>
+  <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="appsettings.js"></script>
+  <script src="framework.js"></script>
+  <script src="./Apps/webapp-schulverwaltung/settings.js"></script>
+  <script src="site.js"></script>
+
+</head>
+
+<body>
+
+  <nav id="navbar" class="navbar center navbar-expand-lg navbar-light bg-primary">
+    <div class="row-100">
+      <div class="nav-col-left-right nav-col-left">
+        <a id="schoolName" class="navbar-brand" href="#">
+          <!--<img id="logo" class="logo-size" src="" alt="logo">-->
+        </a>
+      </div>
+      <div class="nav-col-center">
+        <div class="" id="navbarSupportedContent">
+          <!--collapse navbar-collapse-->
+          <ul class="navbar-nav mr-auto text-center">
+            <li class="nav-item dropdown"
+              user-access="LessonTeacherRole;ClassTeacherRole;StudentRole;AbsenceAdministrator">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"><span class="material-icons md-18">book</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item webapp-link" user-access="LessonTeacherRole"
+                  href="?app=webapp-schulverwaltung#/presence-control">Präsenzkontrolle</a>
+                <a class="dropdown-item webapp-link" user-access="LessonTeacherRole;ClassTeacherRole"
+                  href="?app=webapp-schulverwaltung#/open-absences">Offene Absenzen</a>
+                <a class="dropdown-item webapp-link"
+                  user-access="LessonTeacherRole;ClassTeacherRole;AbsenceAdministrator"
+                  href="?app=webapp-schulverwaltung#/edit-absences">Absenzen
+                  bearbeiten</a>
+                <a class="dropdown-item webapp-link"
+                  user-access="LessonTeacherRole;ClassTeacherRole;AbsenceAdministrator"
+                  href="?app=webapp-schulverwaltung#/evaluate-absences">Absenzen auswerten</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item webapp-link" user-access="StudentRole"
+                  href="?app=webapp-schulverwaltung#/my-absences">Meine Absenzen</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown" user-access="">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"><span class="material-icons md-18">school</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item webapp-link" user-access="ClassTeacherRole;TeacherRole"
+                  href="?app=webapp-schulverwaltung#/events">Unterricht, Klassen, Noten</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item webapp-link" user-access="StudentRole"
+                  href="?app=webapp-schulverwaltung#/my-grades">Meine Noten</a>
+                  <a class="dropdown-item webapp-link" user-access="LessonTeacherRole;StudentRole"
+                  href="?app=kalenderAbos#">Kalender abonnieren</a>
+                <a class="dropdown-item" user-access="" href="?app=kursausschreibung">Öffentliche Kurse anmelden</a>
+                <a class="dropdown-item" user-access="TeacherRole;ClassTeacherRole"
+                  href="?app=kursausschreibung-Intern">Interne
+                  Kurse anmelden</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"><span class="material-icons md-18">extension</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item " href="?app=reservationen">Reservationen</a>
+                <a class="dropdown-item " href="?app=schulleiter">Personen suche</a>
+                <a class="dropdown-item " href="?app=anmeldedetails-einlesen">Anmeldedetails einlesen</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="material-icons md-18">language</span></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" onclick="changeLanguage('de-CH')">Deutsch</a>
+                <a class="dropdown-item" onclick="changeLanguage('fr-CH')">Französisch</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="material-icons md-18">person</span></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item webapp-link" href="?app=webapp-schulverwaltung#/my-profile">Profil</a>
+                <a class="dropdown-item webapp-link" href="?app=webapp-schulverwaltung#/my-settings">Einstellungen</a>
+                <a class="dropdown-item" data-toggle="modal" data-target="#schoolChange">Schule wechseln</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item webapp-link" user-access="TeacherRole;ClassTeacherRole"
+                  href="?app=stellvertertung#/substitutions/assign">Stellvertertung erfassen und bearbeiten</a>
+                <a class="dropdown-item webapp-link" user-access="TeacherRole;ClassTeacherRole"
+                  href="?app=stellvertertung#/substitutions/execute">Stellvertertung ausüben und beenden</a>
+                <a class="dropdown-item webapp-link" user-access="SubstituteAdministratorRole"
+                  href="?app=stellvertertung#/substitutions/admin">Stellvertertung administrieren</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item webapp-link"
+                  href="https://www.youtube.com/playlist?list=PLLDtLiOuctbx-_EQWgWqTO1MRbX845OEf"
+                  target="_blank">Video-Tutorials</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" onclick="logout()">Abmelden</a>
+
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="nav-col-left-right">
+        <!--
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button> -->
+        <erz-notifications></erz-notifications>
+      </div>
+    </div>
+
+  </nav>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="schoolChange" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="headerSchoolChange" class="modal-title" id="ModalLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bitte wählen Sie eine Schule aus in der Sie sich einloggen wollen.
+          <div class="mt-1">
+            <select name="instances" id="instances" class="custom-select">
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="button" onclick="changeInstance()" class="btn btn-primary">Übernehmen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="main" class="main-container"></div>
+
+</body>
+<div id="rootScripts">
+</div>
+
+</html>

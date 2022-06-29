@@ -1,0 +1,153 @@
+﻿
+.main-container {
+  width: 100%;
+  max-width: 1600px;
+
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 72px;
+}
+
+erz-home {
+  display: none;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+}
+
+nav>.container{
+  display: block !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar-nav {
+  margin: auto;
+}
+
+.navbar-brand {
+  color: white !important;
+}
+
+
+.row-100 {
+  width: 100%;
+  display: flex;
+}
+
+.nav-col-left-right {
+  width: 25%;
+}
+
+.nav-col-center {
+  width: 50%;
+}
+
+erz-notifications, .navbar-toggler {
+  float: right;
+}
+
+li.nav-item.dropdown {
+  margin: 0 15px 0 15px;
+}
+
+.navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
+.navbar-nav {
+  flex-direction: row;
+  margin-left: 25%;
+}
+
+.notifications-bell {
+  font-size: 40px !important;
+}
+
+.logo-size {
+  width: 200px;
+}
+
+.navbar-light .navbar-brand {
+  color: rgba(0,0,0,.9);
+}
+
+.modal-dialog.instance-modal {
+  margin-top: 20% !important;
+}
+
+.erz-container-limited {
+  margin-left: auto;
+}
+
+.input-group-text {
+  padding: unset;
+}
+
+.dropdown-toggle::after{
+  display: none;
+}
+
+app-application-footer, #mainNavbarContent ul li:nth-child(4) {
+  display: none;
+}
+
+/*
+.input-group, .input-group>.form-control, erz-typeahead {
+  position: unset  !important;
+}
+*/
+@media only screen and (max-width: 800px) {
+
+    erz-notifications {
+      right: 10px;
+      top: 10px;
+      position: fixed;
+
+  }
+
+  .notifications-bell {
+    color: #007bff !important;
+}
+  .notifications-popup {
+    right: 80px !important;
+  }
+
+  .nav-col-center, .nav-col-left-right  {
+    width: 50%;
+  }
+
+  .nav-col-left {
+    display: none;
+  }
+  .navbar-nav {
+    margin-left: 0%;
+  }
+
+  .navbar {
+    bottom: 0;
+}
+
+.navbar-nav .dropdown-menu {
+  position: fixed;
+  width: 100%;
+  height: auto;
+  bottom: 72px;
+  top: auto;
+  text-align: center;
+}
+
+.notifications-popup {
+  right: 0px !important;
+}
+
+.main-container {
+  padding-bottom: 72px;
+  padding-top: 0px;
+}
+
+}
