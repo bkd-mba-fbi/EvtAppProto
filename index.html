@@ -74,7 +74,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item webapp-link" user-access="StudentRole"
                   href="?app=webapp-schulverwaltung#/my-grades">Meine Noten</a>
-                  <a class="dropdown-item webapp-link" user-access="LessonTeacherRole;StudentRole"
+                <a class="dropdown-item webapp-link" user-access="LessonTeacherRole;StudentRole"
                   href="?app=kalenderAbos#">Kalender abonnieren</a>
                 <a class="dropdown-item" user-access="" href="?app=kursausschreibung">Öffentliche Kurse anmelden</a>
                 <a class="dropdown-item" user-access="TeacherRole;ClassTeacherRole"
@@ -172,7 +172,75 @@
   </div>
 
 
-  <div id="main" class="main-container"></div>
+  <div id="main" class="main-container">
+
+    <div id="dashboard" class="container m-5">
+      <div class="row justify-content-md-center">
+        <a class="col m-3 bg-warning btn" href="?app=webapp-schulverwaltung#/open-absences">
+          <center>
+            <h5>Offene Absenzen</h5>
+            <div>5</div>
+          </center>
+        </a>
+        <a class="col m-3 bg-success btn" href="">
+          <center>
+            <h5>Absenzen zu kontrollierende Lernende</h5>
+            <p>3</p>
+          </center>
+        </a>
+      </div>
+      <div class="row justify-content-md-center">
+        <a class="col m-3 bg-secondary btn" href="?app=webapp-schulverwaltung#/events">
+          <center>
+            <h5>Zur Bewertung Freigegeben Anlässe</h5>
+            <p>5</p>
+          </center>
+        </a>
+        <a class="col m-3 bg-danger btn" href="?app=webapp-schulverwaltung#/events">
+          <center>
+            <h5>Noch nicht publizierte Tests</h5>
+            <p>20</p>
+          </center>
+        </a>
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col m-3 ">
+          <h5>Mein Lektionen Heute</h5>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Zeit</th>
+                <th scope="col">Fach</th>
+                <th scope="col">Raum</th>
+                <th scope="col">Lehrkraft</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>08:00 - 09:00</td>
+                <td>Berufskunde</td>
+                <td>A-4.4</td>
+                <td>Barbara Muster</td>
+              <tr>
+                <td>09:00 - 10:00</td>
+                <td>Englisch</td>
+                <td>A-4.2</td>
+                <td>Max Muster</td>
+              </tr>
+              <tr>
+                <td>11:00 - 13:30</td>
+                <td>Sport</td>
+                <td>S-1</td>
+                <td>Hans Meier</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
 
 </body>
 <div id="rootScripts">
