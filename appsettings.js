@@ -7,7 +7,7 @@ window.schoolApp.appsettings = {
     "RedirectUrl": "https://evtapp.netlify.app",
     "RestUrl": "https://eventoapp-test.erz.be.ch/restApi",
     "Scope": 'Tutoring',
-    "Instance": 'BsSCHE'
+    "Instance": 'BsTest'
   },
 
   "Instances": [
@@ -146,8 +146,8 @@ window.schoolApp.appsettings = {
       window._RoomReservationConfig = {
       "tokenType": "urn:ietf:params:oauth:token-type:jwt-bearer",
       "webBaseUrl": "",
-      "apiUrl": location.protocol + '//' + location.host + '/restApi',
-      "oauthUrl": location.protocol + '//' + location.host + '/OAuth',
+      "apiUrl": "https://eventoapp-test.erz.be.ch/restApi",
+      "oauthUrl": "https://eventoapp-test.erz.be.ch/OAuth",
       "clientId": "Roomreservation",
       "instanceId": 0,
       "appScope": "NG",
