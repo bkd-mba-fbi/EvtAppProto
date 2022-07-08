@@ -39,4 +39,10 @@ $(document).ready(function() {
     renderinstances();
     disableUserAccess();
 
+    if (window.location.href.indexOf('?') > 0){
+        document.getElementById('dashboard').classList.add('d-none');
+    } else {
+        document.getElementById('dashboard').classList.remove('d-none');
+    }
+
 });

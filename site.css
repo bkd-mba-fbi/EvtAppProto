@@ -8,6 +8,10 @@
   padding-top: 72px;
 }
 
+#dashboard {
+  margin: auto !important;
+  padding-top: 30px;}
+  
 erz-home {
   display: none;
 }
