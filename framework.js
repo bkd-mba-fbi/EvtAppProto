@@ -15,13 +15,9 @@ var urlBevorLoginScopeChange = window.location.href;
 
 function loginFirst(instance) {
     console.log(appsettings);
-    instance = instance === undefined ? appsettings.Instance : instance;
+    instance = instance === undefined ? getInstance() || appsettings.Instance : instance;
     var test = appsettings.OAuthUrl +'/Authorization/' + instance + '/Login?clientId=' + appsettings.ClientId + '&redirectUrl=' + encodeURIComponent(appsettings.RedirectUrl) + '&culture_info=' + getLanguage() + '&application_scope=' + appsettings.Scope;
     window.location.href = test;
-}
-
-function getLanguage() {
-    return getValue(LANGUAGE_KEY);
 }
   
 function getAccessToken() {
@@ -131,31 +127,13 @@ function changeLanguage(language){
 
 function getLanguage() {
     // first priority: html lang attribute
-    let htmlLang = 'de' //$('html').attr('lang');
+    let htmlLang = getValue(LANGUAGE_KEY) || navigator.language || navigator.userLanguage; 
 
-    if (htmlLang === 'de') {
+    if (htmlLang.split('-')[0] === 'fr') {
+        return 'fr-CH';
+    } else {
         return 'de-CH';
     }
-
-    if (htmlLang === 'fr') {
-        return 'fr-CH';
-    }
-
-    // second priority: uiCulture in localStorage
-    let culture = getPayload().culture_info;
-
-    if (culture !== null) {
-        return culture;
-    }
-
-    // third priority: browser-language
-    let navigatorLanguage = navigator.language;
-
-    if (navigatorLanguage.split('-')[0] === 'fr') {
-        return 'fr-CH';
-    }
-    // default to de-CH
-    return 'de-CH';
 }
 
 
