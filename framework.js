@@ -134,14 +134,13 @@ function changeInstance() {
 
 function changeLanguage(language){
     setValue(LANGUAGE_KEY,language);
-    document.documentElement.setAttribute('lang', language.indexOf('fr') >= 0 ? 'fr' : 'de');
     refreshToken();
 }
 
 function getLanguage() {
     // first priority: html lang attribute
     let htmlLang = getValue(LANGUAGE_KEY) || navigator.language || navigator.userLanguage; 
-
+    document.documentElement.setAttribute('lang', htmlLang.indexOf('fr') >= 0 ? 'fr' : 'de');
     if (htmlLang.split('-')[0] === 'fr') {
         return 'fr-CH';
     } else {
