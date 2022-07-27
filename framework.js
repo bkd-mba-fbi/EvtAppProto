@@ -72,18 +72,30 @@ function getPayload() {
 }
   
 function getValue(key) {
-    return JSON.parse(sessionStorage.getItem(key)) || JSON.parse(localStorage.getItem(key));
+    try {
+        return JSON.parse(sessionStorage.getItem(key)) || JSON.parse(localStorage.getItem(key));
+    } catch (error) {
+        return sessionStorage.getItem(key) || localStorage.getItem(key);
+    }
+    
 }
 
-function setValue(key,value) {
-    sessionStorage.setItem(key,JSON.stringify(value));
-    localStorage.setItem(key,JSON.stringify(value));
+function setValue(key,value, JSONstringify ) {
+    var JSONstringify = JSONstringify === undefined || JSONstringify === null ? true : false;
+    if(JSONstringify) {
+        sessionStorage.setItem(key,JSON.stringify(value));
+        localStorage.setItem(key,JSON.stringify(value));
+    } else {
+        sessionStorage.setItem(key,value);
+        localStorage.setItem(key,value);
+    }   
+    
 }
 
 function setToken(accessToken,refreshToken,language){
     setValue(ACCESS_TOKEN_KEY,accessToken);
     setValue(REFRESH_TOKEN_KEY,refreshToken);
-    setValue(LANGUAGE_KEY,language);
+    setValue(LANGUAGE_KEY,language, false);
     setValue(INSTANCE,getPayload().instance_id);
 }
 
