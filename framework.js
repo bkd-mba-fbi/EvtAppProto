@@ -134,6 +134,7 @@ function changeInstance() {
 
 function changeLanguage(language){
     setValue(LANGUAGE_KEY,language);
+    document.documentElement.setAttribute('lang', language.indexOf('fr') >= 0 ? 'fr' : 'de');
     refreshToken();
 }
 
