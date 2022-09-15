@@ -17,7 +17,9 @@ function loginFirst(instance) {
     console.log(appsettings);
     instance = instance === undefined ? getInstance() || appsettings.Instance : instance;
     var test = appsettings.OAuthUrl +'/Authorization/' + instance + '/Login?clientId=' + appsettings.ClientId + '&redirectUrl=' + encodeURIComponent(appsettings.RedirectUrl) + '&culture_info=' + getLanguage() + '&application_scope=' + appsettings.Scope;
-    window.location.href = test;
+    
+    popupwindow(test,"Login",400,600)
+    //window.location.href = test;
 }
   
 function getAccessToken() {
@@ -257,6 +259,12 @@ function renderApps(appElementId) {
     }
     
 }
+
+function popupwindow(url, title, w, h) {
+    var left = (screen.width/2)-(w/2);
+    var top = (screen.height/2)-(h/2);
+    return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
+  } 
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
