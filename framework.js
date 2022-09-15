@@ -18,8 +18,8 @@ function loginFirst(instance) {
     instance = instance === undefined ? getInstance() || appsettings.Instance : instance;
     var test = appsettings.OAuthUrl +'/Authorization/' + instance + '/Login?clientId=' + appsettings.ClientId + '&redirectUrl=' + encodeURIComponent(appsettings.RedirectUrl) + '&culture_info=' + getLanguage() + '&application_scope=' + appsettings.Scope;
     
-    popupwindow(test,"Login",400,600)
-    //window.location.href = test;
+    //popupwindow(test,"Login",400,600)
+    window.location.href = test;
 }
   
 function getAccessToken() {
