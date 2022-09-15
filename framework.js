@@ -13,13 +13,17 @@ var start = Date.now();
 var appsettings = window.schoolApp.appsettings.AppConfiguration;
 var urlBevorLoginScopeChange = window.location.href;
 
-function loginFirst(instance) {
+function loginFirst() {
+
+    window.location.href = '../login.html';
+}
+
+function oAuthLogin(){
     console.log(appsettings);
-    instance = instance === undefined ? getInstance() || appsettings.Instance : instance;
+    var instance = instance === undefined ? getInstance() || appsettings.Instance : instance;
     var test = appsettings.OAuthUrl +'/Authorization/' + instance + '/Login?clientId=' + appsettings.ClientId + '&redirectUrl=' + encodeURIComponent(appsettings.RedirectUrl) + '&culture_info=' + getLanguage() + '&application_scope=' + appsettings.Scope;
     
-    //popupwindow(test,"Login",400,600)
-    window.location.href = test;
+    popupwindow(test,"Login",400,600)
 }
   
 function getAccessToken() {
