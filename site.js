@@ -35,6 +35,10 @@ window.addEventListener('hashchange', function(){
 
 $(document).ready(function() {
 
+    if(getValue(LOGINFRAME)){
+        window.close();
+    }
+
     renderApps(getParameterByName('app'));
     renderinstances();
     disableUserAccess();

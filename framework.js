@@ -7,6 +7,7 @@ const SCOPE = 'scope'
 const ScopePUBLIC = 'Public';
 const ScopeTUTORING = 'Tutoring';
 const INSTANCE = 'instance';
+const LOGINFRAME = 'LoginFrame'
 
 var start = Date.now();
 

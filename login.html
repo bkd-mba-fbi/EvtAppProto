@@ -32,8 +32,18 @@
 
 <body>
 
-<button onclick="oAuthLogin()" class="btn">Login</button>
+  <center>
+    <button onclick="oAuthLogin()" class="btn bg-primary">Login</button>
+  </center>
 
 </body>
 
 </html>
+<script>
+  setValue(LOGINFRAME,true);
+  setInterval(function(){
+    if(isLoggedIn()){
+      window.location = '../';
+    }
+  },1000)
+</script>
