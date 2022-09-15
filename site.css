@@ -8,6 +8,10 @@
   padding-top: 72px;
 }
 
+.btn{
+  color: white !important;
+}
+
 #dashboard {
   margin: auto !important;
   padding-top: 30px;}
