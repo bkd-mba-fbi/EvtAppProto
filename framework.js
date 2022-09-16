@@ -134,7 +134,9 @@ function changeInstance() {
     var newInstance = document.getElementById('instances').value;
 
     if(newInstance !== getInstance()) {
-        loginFirst(newInstance);
+        setValue(INSTANCE,newInstance);
+        logout();
+        loginFirst();
     }
 
 }
