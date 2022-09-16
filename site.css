@@ -7,8 +7,10 @@
   border-radius: 25px;
 }
 
-.background-login {
+
+.background-login::after {  
   background-image: url("background.jpg");
+  opacity: 0.3;
 }
 
 
