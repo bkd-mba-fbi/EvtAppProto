@@ -34,9 +34,10 @@
 
   <center>
     <div class="login">
+      <h4 id="instance" class="m-3"></h4>
+      <a href="./instance.html" class="m-3 btn bg-secondary">Mandant wechseln</button>
       <button onclick="oAuthLogin()" class="btn bg-primary m-3">Evento Login</button>
       <button class="btn bg-primary">Office 365 Login (todo)</button>
-      <a href="./instance.html" class="btn bg-secondary">Mandant wechseln</button>
     </div>
   </center>
 
@@ -44,6 +45,7 @@
 
 </html>
 <script>
+  document.getElementById('instance').innerText = getInstanceObject().displayName;
   setValue(LOGINFRAME,true);
   setInterval(function(){
     if(isLoggedIn()){
