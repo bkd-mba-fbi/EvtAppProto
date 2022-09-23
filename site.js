@@ -9,7 +9,6 @@ if(urlBevorLoginScopeChange.indexOf('access_token') === -1) {
 if(!isLoggedIn()) {
     console.log(getInstance());
     if(getInstance() === null) {
-        console.log('instance undifind')
         window.location = './instance.html'
         
     } else {
