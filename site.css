@@ -2,10 +2,6 @@
   font-size: unset !important;
 }
 
-.bg-primary {
-  background-color: #007bff !important;
-}
-
 .login {
   top: calc(50% - 150px);
   left: calc(50% - 150px);
