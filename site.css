@@ -1,5 +1,9 @@
 ﻿html{
-  font-size: inherit !important;
+  font-size: unset !important;
+}
+
+.bg-primary {
+  background-color: #007bff !important;
 }
 
 .login {
