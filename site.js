@@ -7,13 +7,8 @@ if(urlBevorLoginScopeChange.indexOf('access_token') === -1) {
 }
 
 if(!isLoggedIn()) {
-    console.log(getInstance());
-    if(getInstance() === null) {
-        window.location = './instance.html'
-        
-    } else {
-        loginFirst();
-    }
+
+    oAuthLogin();
 
 }  else {
     refreshToken();

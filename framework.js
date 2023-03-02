@@ -14,17 +14,13 @@ var start = Date.now();
 var appsettings = window.schoolApp.appsettings.AppConfiguration;
 var urlBevorLoginScopeChange = window.location.href;
 
-function loginFirst() {
-
-    window.location.href = '../login.html';
-}
-
 function oAuthLogin(){
     console.log(appsettings);
     var instance = instance === undefined ? getInstance() || appsettings.Instance : instance;
-    var test = appsettings.OAuthUrl +'/Authorization/' + instance + '/Login?clientId=' + appsettings.ClientId + '&redirectUrl=' + encodeURIComponent(appsettings.RedirectUrl) + '&culture_info=' + getLanguage() + '&application_scope=' + appsettings.Scope;
+    var login = appsettings.OAuthUrl +'/Authorization/' + instance + '/Login?clientId=' + appsettings.ClientId + '&redirectUrl=' + encodeURIComponent(appsettings.RedirectUrl) + '&culture_info=' + getLanguage() + '&application_scope=' + appsettings.Scope;
     
-    popupwindow(test,"Login",400,600)
+    //popupwindow(test,"Login",400,600)
+    window.location.href = login; 
 }
   
 function getAccessToken() {
