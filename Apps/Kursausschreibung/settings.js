@@ -188,7 +188,7 @@ window.kursausschreibung.settings = {
     "displayRightSide": false,
 
     // put event-categories in a dropdown menu (required)
-    "eventCategoryDropdown": false,
+    "eventCategoryDropdown": true,
 
     // when a field is optional or not in the form you can set a default value.
 	// it will overwrite null values in the post to the person endpoint (optional)
