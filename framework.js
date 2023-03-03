@@ -14,9 +14,15 @@ var start = Date.now();
 var appsettings = window.schoolApp.appsettings.AppConfiguration;
 var urlBevorLoginScopeChange = window.location.href;
 
+/*
+function loginFirst() {
+
+    window.location.href = appsettings.RedirectUrl + '/login.html';
+}
+*/
 function oAuthLogin(){
     console.log(appsettings);
-    var instance = instance === undefined ? getInstance() || appsettings.Instance : instance;
+    var instance = getInstance() === null ? '' : getInstance();
     var login = appsettings.OAuthUrl +'/Authorization/' + instance + '/Login?clientId=' + appsettings.ClientId + '&redirectUrl=' + encodeURIComponent(appsettings.RedirectUrl) + '&culture_info=' + getLanguage() + '&application_scope=' + appsettings.Scope;
     
     //popupwindow(test,"Login",400,600)
@@ -103,22 +109,22 @@ function setToken(accessToken,refreshToken,language){
 }
 
 function isLoggedIn() {
-    
-    if (getAccessToken() === null) {
-      return false;
-    }
 
+    if (getAccessToken() !== null) {
     
     var payload = getPayload();
     var tokenExpire = payload.exp * 1000;
     setValue(TOKEN_EXPIRE_KEY,tokenExpire);
-
-    if (tokenExpire !== null && Date.now() >= tokenExpire) {
+    if (tokenExpire !== null && Date.now() >= tokenExpire || payload.consumer_id !== appsettings.ClientId) {
         return false;
     }
   
     // only return true if instanceId and culture are correct
     return payload.culture_info === getLanguage();
+    }
+    else {
+        return false;
+    }
   }
 
 function getInstanceObject() {
