@@ -8,24 +8,6 @@ window.schoolApp.appsettings = {
     "RestUrl": "https://eventoapp-test.erz.be.ch/restApi",
     "Scope": 'Tutoring'
   },
-
-  "Instances": [
-    {
-      "id": "BsBivo",
-      "displayName": "Berufsfachschule Bivo",
-      "logo": "bs_test.jpg"
-    },
-    {
-      "id": "BsFBI",
-      "displayName": "FBI Mandant",
-      "logo": "gym_master.jpg"
-    },
-    {
-      "id": "BsTest",
-      "displayName": "Berufsfachschule Testmandant",
-      "logo": "bs_test.jpg"
-    }
-  ],
   "RootScripts": `<script src="./Apps/webapp-schulverwaltung/runtime.js" type="module"></script>
   <script src="./Apps/webapp-schulverwaltung/polyfills.js" type="module"></script>
   <script src="./Apps/webapp-schulverwaltung/main.js" type="module"></script>`,

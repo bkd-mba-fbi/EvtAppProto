@@ -14,12 +14,6 @@ var start = Date.now();
 var appsettings = window.schoolApp.appsettings.AppConfiguration;
 var urlBevorLoginScopeChange = window.location.href;
 
-/*
-function loginFirst() {
-
-    window.location.href = appsettings.RedirectUrl + '/login.html';
-}
-*/
 function oAuthLogin(){
     console.log(appsettings);
     var instance = getInstance() === null ? '' : getInstance();
@@ -220,28 +214,6 @@ function refreshToken(){
         url = appsettings.OAuthUrl + '/Authorization/RefreshPublic?redirectUrl=' + encodeURIComponent(appsettings.RedirectUrl) + '&refresh_token=' + getValue(REFRESH_TOKEN_KEY) + '&culture_info=' + getValue(LANGUAGE_KEY) +'&application_scope=' + getValue(SCOPE);
         window.location.href = url;
     }
-}
-
-function renderinstances() {
-    if(window.location.pathname.indexOf('instance.html') === -1) {
-        //$('#logo').attr('src','./logo/'+ getInstanceObject().logo);
-        document.getElementById('schoolName').innerText =  getInstanceObject().displayName;
-        document.getElementById('headerSchoolChange').innerText = getInstanceObject().displayName;
-    } else {
-        document.getElementById('schoolChange').classList.add('d-block');
-        document.getElementById('schoolChange').style.opacity = 1;
-    }
-
-    window.schoolApp.appsettings.Instances.forEach(function(item) {
-        var select = document.getElementById('instances');
-        var option = document.createElement("option");
-        option.innerHTML = item.displayName;
-        option.value = item.id;
-        select.add(option);
-    } 
-    
-    )
-
 }
 
 function renderApps(appElementId) {

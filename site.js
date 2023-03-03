@@ -34,7 +34,6 @@ $(document).ready(function() {
     }
 
     renderApps(getParameterByName('app'));
-    renderinstances();
     disableUserAccess();
 
     if (window.location.href.indexOf('?') > 0){
