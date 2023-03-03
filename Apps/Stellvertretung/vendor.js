@@ -5265,7 +5265,7 @@ function assign(target, dirtyObject) {
   dirtyObject = dirtyObject || {};
 
   for (var property in dirtyObject) {
-    if (dirtyObject.hasOwnProperty(property)) {
+    if (Object.prototype.hasOwnProperty.call(dirtyObject, property)) {
       target[property] = dirtyObject[property];
     }
   }
@@ -5286,13 +5286,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _lightFormatters_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lightFormatters/index.js */ 8179);
 /* harmony import */ var _lib_getUTCDayOfYear_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../_lib/getUTCDayOfYear/index.js */ 7684);
 /* harmony import */ var _lib_getUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../_lib/getUTCISOWeek/index.js */ 202);
 /* harmony import */ var _lib_getUTCISOWeekYear_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../_lib/getUTCISOWeekYear/index.js */ 7723);
 /* harmony import */ var _lib_getUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../_lib/getUTCWeek/index.js */ 7146);
 /* harmony import */ var _lib_getUTCWeekYear_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../_lib/getUTCWeekYear/index.js */ 7434);
 /* harmony import */ var _addLeadingZeros_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../addLeadingZeros/index.js */ 5297);
+/* harmony import */ var _lightFormatters_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lightFormatters/index.js */ 8179);
 
 
 
@@ -5309,53 +5309,53 @@ var dayPeriodEnum = {
   afternoon: 'afternoon',
   evening: 'evening',
   night: 'night'
-  /*
-   * |     | Unit                           |     | Unit                           |
-   * |-----|--------------------------------|-----|--------------------------------|
-   * |  a  | AM, PM                         |  A* | Milliseconds in day            |
-   * |  b  | AM, PM, noon, midnight         |  B  | Flexible day period            |
-   * |  c  | Stand-alone local day of week  |  C* | Localized hour w/ day period   |
-   * |  d  | Day of month                   |  D  | Day of year                    |
-   * |  e  | Local day of week              |  E  | Day of week                    |
-   * |  f  |                                |  F* | Day of week in month           |
-   * |  g* | Modified Julian day            |  G  | Era                            |
-   * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
-   * |  i! | ISO day of week                |  I! | ISO week of year               |
-   * |  j* | Localized hour w/ day period   |  J* | Localized hour w/o day period  |
-   * |  k  | Hour [1-24]                    |  K  | Hour [0-11]                    |
-   * |  l* | (deprecated)                   |  L  | Stand-alone month              |
-   * |  m  | Minute                         |  M  | Month                          |
-   * |  n  |                                |  N  |                                |
-   * |  o! | Ordinal number modifier        |  O  | Timezone (GMT)                 |
-   * |  p! | Long localized time            |  P! | Long localized date            |
-   * |  q  | Stand-alone quarter            |  Q  | Quarter                        |
-   * |  r* | Related Gregorian year         |  R! | ISO week-numbering year        |
-   * |  s  | Second                         |  S  | Fraction of second             |
-   * |  t! | Seconds timestamp              |  T! | Milliseconds timestamp         |
-   * |  u  | Extended year                  |  U* | Cyclic year                    |
-   * |  v* | Timezone (generic non-locat.)  |  V* | Timezone (location)            |
-   * |  w  | Local week of year             |  W* | Week of month                  |
-   * |  x  | Timezone (ISO-8601 w/o Z)      |  X  | Timezone (ISO-8601)            |
-   * |  y  | Year (abs)                     |  Y  | Local week-numbering year      |
-   * |  z  | Timezone (specific non-locat.) |  Z* | Timezone (aliases)             |
-   *
-   * Letters marked by * are not implemented but reserved by Unicode standard.
-   *
-   * Letters marked by ! are non-standard, but implemented by date-fns:
-   * - `o` modifies the previous token to turn it into an ordinal (see `format` docs)
-   * - `i` is ISO day of week. For `i` and `ii` is returns numeric ISO week days,
-   *   i.e. 7 for Sunday, 1 for Monday, etc.
-   * - `I` is ISO week of year, as opposed to `w` which is local week of year.
-   * - `R` is ISO week-numbering year, as opposed to `Y` which is local week-numbering year.
-   *   `R` is supposed to be used in conjunction with `I` and `i`
-   *   for universal ISO week-numbering date, whereas
-   *   `Y` is supposed to be used in conjunction with `w` and `e`
-   *   for week-numbering date specific to the locale.
-   * - `P` is long localized date format
-   * - `p` is long localized time format
-   */
-
 };
+/*
+ * |     | Unit                           |     | Unit                           |
+ * |-----|--------------------------------|-----|--------------------------------|
+ * |  a  | AM, PM                         |  A* | Milliseconds in day            |
+ * |  b  | AM, PM, noon, midnight         |  B  | Flexible day period            |
+ * |  c  | Stand-alone local day of week  |  C* | Localized hour w/ day period   |
+ * |  d  | Day of month                   |  D  | Day of year                    |
+ * |  e  | Local day of week              |  E  | Day of week                    |
+ * |  f  |                                |  F* | Day of week in month           |
+ * |  g* | Modified Julian day            |  G  | Era                            |
+ * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
+ * |  i! | ISO day of week                |  I! | ISO week of year               |
+ * |  j* | Localized hour w/ day period   |  J* | Localized hour w/o day period  |
+ * |  k  | Hour [1-24]                    |  K  | Hour [0-11]                    |
+ * |  l* | (deprecated)                   |  L  | Stand-alone month              |
+ * |  m  | Minute                         |  M  | Month                          |
+ * |  n  |                                |  N  |                                |
+ * |  o! | Ordinal number modifier        |  O  | Timezone (GMT)                 |
+ * |  p! | Long localized time            |  P! | Long localized date            |
+ * |  q  | Stand-alone quarter            |  Q  | Quarter                        |
+ * |  r* | Related Gregorian year         |  R! | ISO week-numbering year        |
+ * |  s  | Second                         |  S  | Fraction of second             |
+ * |  t! | Seconds timestamp              |  T! | Milliseconds timestamp         |
+ * |  u  | Extended year                  |  U* | Cyclic year                    |
+ * |  v* | Timezone (generic non-locat.)  |  V* | Timezone (location)            |
+ * |  w  | Local week of year             |  W* | Week of month                  |
+ * |  x  | Timezone (ISO-8601 w/o Z)      |  X  | Timezone (ISO-8601)            |
+ * |  y  | Year (abs)                     |  Y  | Local week-numbering year      |
+ * |  z  | Timezone (specific non-locat.) |  Z* | Timezone (aliases)             |
+ *
+ * Letters marked by * are not implemented but reserved by Unicode standard.
+ *
+ * Letters marked by ! are non-standard, but implemented by date-fns:
+ * - `o` modifies the previous token to turn it into an ordinal (see `format` docs)
+ * - `i` is ISO day of week. For `i` and `ii` is returns numeric ISO week days,
+ *   i.e. 7 for Sunday, 1 for Monday, etc.
+ * - `I` is ISO week of year, as opposed to `w` which is local week of year.
+ * - `R` is ISO week-numbering year, as opposed to `Y` which is local week-numbering year.
+ *   `R` is supposed to be used in conjunction with `I` and `i`
+ *   for universal ISO week-numbering date, whereas
+ *   `Y` is supposed to be used in conjunction with `w` and `e`
+ *   for week-numbering date specific to the locale.
+ * - `P` is long localized date format
+ * - `p` is long localized time format
+ */
+
 var formatters = {
   // Era
   G: function (date, token, localize) {
@@ -6323,7 +6323,7 @@ function timeLongFormatter(pattern, formatLong) {
 }
 
 function dateTimeLongFormatter(pattern, formatLong) {
-  var matchResult = pattern.match(/(P+)(p+)?/);
+  var matchResult = pattern.match(/(P+)(p+)?/) || [];
   var datePattern = matchResult[1];
   var timePattern = matchResult[2];
 
@@ -6444,8 +6444,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ getUTCISOWeekYear)
 /* harmony export */ });
 /* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../toDate/index.js */ 8325);
-/* harmony import */ var _startOfUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../startOfUTCISOWeek/index.js */ 1924);
 /* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../requiredArgs/index.js */ 1170);
+/* harmony import */ var _startOfUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../startOfUTCISOWeek/index.js */ 1924);
 
 
  // This function will be a part of public API when UTC function will be implemented.
@@ -6520,10 +6520,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getUTCWeekYear)
 /* harmony export */ });
-/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 /* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../toDate/index.js */ 8325);
-/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../startOfUTCWeek/index.js */ 812);
 /* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../requiredArgs/index.js */ 1170);
+/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../startOfUTCWeek/index.js */ 812);
+/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 
 
 
@@ -6532,7 +6532,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function getUTCWeekYear(dirtyDate, dirtyOptions) {
   (0,_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])(1, arguments);
-  var date = (0,_toDate_index_js__WEBPACK_IMPORTED_MODULE_1__["default"])(dirtyDate, dirtyOptions);
+  var date = (0,_toDate_index_js__WEBPACK_IMPORTED_MODULE_1__["default"])(dirtyDate);
   var year = date.getUTCFullYear();
   var options = dirtyOptions || {};
   var locale = options.locale;
@@ -6663,9 +6663,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ setUTCDay)
 /* harmony export */ });
-/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 /* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../toDate/index.js */ 8325);
 /* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../requiredArgs/index.js */ 1170);
+/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 
 
  // This function will be a part of public API when UTC function will be implemented.
@@ -6706,9 +6706,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ setUTCISODay)
 /* harmony export */ });
-/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 /* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../toDate/index.js */ 8325);
 /* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../requiredArgs/index.js */ 1170);
+/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 
 
  // This function will be a part of public API when UTC function will be implemented.
@@ -6870,10 +6870,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ startOfUTCWeekYear)
 /* harmony export */ });
-/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 /* harmony import */ var _getUTCWeekYear_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../getUTCWeekYear/index.js */ 7434);
-/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../startOfUTCWeek/index.js */ 812);
 /* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../requiredArgs/index.js */ 1170);
+/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../startOfUTCWeek/index.js */ 812);
+/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 
 
 
@@ -6908,9 +6908,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ startOfUTCWeek)
 /* harmony export */ });
-/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 /* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../toDate/index.js */ 8325);
 /* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../requiredArgs/index.js */ 1170);
+/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toInteger/index.js */ 7367);
 
 
  // This function will be a part of public API when UTC function will be implemented.
@@ -7053,14 +7053,14 @@ var MILLISECONDS_IN_DAY = 86400000;
  * @example
  * // How many calendar days are between
  * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
- * var result = differenceInCalendarDays(
+ * const result = differenceInCalendarDays(
  *   new Date(2012, 6, 2, 0, 0),
  *   new Date(2011, 6, 2, 23, 0)
  * )
  * //=> 366
  * // How many calendar days are between
  * // 2 July 2011 23:59:00 and 3 July 2011 00:01:00?
- * var result = differenceInCalendarDays(
+ * const result = differenceInCalendarDays(
  *   new Date(2011, 6, 3, 0, 1),
  *   new Date(2011, 6, 2, 23, 59)
  * )
@@ -7218,28 +7218,28 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * | Day of week (formatting)        | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 | EEEEE   | M, T, W, T, F, S, S               |       |
- * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
  * | ISO day of week (formatting)    | i       | 1, 2, 3, ..., 7                   | 7     |
  * |                                 | io      | 1st, 2nd, ..., 7th                | 7     |
  * |                                 | ii      | 01, 02, ..., 07                   | 7     |
  * |                                 | iii     | Mon, Tue, Wed, ..., Sun           | 7     |
  * |                                 | iiii    | Monday, Tuesday, ..., Sunday      | 2,7   |
  * |                                 | iiiii   | M, T, W, T, F, S, S               | 7     |
- * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Su, Sa        | 7     |
+ * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 7     |
  * | Local day of week (formatting)  | e       | 2, 3, 4, ..., 1                   |       |
  * |                                 | eo      | 2nd, 3rd, ..., 1st                | 7     |
  * |                                 | ee      | 02, 03, ..., 01                   |       |
  * |                                 | eee     | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 | eeeee   | M, T, W, T, F, S, S               |       |
- * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
  * | Local day of week (stand-alone) | c       | 2, 3, 4, ..., 1                   |       |
  * |                                 | co      | 2nd, 3rd, ..., 1st                | 7     |
  * |                                 | cc      | 02, 03, ..., 01                   |       |
  * |                                 | ccc     | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 | ccccc   | M, T, W, T, F, S, S               |       |
- * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
  * | AM, PM                          | a..aa   | AM, PM                            |       |
  * |                                 | aaa     | am, pm                            |       |
  * |                                 | aaaa    | a.m., p.m.                        | 2     |
@@ -7377,7 +7377,7 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * 8. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
  *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://git.io/fxCyr
  *
- * 9. `D` and `DD` tokens represent days of the year but they are ofthen confused with days of the month.
+ * 9. `D` and `DD` tokens represent days of the year but they are often confused with days of the month.
  *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://git.io/fxCyr
  *
  * ### v2.0.0 breaking changes:
@@ -7538,6 +7538,63 @@ function cleanEscapedString(input) {
 
 /***/ }),
 
+/***/ 6361:
+/*!***************************************************!*\
+  !*** ./node_modules/date-fns/esm/isDate/index.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ isDate)
+/* harmony export */ });
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_lib/requiredArgs/index.js */ 1170);
+
+/**
+ * @name isDate
+ * @category Common Helpers
+ * @summary Is the given value a date?
+ *
+ * @description
+ * Returns true if the given value is an instance of Date. The function works for dates transferred across iframes.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {*} value - the value to check
+ * @returns {boolean} true if the given value is a date
+ * @throws {TypeError} 1 arguments required
+ *
+ * @example
+ * // For a valid date:
+ * const result = isDate(new Date())
+ * //=> true
+ *
+ * @example
+ * // For an invalid date:
+ * const result = isDate(new Date(NaN))
+ * //=> true
+ *
+ * @example
+ * // For some value:
+ * const result = isDate('2014-02-31')
+ * //=> false
+ *
+ * @example
+ * // For an object:
+ * const result = isDate({})
+ * //=> false
+ */
+
+function isDate(value) {
+  (0,_lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])(1, arguments);
+  return value instanceof Date || typeof value === 'object' && Object.prototype.toString.call(value) === '[object Date]';
+}
+
+/***/ }),
+
 /***/ 5117:
 /*!****************************************************!*\
   !*** ./node_modules/date-fns/esm/isValid/index.js ***!
@@ -7549,8 +7606,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ isValid)
 /* harmony export */ });
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../toDate/index.js */ 8325);
+/* harmony import */ var _isDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../isDate/index.js */ 6361);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../toDate/index.js */ 8325);
 /* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_lib/requiredArgs/index.js */ 1170);
+
 
 
 /**
@@ -7597,24 +7656,29 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @example
  * // For the valid date:
- * var result = isValid(new Date(2014, 1, 31))
+ * const result = isValid(new Date(2014, 1, 31))
  * //=> true
  *
  * @example
  * // For the value, convertable into a date:
- * var result = isValid(1393804800000)
+ * const result = isValid(1393804800000)
  * //=> true
  *
  * @example
  * // For the invalid date:
- * var result = isValid(new Date(''))
+ * const result = isValid(new Date(''))
  * //=> false
  */
 
 function isValid(dirtyDate) {
   (0,_lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])(1, arguments);
-  var date = (0,_toDate_index_js__WEBPACK_IMPORTED_MODULE_1__["default"])(dirtyDate);
-  return !isNaN(date);
+
+  if (!(0,_isDate_index_js__WEBPACK_IMPORTED_MODULE_1__["default"])(dirtyDate) && typeof dirtyDate !== 'number') {
+    return false;
+  }
+
+  var date = (0,_toDate_index_js__WEBPACK_IMPORTED_MODULE_2__["default"])(dirtyDate);
+  return !isNaN(Number(date));
 }
 
 /***/ }),
@@ -7631,8 +7695,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ buildFormatLongFn)
 /* harmony export */ });
 function buildFormatLongFn(args) {
-  return function (dirtyOptions) {
-    var options = dirtyOptions || {};
+  return function () {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    // TODO: Remove String()
     var width = options.width ? String(options.width) : args.defaultWidth;
     var format = args.formats[width] || args.formats[args.defaultWidth];
     return format;
@@ -7670,7 +7735,8 @@ function buildLocalizeFn(args) {
       valuesArray = args.values[_width] || args.values[_defaultWidth];
     }
 
-    var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex;
+    var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex; // @ts-ignore: For some reason TypeScript just don't want to match it, no matter how hard we try. I challenge you to try to remove it!
+
     return valuesArray[index];
   };
 }
@@ -7689,9 +7755,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ buildMatchFn)
 /* harmony export */ });
 function buildMatchFn(args) {
-  return function (dirtyString, dirtyOptions) {
-    var string = String(dirtyString);
-    var options = dirtyOptions || {};
+  return function (string) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var width = options.width;
     var matchPattern = width && args.matchPatterns[width] || args.matchPatterns[args.defaultMatchWidth];
     var matchResult = string.match(matchPattern);
@@ -7702,23 +7767,18 @@ function buildMatchFn(args) {
 
     var matchedString = matchResult[0];
     var parsePatterns = width && args.parsePatterns[width] || args.parsePatterns[args.defaultParseWidth];
+    var key = Array.isArray(parsePatterns) ? findIndex(parsePatterns, function (pattern) {
+      return pattern.test(matchedString);
+    }) : findKey(parsePatterns, function (pattern) {
+      return pattern.test(matchedString);
+    });
     var value;
-
-    if (Object.prototype.toString.call(parsePatterns) === '[object Array]') {
-      value = findIndex(parsePatterns, function (pattern) {
-        return pattern.test(matchedString);
-      });
-    } else {
-      value = findKey(parsePatterns, function (pattern) {
-        return pattern.test(matchedString);
-      });
-    }
-
-    value = args.valueCallback ? args.valueCallback(value) : value;
+    value = args.valueCallback ? args.valueCallback(key) : key;
     value = options.valueCallback ? options.valueCallback(value) : value;
+    var rest = string.slice(matchedString.length);
     return {
       value: value,
-      rest: string.slice(matchedString.length)
+      rest: rest
     };
   };
 }
@@ -7729,6 +7789,8 @@ function findKey(object, predicate) {
       return key;
     }
   }
+
+  return undefined;
 }
 
 function findIndex(array, predicate) {
@@ -7737,6 +7799,8 @@ function findIndex(array, predicate) {
       return key;
     }
   }
+
+  return undefined;
 }
 
 /***/ }),
@@ -7753,27 +7817,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ buildMatchPatternFn)
 /* harmony export */ });
 function buildMatchPatternFn(args) {
-  return function (dirtyString, dirtyOptions) {
-    var string = String(dirtyString);
-    var options = dirtyOptions || {};
+  return function (string) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var matchResult = string.match(args.matchPattern);
-
-    if (!matchResult) {
-      return null;
-    }
-
+    if (!matchResult) return null;
     var matchedString = matchResult[0];
     var parseResult = string.match(args.parsePattern);
-
-    if (!parseResult) {
-      return null;
-    }
-
+    if (!parseResult) return null;
     var value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
     value = options.valueCallback ? options.valueCallback(value) : value;
+    var rest = string.slice(matchedString.length);
     return {
       value: value,
-      rest: string.slice(matchedString.length)
+      rest: rest
     };
   };
 }
@@ -7789,7 +7845,7 @@ function buildMatchPatternFn(args) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ formatDistance)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var formatDistanceLocale = {
   lessThanXSeconds: {
@@ -7854,20 +7910,21 @@ var formatDistanceLocale = {
     other: 'almost {{count}} years'
   }
 };
-function formatDistance(token, count, options) {
-  options = options || {};
-  var result;
 
-  if (typeof formatDistanceLocale[token] === 'string') {
-    result = formatDistanceLocale[token];
+var formatDistance = function (token, count, options) {
+  var result;
+  var tokenValue = formatDistanceLocale[token];
+
+  if (typeof tokenValue === 'string') {
+    result = tokenValue;
   } else if (count === 1) {
-    result = formatDistanceLocale[token].one;
+    result = tokenValue.one;
   } else {
-    result = formatDistanceLocale[token].other.replace('{{count}}', count);
+    result = tokenValue.other.replace('{{count}}', count.toString());
   }
 
-  if (options.addSuffix) {
-    if (options.comparison > 0) {
+  if (options !== null && options !== void 0 && options.addSuffix) {
+    if (options.comparison && options.comparison > 0) {
       return 'in ' + result;
     } else {
       return result + ' ago';
@@ -7875,7 +7932,9 @@ function formatDistance(token, count, options) {
   }
 
   return result;
-}
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (formatDistance);
 
 /***/ }),
 
@@ -7937,7 +7996,7 @@ var formatLong = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ formatRelative)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var formatRelativeLocale = {
   lastWeek: "'last' eeee 'at' p",
@@ -7947,9 +8006,12 @@ var formatRelativeLocale = {
   nextWeek: "eeee 'at' p",
   other: 'P'
 };
-function formatRelative(token, _date, _baseDate, _options) {
+
+var formatRelative = function (token, _date, _baseDate, _options) {
   return formatRelativeLocale[token];
-}
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (formatRelative);
 
 /***/ }),
 
@@ -7974,12 +8036,12 @@ var eraValues = {
 var quarterValues = {
   narrow: ['1', '2', '3', '4'],
   abbreviated: ['Q1', 'Q2', 'Q3', 'Q4'],
-  wide: ['1st quarter', '2nd quarter', '3rd quarter', '4th quarter'] // Note: in English, the names of days of the week and months are capitalized.
-  // If you are making a new locale based on this one, check if the same is true for the language you're working on.
-  // Generally, formatted dates should look like they are in the middle of a sentence,
-  // e.g. in Spanish language the weekdays and months should be in the lowercase.
+  wide: ['1st quarter', '2nd quarter', '3rd quarter', '4th quarter']
+}; // Note: in English, the names of days of the week and months are capitalized.
+// If you are making a new locale based on this one, check if the same is true for the language you're working on.
+// Generally, formatted dates should look like they are in the middle of a sentence,
+// e.g. in Spanish language the weekdays and months should be in the lowercase.
 
-};
 var monthValues = {
   narrow: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
   abbreviated: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -8056,16 +8118,13 @@ var formattingDayPeriodValues = {
   }
 };
 
-function ordinalNumber(dirtyNumber, _dirtyOptions) {
+var ordinalNumber = function (dirtyNumber, _options) {
   var number = Number(dirtyNumber); // If ordinal numbers depend on context, for example,
   // if they are different for different grammatical genders,
-  // use `options.unit`:
+  // use `options.unit`.
   //
-  //   var options = dirtyOptions || {}
-  //   var unit = String(options.unit)
-  //
-  // where `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
-  // 'day', 'hour', 'minute', 'second'
+  // `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
+  // 'day', 'hour', 'minute', 'second'.
 
   var rem100 = number % 100;
 
@@ -8083,7 +8142,7 @@ function ordinalNumber(dirtyNumber, _dirtyOptions) {
   }
 
   return number + 'th';
-}
+};
 
 var localize = {
   ordinalNumber: ordinalNumber,
@@ -8095,7 +8154,7 @@ var localize = {
     values: quarterValues,
     defaultWidth: 'wide',
     argumentCallback: function (quarter) {
-      return Number(quarter) - 1;
+      return quarter - 1;
     }
   }),
   month: (0,_lib_buildLocalizeFn_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])({
@@ -8128,8 +8187,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _lib_buildMatchPatternFn_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../_lib/buildMatchPatternFn/index.js */ 7002);
 /* harmony import */ var _lib_buildMatchFn_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../_lib/buildMatchFn/index.js */ 4094);
+/* harmony import */ var _lib_buildMatchPatternFn_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../_lib/buildMatchPatternFn/index.js */ 7002);
 
 
 var matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
@@ -8252,6 +8311,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * @type {Locale}
  * @category Locales
@@ -8261,7 +8321,6 @@ __webpack_require__.r(__webpack_exports__);
  * @author Sasha Koss [@kossnocorp]{@link https://github.com/kossnocorp}
  * @author Lesha Koss [@leshakoss]{@link https://github.com/leshakoss}
  */
-
 var locale = {
   code: 'en-US',
   formatDistance: _lib_formatDistance_index_js__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -9436,7 +9495,7 @@ var parsers = {
       date.setUTCHours(dayPeriodEnumToHours(value), 0, 0, 0);
       return date;
     },
-    incompatibleTokens: ['b', 'B', 'H', 'K', 'k', 't', 'T']
+    incompatibleTokens: ['b', 'B', 'H', 'k', 't', 'T']
   },
   // AM, PM, midnight
   b: {
@@ -9478,7 +9537,7 @@ var parsers = {
       date.setUTCHours(dayPeriodEnumToHours(value), 0, 0, 0);
       return date;
     },
-    incompatibleTokens: ['a', 'B', 'H', 'K', 'k', 't', 'T']
+    incompatibleTokens: ['a', 'B', 'H', 'k', 't', 'T']
   },
   // in the morning, in the afternoon, in the evening, at night
   B: {
@@ -9614,7 +9673,7 @@ var parsers = {
 
       return date;
     },
-    incompatibleTokens: ['a', 'b', 'h', 'H', 'k', 't', 'T']
+    incompatibleTokens: ['h', 'H', 'k', 't', 'T']
   },
   // Hour [1-24]
   k: {
@@ -9952,28 +10011,28 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * | Day of week (formatting)        |  90 | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 |     | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 |     | EEEEE   | M, T, W, T, F, S, S               |       |
- * |                                 |     | EEEEEE  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * |                                 |     | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
  * | ISO day of week (formatting)    |  90 | i       | 1, 2, 3, ..., 7                   | 5     |
  * |                                 |     | io      | 1st, 2nd, ..., 7th                | 5     |
  * |                                 |     | ii      | 01, 02, ..., 07                   | 5     |
  * |                                 |     | iii     | Mon, Tue, Wed, ..., Sun           | 5     |
  * |                                 |     | iiii    | Monday, Tuesday, ..., Sunday      | 2,5   |
  * |                                 |     | iiiii   | M, T, W, T, F, S, S               | 5     |
- * |                                 |     | iiiiii  | Mo, Tu, We, Th, Fr, Su, Sa        | 5     |
+ * |                                 |     | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 5     |
  * | Local day of week (formatting)  |  90 | e       | 2, 3, 4, ..., 1                   |       |
  * |                                 |     | eo      | 2nd, 3rd, ..., 1st                | 5     |
  * |                                 |     | ee      | 02, 03, ..., 01                   |       |
  * |                                 |     | eee     | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 |     | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 |     | eeeee   | M, T, W, T, F, S, S               |       |
- * |                                 |     | eeeeee  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * |                                 |     | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
  * | Local day of week (stand-alone) |  90 | c       | 2, 3, 4, ..., 1                   |       |
  * |                                 |     | co      | 2nd, 3rd, ..., 1st                | 5     |
  * |                                 |     | cc      | 02, 03, ..., 01                   |       |
  * |                                 |     | ccc     | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 |     | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 |     | ccccc   | M, T, W, T, F, S, S               |       |
- * |                                 |     | cccccc  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * |                                 |     | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
  * | AM, PM                          |  80 | a..aaa  | AM, PM                            |       |
  * |                                 |     | aaaa    | a.m., p.m.                        | 2     |
  * |                                 |     | aaaaa   | a, p                              |       |
@@ -10005,7 +10064,7 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * |                                 |     | tt      | ...                               | 2     |
  * | Fraction of second              |  30 | S       | 0, 1, ..., 9                      |       |
  * |                                 |     | SS      | 00, 01, ..., 99                   |       |
- * |                                 |     | SSS     | 000, 0001, ..., 999               |       |
+ * |                                 |     | SSS     | 000, 001, ..., 999                |       |
  * |                                 |     | SSSS    | ...                               | 2     |
  * | Milliseconds timestamp          |  20 | T       | 512969520900                      |       |
  * |                                 |     | TT      | ...                               | 2     |
@@ -10212,9 +10271,9 @@ function parse(dirtyDateString, dirtyFormatString, dirtyReferenceDate, dirtyOpti
   var subFnOptions = {
     firstWeekContainsDate: firstWeekContainsDate,
     weekStartsOn: weekStartsOn,
-    locale: locale // If timezone isn't specified, it will be set to the system timezone
+    locale: locale
+  }; // If timezone isn't specified, it will be set to the system timezone
 
-  };
   var setters = [{
     priority: TIMEZONE_UNIT_PRIORITY,
     subPriority: -1,
@@ -10815,6 +10874,7 @@ var tailRec = function (startWith, f) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Alt": () => (/* binding */ Alt),
+/* harmony export */   "ApT": () => (/* binding */ ApT),
 /* harmony export */   "Applicative": () => (/* binding */ Applicative),
 /* harmony export */   "Apply": () => (/* binding */ Apply),
 /* harmony export */   "Bifunctor": () => (/* binding */ Bifunctor),
@@ -10834,9 +10894,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "altW": () => (/* binding */ altW),
 /* harmony export */   "ap": () => (/* binding */ ap),
 /* harmony export */   "apFirst": () => (/* binding */ apFirst),
+/* harmony export */   "apFirstW": () => (/* binding */ apFirstW),
 /* harmony export */   "apS": () => (/* binding */ apS),
 /* harmony export */   "apSW": () => (/* binding */ apSW),
 /* harmony export */   "apSecond": () => (/* binding */ apSecond),
+/* harmony export */   "apSecondW": () => (/* binding */ apSecondW),
 /* harmony export */   "apW": () => (/* binding */ apW),
 /* harmony export */   "bimap": () => (/* binding */ bimap),
 /* harmony export */   "bind": () => (/* binding */ bind),
@@ -10857,6 +10919,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "filterOrElseW": () => (/* binding */ filterOrElseW),
 /* harmony export */   "flap": () => (/* binding */ flap),
 /* harmony export */   "flatten": () => (/* binding */ flatten),
+/* harmony export */   "flattenW": () => (/* binding */ flattenW),
 /* harmony export */   "fold": () => (/* binding */ fold),
 /* harmony export */   "foldMap": () => (/* binding */ foldMap),
 /* harmony export */   "foldW": () => (/* binding */ foldW),
@@ -10904,17 +10967,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "traverse": () => (/* binding */ traverse),
 /* harmony export */   "traverseArray": () => (/* binding */ traverseArray),
 /* harmony export */   "traverseArrayWithIndex": () => (/* binding */ traverseArrayWithIndex),
+/* harmony export */   "traverseReadonlyArrayWithIndex": () => (/* binding */ traverseReadonlyArrayWithIndex),
+/* harmony export */   "traverseReadonlyNonEmptyArrayWithIndex": () => (/* binding */ traverseReadonlyNonEmptyArrayWithIndex),
 /* harmony export */   "tryCatch": () => (/* binding */ tryCatch),
 /* harmony export */   "tryCatchK": () => (/* binding */ tryCatchK)
 /* harmony export */ });
-/* harmony import */ var _Applicative__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Applicative */ 9287);
-/* harmony import */ var _Apply__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Apply */ 1127);
-/* harmony import */ var _Chain__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Chain */ 2820);
+/* harmony import */ var _Applicative__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Applicative */ 9287);
+/* harmony import */ var _Apply__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Apply */ 1127);
+/* harmony import */ var _Chain__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Chain */ 2820);
 /* harmony import */ var _ChainRec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ChainRec */ 9582);
+/* harmony import */ var _FromEither__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FromEither */ 5710);
 /* harmony import */ var _function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./function */ 1280);
-/* harmony import */ var _Functor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Functor */ 4003);
+/* harmony import */ var _Functor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Functor */ 4003);
 /* harmony import */ var _internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./internal */ 8216);
 /* harmony import */ var _Separated__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Separated */ 2932);
+/* harmony import */ var _Witherable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Witherable */ 2322);
 
 
 
@@ -10923,23 +10990,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// -------------------------------------------------------------------------------------
-// guards
-// -------------------------------------------------------------------------------------
-/**
- * Returns `true` if the either is an instance of `Left`, `false` otherwise.
- *
- * @category guards
- * @since 2.0.0
- */
-var isLeft = _internal__WEBPACK_IMPORTED_MODULE_0__.isLeft;
-/**
- * Returns `true` if the either is an instance of `Right`, `false` otherwise.
- *
- * @category guards
- * @since 2.0.0
- */
-var isRight = function (ma) { return ma._tag === 'Right'; };
+
+
 // -------------------------------------------------------------------------------------
 // constructors
 // -------------------------------------------------------------------------------------
@@ -10950,7 +11002,7 @@ var isRight = function (ma) { return ma._tag === 'Right'; };
  * @category constructors
  * @since 2.0.0
  */
-var left = function (e) { return ({ _tag: 'Left', left: e }); };
+var left = _internal__WEBPACK_IMPORTED_MODULE_0__.left;
 /**
  * Constructs a new `Either` holding a `Right` value. This usually represents a successful value due to the right bias
  * of this structure.
@@ -10958,34 +11010,556 @@ var left = function (e) { return ({ _tag: 'Left', left: e }); };
  * @category constructors
  * @since 2.0.0
  */
-var right = function (a) { return ({ _tag: 'Right', right: a }); };
+var right = _internal__WEBPACK_IMPORTED_MODULE_0__.right;
+// -------------------------------------------------------------------------------------
+// non-pipeables
+// -------------------------------------------------------------------------------------
+var _map = function (fa, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, map(f)); };
+var _ap = function (fab, fa) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fab, ap(fa)); };
+/* istanbul ignore next */
+var _chain = function (ma, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(ma, chain(f)); };
+/* istanbul ignore next */
+var _reduce = function (fa, b, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, reduce(b, f)); };
+/* istanbul ignore next */
+var _foldMap = function (M) { return function (fa, f) {
+    var foldMapM = foldMap(M);
+    return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, foldMapM(f));
+}; };
+/* istanbul ignore next */
+var _reduceRight = function (fa, b, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, reduceRight(b, f)); };
+var _traverse = function (F) {
+    var traverseF = traverse(F);
+    return function (ta, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(ta, traverseF(f)); };
+};
+var _bimap = function (fa, f, g) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, bimap(f, g)); };
+var _mapLeft = function (fa, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, mapLeft(f)); };
+/* istanbul ignore next */
+var _alt = function (fa, that) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, alt(that)); };
+/* istanbul ignore next */
+var _extend = function (wa, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(wa, extend(f)); };
+var _chainRec = function (a, f) {
+    return (0,_ChainRec__WEBPACK_IMPORTED_MODULE_2__.tailRec)(f(a), function (e) {
+        return isLeft(e) ? right(left(e.left)) : isLeft(e.right) ? left(f(e.right.left)) : right(right(e.right.right));
+    });
+};
+// -------------------------------------------------------------------------------------
+// instances
+// -------------------------------------------------------------------------------------
 /**
- * @example
- * import { fromOption, left, right } from 'fp-ts/Either'
- * import { pipe } from 'fp-ts/function'
- * import { none, some } from 'fp-ts/Option'
- *
- * assert.deepStrictEqual(
- *   pipe(
- *     some(1),
- *     fromOption(() => 'error')
- *   ),
- *   right(1)
- * )
- * assert.deepStrictEqual(
- *   pipe(
- *     none,
- *     fromOption(() => 'error')
- *   ),
- *   left('error')
- * )
- *
- * @category constructors
+ * @category instances
  * @since 2.0.0
  */
-var fromOption = function (onNone) { return function (ma) {
-    return ma._tag === 'None' ? left(onNone()) : right(ma.value);
+var URI = 'Either';
+/**
+ * @category instances
+ * @since 2.0.0
+ */
+var getShow = function (SE, SA) { return ({
+    show: function (ma) { return (isLeft(ma) ? "left(" + SE.show(ma.left) + ")" : "right(" + SA.show(ma.right) + ")"); }
+}); };
+/**
+ * @category instances
+ * @since 2.0.0
+ */
+var getEq = function (EL, EA) { return ({
+    equals: function (x, y) {
+        return x === y || (isLeft(x) ? isLeft(y) && EL.equals(x.left, y.left) : isRight(y) && EA.equals(x.right, y.right));
+    }
+}); };
+/**
+ * Semigroup returning the left-most non-`Left` value. If both operands are `Right`s then the inner values are
+ * concatenated using the provided `Semigroup`
+ *
+ * @example
+ * import { getSemigroup, left, right } from 'fp-ts/Either'
+ * import { SemigroupSum } from 'fp-ts/number'
+ *
+ * const S = getSemigroup<string, number>(SemigroupSum)
+ * assert.deepStrictEqual(S.concat(left('a'), left('b')), left('a'))
+ * assert.deepStrictEqual(S.concat(left('a'), right(2)), right(2))
+ * assert.deepStrictEqual(S.concat(right(1), left('b')), right(1))
+ * assert.deepStrictEqual(S.concat(right(1), right(2)), right(3))
+ *
+ * @category instances
+ * @since 2.0.0
+ */
+var getSemigroup = function (S) { return ({
+    concat: function (x, y) { return (isLeft(y) ? x : isLeft(x) ? y : right(S.concat(x.right, y.right))); }
+}); };
+/**
+ * Builds a `Compactable` instance for `Either` given `Monoid` for the left side.
+ *
+ * @category instances
+ * @since 2.10.0
+ */
+var getCompactable = function (M) {
+    var empty = left(M.empty);
+    return {
+        URI: URI,
+        _E: undefined,
+        compact: function (ma) { return (isLeft(ma) ? ma : ma.right._tag === 'None' ? empty : right(ma.right.value)); },
+        separate: function (ma) {
+            return isLeft(ma)
+                ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(ma, ma)
+                : isLeft(ma.right)
+                    ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(right(ma.right.left), empty)
+                    : (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(empty, right(ma.right.right));
+        }
+    };
+};
+/**
+ * Builds a `Filterable` instance for `Either` given `Monoid` for the left side
+ *
+ * @category instances
+ * @since 2.10.0
+ */
+var getFilterable = function (M) {
+    var empty = left(M.empty);
+    var _a = getCompactable(M), compact = _a.compact, separate = _a.separate;
+    var filter = function (ma, predicate) {
+        return isLeft(ma) ? ma : predicate(ma.right) ? ma : empty;
+    };
+    var partition = function (ma, p) {
+        return isLeft(ma)
+            ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(ma, ma)
+            : p(ma.right)
+                ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(empty, right(ma.right))
+                : (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(right(ma.right), empty);
+    };
+    return {
+        URI: URI,
+        _E: undefined,
+        map: _map,
+        compact: compact,
+        separate: separate,
+        filter: filter,
+        filterMap: function (ma, f) {
+            if (isLeft(ma)) {
+                return ma;
+            }
+            var ob = f(ma.right);
+            return ob._tag === 'None' ? empty : right(ob.value);
+        },
+        partition: partition,
+        partitionMap: function (ma, f) {
+            if (isLeft(ma)) {
+                return (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(ma, ma);
+            }
+            var e = f(ma.right);
+            return isLeft(e) ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(right(e.left), empty) : (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(empty, right(e.right));
+        }
+    };
+};
+/**
+ * Builds `Witherable` instance for `Either` given `Monoid` for the left side
+ *
+ * @category instances
+ * @since 2.0.0
+ */
+var getWitherable = function (M) {
+    var F_ = getFilterable(M);
+    var C = getCompactable(M);
+    return {
+        URI: URI,
+        _E: undefined,
+        map: _map,
+        compact: F_.compact,
+        separate: F_.separate,
+        filter: F_.filter,
+        filterMap: F_.filterMap,
+        partition: F_.partition,
+        partitionMap: F_.partitionMap,
+        traverse: _traverse,
+        sequence: sequence,
+        reduce: _reduce,
+        foldMap: _foldMap,
+        reduceRight: _reduceRight,
+        wither: (0,_Witherable__WEBPACK_IMPORTED_MODULE_4__.witherDefault)(Traversable, C),
+        wilt: (0,_Witherable__WEBPACK_IMPORTED_MODULE_4__.wiltDefault)(Traversable, C)
+    };
+};
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var getApplicativeValidation = function (SE) { return ({
+    URI: URI,
+    _E: undefined,
+    map: _map,
+    ap: function (fab, fa) {
+        return isLeft(fab)
+            ? isLeft(fa)
+                ? left(SE.concat(fab.left, fa.left))
+                : fab
+            : isLeft(fa)
+                ? fa
+                : right(fab.right(fa.right));
+    },
+    of: of
+}); };
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var getAltValidation = function (SE) { return ({
+    URI: URI,
+    _E: undefined,
+    map: _map,
+    alt: function (me, that) {
+        if (isRight(me)) {
+            return me;
+        }
+        var ea = that();
+        return isLeft(ea) ? left(SE.concat(me.left, ea.left)) : ea;
+    }
+}); };
+/**
+ * @category instance operations
+ * @since 2.0.0
+ */
+var map = function (f) { return function (fa) {
+    return isLeft(fa) ? fa : right(f(fa.right));
 }; };
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var Functor = {
+    URI: URI,
+    map: _map
+};
+/**
+ * @category instance operations
+ * @since 2.7.0
+ */
+var of = right;
+/**
+ * @category instances
+ * @since 2.10.0
+ */
+var Pointed = {
+    URI: URI,
+    of: of
+};
+/**
+ * Less strict version of [`ap`](#ap).
+ *
+ * @category instance operations
+ * @since 2.8.0
+ */
+var apW = function (fa) { return function (fab) { return (isLeft(fab) ? fab : isLeft(fa) ? fa : right(fab.right(fa.right))); }; };
+/**
+ * Apply a function to an argument under a type constructor.
+ *
+ * @category instance operations
+ * @since 2.0.0
+ */
+var ap = apW;
+/**
+ * @category instances
+ * @since 2.10.0
+ */
+var Apply = {
+    URI: URI,
+    map: _map,
+    ap: _ap
+};
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var Applicative = {
+    URI: URI,
+    map: _map,
+    ap: _ap,
+    of: of
+};
+/**
+ * Less strict version of [`chain`](#chain).
+ *
+ * @category instance operations
+ * @since 2.6.0
+ */
+var chainW = function (f) { return function (ma) {
+    return isLeft(ma) ? ma : f(ma.right);
+}; };
+/**
+ * Composes computations in sequence, using the return value of one computation to determine the next computation.
+ *
+ * @category instance operations
+ * @since 2.0.0
+ */
+var chain = chainW;
+/**
+ * @category instances
+ * @since 2.10.0
+ */
+var Chain = {
+    URI: URI,
+    map: _map,
+    ap: _ap,
+    chain: _chain
+};
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var Monad = {
+    URI: URI,
+    map: _map,
+    ap: _ap,
+    of: of,
+    chain: _chain
+};
+/**
+ * Left-associative fold of a structure.
+ *
+ * @example
+ * import { pipe } from 'fp-ts/function'
+ * import * as E from 'fp-ts/Either'
+ *
+ * const startWith = 'prefix'
+ * const concat = (a: string, b: string) => `${a}:${b}`
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.right('a'), E.reduce(startWith, concat)),
+ *   'prefix:a'
+ * )
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.left('e'), E.reduce(startWith, concat)),
+ *   'prefix'
+ * )
+ *
+ * @category instance operations
+ * @since 2.0.0
+ */
+var reduce = function (b, f) { return function (fa) {
+    return isLeft(fa) ? b : f(b, fa.right);
+}; };
+/**
+ * Map each element of the structure to a monoid, and combine the results.
+ *
+ * @example
+ * import { pipe } from 'fp-ts/function'
+ * import * as E from 'fp-ts/Either'
+ * import * as S from 'fp-ts/string'
+ *
+ * const yell = (a: string) => `${a}!`
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.right('a'), E.foldMap(S.Monoid)(yell)),
+ *   'a!'
+ * )
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.left('e'), E.foldMap(S.Monoid)(yell)),
+ *   S.Monoid.empty
+ * )
+ *
+ * @category instance operations
+ * @since 2.0.0
+ */
+var foldMap = function (M) { return function (f) { return function (fa) {
+    return isLeft(fa) ? M.empty : f(fa.right);
+}; }; };
+/**
+ * Right-associative fold of a structure.
+ *
+ * @example
+ * import { pipe } from 'fp-ts/function'
+ * import * as E from 'fp-ts/Either'
+ *
+ * const startWith = 'postfix'
+ * const concat = (a: string, b: string) => `${a}:${b}`
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.right('a'), E.reduceRight(startWith, concat)),
+ *   'a:postfix'
+ * )
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.left('e'), E.reduceRight(startWith, concat)),
+ *   'postfix'
+ * )
+ *
+ * @category instance operations
+ * @since 2.0.0
+ */
+var reduceRight = function (b, f) { return function (fa) {
+    return isLeft(fa) ? b : f(fa.right, b);
+}; };
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var Foldable = {
+    URI: URI,
+    reduce: _reduce,
+    foldMap: _foldMap,
+    reduceRight: _reduceRight
+};
+/**
+ * Map each element of a structure to an action, evaluate these actions from left to right, and collect the results.
+ *
+ * @example
+ * import { pipe } from 'fp-ts/function'
+ * import * as RA from 'fp-ts/ReadonlyArray'
+ * import * as E from 'fp-ts/Either'
+ * import * as O from 'fp-ts/Option'
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.right(['a']), E.traverse(O.Applicative)(RA.head)),
+ *   O.some(E.right('a'))
+ *  )
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.right([]), E.traverse(O.Applicative)(RA.head)),
+ *   O.none
+ * )
+ *
+ * @category instance operations
+ * @since 2.6.3
+ */
+var traverse = function (F) { return function (f) { return function (ta) { return (isLeft(ta) ? F.of(left(ta.left)) : F.map(f(ta.right), right)); }; }; };
+/**
+ * Evaluate each monadic action in the structure from left to right, and collect the results.
+ *
+ * @example
+ * import { pipe } from 'fp-ts/function'
+ * import * as E from 'fp-ts/Either'
+ * import * as O from 'fp-ts/Option'
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.right(O.some('a')), E.sequence(O.Applicative)),
+ *   O.some(E.right('a'))
+ *  )
+ *
+ * assert.deepStrictEqual(
+ *   pipe(E.right(O.none), E.sequence(O.Applicative)),
+ *   O.none
+ * )
+ *
+ * @category instance operations
+ * @since 2.6.3
+ */
+var sequence = function (F) { return function (ma) {
+    return isLeft(ma) ? F.of(left(ma.left)) : F.map(ma.right, right);
+}; };
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var Traversable = {
+    URI: URI,
+    map: _map,
+    reduce: _reduce,
+    foldMap: _foldMap,
+    reduceRight: _reduceRight,
+    traverse: _traverse,
+    sequence: sequence
+};
+/**
+ * Map a pair of functions over the two type arguments of the bifunctor.
+ *
+ * @category instance operations
+ * @since 2.0.0
+ */
+var bimap = function (f, g) { return function (fa) { return (isLeft(fa) ? left(f(fa.left)) : right(g(fa.right))); }; };
+/**
+ * Map a function over the first type argument of a bifunctor.
+ *
+ * @category instance operations
+ * @since 2.0.0
+ */
+var mapLeft = function (f) { return function (fa) {
+    return isLeft(fa) ? left(f(fa.left)) : fa;
+}; };
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var Bifunctor = {
+    URI: URI,
+    bimap: _bimap,
+    mapLeft: _mapLeft
+};
+/**
+ * Less strict version of [`alt`](#alt).
+ *
+ * @category instance operations
+ * @since 2.9.0
+ */
+var altW = function (that) { return function (fa) { return (isLeft(fa) ? that() : fa); }; };
+/**
+ * Identifies an associative operation on a type constructor. It is similar to `Semigroup`, except that it applies to
+ * types of kind `* -> *`.
+ *
+ * @category instance operations
+ * @since 2.0.0
+ */
+var alt = altW;
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var Alt = {
+    URI: URI,
+    map: _map,
+    alt: _alt
+};
+/**
+ * @category instance operations
+ * @since 2.0.0
+ */
+var extend = function (f) { return function (wa) {
+    return isLeft(wa) ? wa : right(f(wa));
+}; };
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var Extend = {
+    URI: URI,
+    map: _map,
+    extend: _extend
+};
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var ChainRec = {
+    URI: URI,
+    map: _map,
+    ap: _ap,
+    chain: _chain,
+    chainRec: _chainRec
+};
+/**
+ * @category instance operations
+ * @since 2.6.3
+ */
+var throwError = left;
+/**
+ * @category instances
+ * @since 2.7.0
+ */
+var MonadThrow = {
+    URI: URI,
+    map: _map,
+    ap: _ap,
+    of: of,
+    chain: _chain,
+    throwError: throwError
+};
+/**
+ * @category instances
+ * @since 2.10.0
+ */
+var FromEither = {
+    URI: URI,
+    fromEither: _function__WEBPACK_IMPORTED_MODULE_1__.identity
+};
 /**
  * @example
  * import { fromPredicate, left, right } from 'fp-ts/Either'
@@ -11015,7 +11589,56 @@ var fromOption = function (onNone) { return function (ma) {
  * @category constructors
  * @since 2.0.0
  */
-var fromPredicate = function (predicate, onFalse) { return function (a) { return (predicate(a) ? right(a) : left(onFalse(a))); }; };
+var fromPredicate = 
+/*#__PURE__*/
+(0,_FromEither__WEBPACK_IMPORTED_MODULE_5__.fromPredicate)(FromEither);
+// -------------------------------------------------------------------------------------
+// natural transformations
+// -------------------------------------------------------------------------------------
+/**
+ * @example
+ * import * as E from 'fp-ts/Either'
+ * import { pipe } from 'fp-ts/function'
+ * import * as O from 'fp-ts/Option'
+ *
+ * assert.deepStrictEqual(
+ *   pipe(
+ *     O.some(1),
+ *     E.fromOption(() => 'error')
+ *   ),
+ *   E.right(1)
+ * )
+ * assert.deepStrictEqual(
+ *   pipe(
+ *     O.none,
+ *     E.fromOption(() => 'error')
+ *   ),
+ *   E.left('error')
+ * )
+ *
+ * @category natural transformations
+ * @since 2.0.0
+ */
+var fromOption = 
+/*#__PURE__*/
+(0,_FromEither__WEBPACK_IMPORTED_MODULE_5__.fromOption)(FromEither);
+// -------------------------------------------------------------------------------------
+// refinements
+// -------------------------------------------------------------------------------------
+/**
+ * Returns `true` if the either is an instance of `Left`, `false` otherwise.
+ *
+ * @category refinements
+ * @since 2.0.0
+ */
+var isLeft = _internal__WEBPACK_IMPORTED_MODULE_0__.isLeft;
+/**
+ * Returns `true` if the either is an instance of `Right`, `false` otherwise.
+ *
+ * @category refinements
+ * @since 2.0.0
+ */
+var isRight = _internal__WEBPACK_IMPORTED_MODULE_0__.isRight;
 // -------------------------------------------------------------------------------------
 // destructors
 // -------------------------------------------------------------------------------------
@@ -11029,7 +11652,7 @@ var matchW = function (onLeft, onRight) { return function (ma) {
     return isLeft(ma) ? onLeft(ma.left) : onRight(ma.right);
 }; };
 /**
- * Alias of [`matchW`](#matchww).
+ * Alias of [`matchW`](#matchw).
  *
  * @category destructors
  * @since 2.10.0
@@ -11113,9 +11736,197 @@ var getOrElseW = function (onLeft) { return function (ma) {
  */
 var getOrElse = getOrElseW;
 // -------------------------------------------------------------------------------------
+// combinators
+// -------------------------------------------------------------------------------------
+/**
+ * Derivable from `Functor`.
+ *
+ * @category combinators
+ * @since 2.10.0
+ */
+var flap = 
+/*#__PURE__*/
+(0,_Functor__WEBPACK_IMPORTED_MODULE_6__.flap)(Functor);
+/**
+ * Combine two effectful actions, keeping only the result of the first.
+ *
+ * Derivable from `Apply`.
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+var apFirst = 
+/*#__PURE__*/
+(0,_Apply__WEBPACK_IMPORTED_MODULE_7__.apFirst)(Apply);
+/**
+ * Less strict version of [`apFirst`](#apfirst)
+ *
+ * @category combinators
+ * @since 2.12.0
+ */
+var apFirstW = apFirst;
+/**
+ * Combine two effectful actions, keeping only the result of the second.
+ *
+ * Derivable from `Apply`.
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+var apSecond = 
+/*#__PURE__*/
+(0,_Apply__WEBPACK_IMPORTED_MODULE_7__.apSecond)(Apply);
+/**
+ * Less strict version of [`apSecond`](#apsecond)
+ *
+ * @category combinators
+ * @since 2.12.0
+ */
+var apSecondW = apSecond;
+/**
+ * Composes computations in sequence, using the return value of one computation to determine the next computation and
+ * keeping only the result of the first.
+ *
+ * Derivable from `Chain`.
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+var chainFirst = 
+/*#__PURE__*/
+(0,_Chain__WEBPACK_IMPORTED_MODULE_8__.chainFirst)(Chain);
+/**
+ * Less strict version of [`chainFirst`](#chainfirst)
+ *
+ * Derivable from `Chain`.
+ *
+ * @category combinators
+ * @since 2.8.0
+ */
+var chainFirstW = chainFirst;
+/**
+ * Less strict version of [`flatten`](#flatten).
+ *
+ * @category combinators
+ * @since 2.11.0
+ */
+var flattenW = 
+/*#__PURE__*/
+chainW(_function__WEBPACK_IMPORTED_MODULE_1__.identity);
+/**
+ * The `flatten` function is the conventional monad join operator. It is used to remove one level of monadic structure, projecting its bound argument into the outer level.
+ *
+ * Derivable from `Chain`.
+ *
+ * @example
+ * import * as E from 'fp-ts/Either'
+ *
+ * assert.deepStrictEqual(E.flatten(E.right(E.right('a'))), E.right('a'))
+ * assert.deepStrictEqual(E.flatten(E.right(E.left('e'))), E.left('e'))
+ * assert.deepStrictEqual(E.flatten(E.left('e')), E.left('e'))
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+var flatten = flattenW;
+/**
+ * Derivable from `Extend`.
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+var duplicate = 
+/*#__PURE__*/
+extend(_function__WEBPACK_IMPORTED_MODULE_1__.identity);
+/**
+ * @category combinators
+ * @since 2.10.0
+ */
+var fromOptionK = 
+/*#__PURE__*/
+(0,_FromEither__WEBPACK_IMPORTED_MODULE_5__.fromOptionK)(FromEither);
+/**
+ * @category combinators
+ * @since 2.11.0
+ */
+var chainOptionK = 
+/*#__PURE__*/
+(0,_FromEither__WEBPACK_IMPORTED_MODULE_5__.chainOptionK)(FromEither, Chain);
+/**
+ * @example
+ * import * as E from 'fp-ts/Either'
+ * import { pipe } from 'fp-ts/function'
+ *
+ * assert.deepStrictEqual(
+ *   pipe(
+ *     E.right(1),
+ *     E.filterOrElse(
+ *       (n) => n > 0,
+ *       () => 'error'
+ *     )
+ *   ),
+ *   E.right(1)
+ * )
+ * assert.deepStrictEqual(
+ *   pipe(
+ *     E.right(-1),
+ *     E.filterOrElse(
+ *       (n) => n > 0,
+ *       () => 'error'
+ *     )
+ *   ),
+ *   E.left('error')
+ * )
+ * assert.deepStrictEqual(
+ *   pipe(
+ *     E.left('a'),
+ *     E.filterOrElse(
+ *       (n) => n > 0,
+ *       () => 'error'
+ *     )
+ *   ),
+ *   E.left('a')
+ * )
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+var filterOrElse = 
+/*#__PURE__*/
+(0,_FromEither__WEBPACK_IMPORTED_MODULE_5__.filterOrElse)(FromEither, Chain);
+/**
+ * Less strict version of [`filterOrElse`](#filterorelse).
+ *
+ * @category combinators
+ * @since 2.9.0
+ */
+var filterOrElseW = filterOrElse;
+/**
+ * Returns a `Right` if is a `Left` (and vice versa).
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+var swap = function (ma) { return (isLeft(ma) ? right(ma.left) : left(ma.right)); };
+/**
+ * Less strict version of [`orElse`](#orelse).
+ *
+ * @category combinators
+ * @since 2.10.0
+ */
+var orElseW = function (onLeft) { return function (ma) {
+    return isLeft(ma) ? onLeft(ma.left) : ma;
+}; };
+/**
+ * Useful for recovering from errors.
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+var orElse = orElseW;
+// -------------------------------------------------------------------------------------
 // interop
 // -------------------------------------------------------------------------------------
-// TODO: make lazy in v3
 /**
  * Takes a default and a nullable value, if the value is not nully, turn it into a `Right`, if the value is nully use
  * the provided default as a `Left`.
@@ -11204,750 +12015,6 @@ var toUnion =
 /*#__PURE__*/
 foldW(_function__WEBPACK_IMPORTED_MODULE_1__.identity, _function__WEBPACK_IMPORTED_MODULE_1__.identity);
 // -------------------------------------------------------------------------------------
-// combinators
-// -------------------------------------------------------------------------------------
-/**
- * @category combinators
- * @since 2.10.0
- */
-var fromOptionK = function (onNone) {
-    var from = fromOption(onNone);
-    return function (f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.flow)(f, from); };
-};
-/**
- * @category combinators
- * @since 2.10.0
- */
-var chainOptionK = function (onNone) {
-    var from = fromOptionK(onNone);
-    return function (f) { return chain(from(f)); };
-};
-/**
- * Returns a `Right` if is a `Left` (and vice versa).
- *
- * @category combinators
- * @since 2.0.0
- */
-function swap(ma) {
-    return isLeft(ma) ? right(ma.left) : left(ma.right);
-}
-/**
- * Less strict version of [`orElse`](#orelse).
- *
- * @category combinators
- * @since 2.10.0
- */
-var orElseW = function (onLeft) { return function (ma) {
-    return isLeft(ma) ? onLeft(ma.left) : ma;
-}; };
-/**
- * Useful for recovering from errors.
- *
- * @category combinators
- * @since 2.0.0
- */
-var orElse = orElseW;
-/**
- * Less strict version of [`filterOrElse`](#filterorelse).
- *
- * @category combinators
- * @since 2.9.0
- */
-var filterOrElseW = function (predicate, onFalse) {
-    return chainW(function (a) { return (predicate(a) ? right(a) : left(onFalse(a))); });
-};
-/**
- * @example
- * import { filterOrElse as filterOrElse, left, right } from 'fp-ts/Either'
- * import { pipe } from 'fp-ts/function'
- *
- * assert.deepStrictEqual(
- *   pipe(
- *     right(1),
- *     filterOrElse(
- *       (n) => n > 0,
- *       () => 'error'
- *     )
- *   ),
- *   right(1)
- * )
- * assert.deepStrictEqual(
- *   pipe(
- *     right(-1),
- *     filterOrElse(
- *       (n) => n > 0,
- *       () => 'error'
- *     )
- *   ),
- *   left('error')
- * )
- * assert.deepStrictEqual(
- *   pipe(
- *     left('a'),
- *     filterOrElse(
- *       (n) => n > 0,
- *       () => 'error'
- *     )
- *   ),
- *   left('a')
- * )
- *
- * @category combinators
- * @since 2.0.0
- */
-var filterOrElse = filterOrElseW;
-// -------------------------------------------------------------------------------------
-// non-pipeables
-// -------------------------------------------------------------------------------------
-var _map = function (fa, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, map(f)); };
-var _ap = function (fab, fa) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fab, ap(fa)); };
-/* istanbul ignore next */
-var _chain = function (ma, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(ma, chain(f)); };
-/* istanbul ignore next */
-var _reduce = function (fa, b, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, reduce(b, f)); };
-/* istanbul ignore next */
-var _foldMap = function (M) { return function (fa, f) {
-    var foldMapM = foldMap(M);
-    return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, foldMapM(f));
-}; };
-/* istanbul ignore next */
-var _reduceRight = function (fa, b, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, reduceRight(b, f)); };
-var _traverse = function (F) {
-    var traverseF = traverse(F);
-    return function (ta, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(ta, traverseF(f)); };
-};
-var _bimap = function (fa, f, g) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, bimap(f, g)); };
-var _mapLeft = function (fa, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, mapLeft(f)); };
-/* istanbul ignore next */
-var _alt = function (fa, that) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(fa, alt(that)); };
-/* istanbul ignore next */
-var _extend = function (wa, f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.pipe)(wa, extend(f)); };
-var _chainRec = function (a, f) {
-    return (0,_ChainRec__WEBPACK_IMPORTED_MODULE_2__.tailRec)(f(a), function (e) {
-        return isLeft(e) ? right(left(e.left)) : isLeft(e.right) ? left(f(e.right.left)) : right(right(e.right.right));
-    });
-};
-// -------------------------------------------------------------------------------------
-// type class members
-// -------------------------------------------------------------------------------------
-/**
- * `map` can be used to turn functions `(a: A) => B` into functions `(fa: F<A>) => F<B>` whose argument and return types
- * use the type constructor `F` to represent some computational context.
- *
- * @category Functor
- * @since 2.0.0
- */
-var map = function (f) { return function (fa) {
-    return isLeft(fa) ? fa : right(f(fa.right));
-}; };
-/**
- * Map a pair of functions over the two type arguments of the bifunctor.
- *
- * @category Bifunctor
- * @since 2.0.0
- */
-var bimap = function (f, g) { return function (fa) { return (isLeft(fa) ? left(f(fa.left)) : right(g(fa.right))); }; };
-/**
- * Map a function over the first type argument of a bifunctor.
- *
- * @category Bifunctor
- * @since 2.0.0
- */
-var mapLeft = function (f) { return function (fa) {
-    return isLeft(fa) ? left(f(fa.left)) : fa;
-}; };
-/**
- * Less strict version of [`ap`](#ap).
- *
- * @category Apply
- * @since 2.8.0
- */
-var apW = function (fa) { return function (fab) { return (isLeft(fab) ? fab : isLeft(fa) ? fa : right(fab.right(fa.right))); }; };
-/**
- * Apply a function to an argument under a type constructor.
- *
- * @category Apply
- * @since 2.0.0
- */
-var ap = apW;
-/**
- * @category Pointed
- * @since 2.7.0
- */
-var of = right;
-/**
- * Less strict version of [`chain`](#chain).
- *
- * @category Monad
- * @since 2.6.0
- */
-var chainW = function (f) { return function (ma) {
-    return isLeft(ma) ? ma : f(ma.right);
-}; };
-/**
- * Composes computations in sequence, using the return value of one computation to determine the next computation.
- *
- * @category Monad
- * @since 2.0.0
- */
-var chain = chainW;
-/**
- * The `flatten` function is the conventional monad join operator. It is used to remove one level of monadic structure, projecting its bound argument into the outer level.
- *
- * Derivable from `Chain`.
- *
- * @example
- * import * as E from 'fp-ts/Either'
- *
- * assert.deepStrictEqual(E.flatten(E.right(E.right('a'))), E.right('a'))
- * assert.deepStrictEqual(E.flatten(E.right(E.left('e'))), E.left('e'))
- * assert.deepStrictEqual(E.flatten(E.left('e')), E.left('e'))
- *
- * @category combinators
- * @since 2.0.0
- */
-var flatten = 
-/*#__PURE__*/
-chain(_function__WEBPACK_IMPORTED_MODULE_1__.identity);
-/**
- * Less strict version of [`alt`](#alt).
- *
- * @category Alt
- * @since 2.9.0
- */
-var altW = function (that) { return function (fa) { return (isLeft(fa) ? that() : fa); }; };
-/**
- * Identifies an associative operation on a type constructor. It is similar to `Semigroup`, except that it applies to
- * types of kind `* -> *`.
- *
- * @category Alt
- * @since 2.0.0
- */
-var alt = altW;
-/**
- * @category Extend
- * @since 2.0.0
- */
-var extend = function (f) { return function (wa) {
-    return isLeft(wa) ? wa : right(f(wa));
-}; };
-/**
- * Derivable from `Extend`.
- *
- * @category combinators
- * @since 2.0.0
- */
-var duplicate = 
-/*#__PURE__*/
-extend(_function__WEBPACK_IMPORTED_MODULE_1__.identity);
-/**
- * Left-associative fold of a structure.
- *
- * @example
- * import { pipe } from 'fp-ts/function'
- * import * as E from 'fp-ts/Either'
- *
- * const startWith = 'prefix'
- * const concat = (a: string, b: string) => `${a}:${b}`
- *
- * assert.deepStrictEqual(
- *   pipe(E.right('a'), E.reduce(startWith, concat)),
- *   'prefix:a'
- * )
- *
- * assert.deepStrictEqual(
- *   pipe(E.left('e'), E.reduce(startWith, concat)),
- *   'prefix'
- * )
- *
- * @category Foldable
- * @since 2.0.0
- */
-var reduce = function (b, f) { return function (fa) {
-    return isLeft(fa) ? b : f(b, fa.right);
-}; };
-/**
- * Map each element of the structure to a monoid, and combine the results.
- *
- * @example
- * import { pipe } from 'fp-ts/function'
- * import * as E from 'fp-ts/Either'
- * import * as S from 'fp-ts/string'
- *
- * const yell = (a: string) => `${a}!`
- *
- * assert.deepStrictEqual(
- *   pipe(E.right('a'), E.foldMap(S.Monoid)(yell)),
- *   'a!'
- * )
- *
- * assert.deepStrictEqual(
- *   pipe(E.left('e'), E.foldMap(S.Monoid)(yell)),
- *   S.Monoid.empty
- * )
- *
- * @category Foldable
- * @since 2.0.0
- */
-var foldMap = function (M) { return function (f) { return function (fa) {
-    return isLeft(fa) ? M.empty : f(fa.right);
-}; }; };
-/**
- * Right-associative fold of a structure.
- *
- * @example
- * import { pipe } from 'fp-ts/function'
- * import * as E from 'fp-ts/Either'
- *
- * const startWith = 'postfix'
- * const concat = (a: string, b: string) => `${a}:${b}`
- *
- * assert.deepStrictEqual(
- *   pipe(E.right('a'), E.reduceRight(startWith, concat)),
- *   'a:postfix'
- * )
- *
- * assert.deepStrictEqual(
- *   pipe(E.left('e'), E.reduceRight(startWith, concat)),
- *   'postfix'
- * )
- *
- * @category Foldable
- * @since 2.0.0
- */
-var reduceRight = function (b, f) { return function (fa) {
-    return isLeft(fa) ? b : f(fa.right, b);
-}; };
-/**
- * Map each element of a structure to an action, evaluate these actions from left to right, and collect the results.
- *
- * @example
- * import { pipe } from 'fp-ts/function'
- * import * as RA from 'fp-ts/ReadonlyArray'
- * import * as E from 'fp-ts/Either'
- * import * as O from 'fp-ts/Option'
- *
- * assert.deepStrictEqual(
- *   pipe(E.right(['a']), E.traverse(O.Applicative)(RA.head)),
- *   O.some(E.right('a'))
- *  )
- *
- * assert.deepStrictEqual(
- *   pipe(E.right([]), E.traverse(O.Applicative)(RA.head)),
- *   O.none
- * )
- *
- * @category Traversable
- * @since 2.6.3
- */
-var traverse = function (F) { return function (f) { return function (ta) { return (isLeft(ta) ? F.of(left(ta.left)) : F.map(f(ta.right), right)); }; }; };
-/**
- * Evaluate each monadic action in the structure from left to right, and collect the results.
- *
- * @example
- * import { pipe } from 'fp-ts/function'
- * import * as E from 'fp-ts/Either'
- * import * as O from 'fp-ts/Option'
- *
- * assert.deepStrictEqual(
- *   pipe(E.right(O.some('a')), E.sequence(O.Applicative)),
- *   O.some(E.right('a'))
- *  )
- *
- * assert.deepStrictEqual(
- *   pipe(E.right(O.none), E.sequence(O.Applicative)),
- *   O.none
- * )
- *
- * @category Traversable
- * @since 2.6.3
- */
-var sequence = function (F) { return function (ma) {
-    return isLeft(ma) ? F.of(left(ma.left)) : F.map(ma.right, right);
-}; };
-/**
- * @category MonadThrow
- * @since 2.6.3
- */
-var throwError = left;
-// -------------------------------------------------------------------------------------
-// instances
-// -------------------------------------------------------------------------------------
-/**
- * @category instances
- * @since 2.0.0
- */
-var URI = 'Either';
-/**
- * @category instances
- * @since 2.0.0
- */
-function getShow(SE, SA) {
-    return {
-        show: function (ma) { return (isLeft(ma) ? "left(" + SE.show(ma.left) + ")" : "right(" + SA.show(ma.right) + ")"); }
-    };
-}
-/**
- * @category instances
- * @since 2.0.0
- */
-function getEq(EL, EA) {
-    return {
-        equals: function (x, y) {
-            return x === y || (isLeft(x) ? isLeft(y) && EL.equals(x.left, y.left) : isRight(y) && EA.equals(x.right, y.right));
-        }
-    };
-}
-/**
- * Semigroup returning the left-most non-`Left` value. If both operands are `Right`s then the inner values are
- * concatenated using the provided `Semigroup`
- *
- * @example
- * import { getSemigroup, left, right } from 'fp-ts/Either'
- * import { SemigroupSum } from 'fp-ts/number'
- *
- * const S = getSemigroup<string, number>(SemigroupSum)
- * assert.deepStrictEqual(S.concat(left('a'), left('b')), left('a'))
- * assert.deepStrictEqual(S.concat(left('a'), right(2)), right(2))
- * assert.deepStrictEqual(S.concat(right(1), left('b')), right(1))
- * assert.deepStrictEqual(S.concat(right(1), right(2)), right(3))
- *
- * @category instances
- * @since 2.0.0
- */
-function getSemigroup(S) {
-    return {
-        concat: function (x, y) { return (isLeft(y) ? x : isLeft(x) ? y : right(S.concat(x.right, y.right))); }
-    };
-}
-/**
- * Builds a `Compactable` instance for `Either` given `Monoid` for the left side.
- *
- * @category instances
- * @since 2.10.0
- */
-var getCompactable = function (M) {
-    var empty = left(M.empty);
-    return {
-        URI: URI,
-        _E: undefined,
-        compact: function (ma) { return (isLeft(ma) ? ma : ma.right._tag === 'None' ? empty : right(ma.right.value)); },
-        separate: function (ma) {
-            return isLeft(ma)
-                ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(ma, ma)
-                : isLeft(ma.right)
-                    ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(right(ma.right.left), empty)
-                    : (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(empty, right(ma.right.right));
-        }
-    };
-};
-/**
- * Builds a `Filterable` instance for `Either` given `Monoid` for the left side
- *
- * @category instances
- * @since 2.10.0
- */
-function getFilterable(M) {
-    var empty = left(M.empty);
-    var _a = getCompactable(M), compact = _a.compact, separate = _a.separate;
-    var filter = function (ma, predicate) {
-        return isLeft(ma) ? ma : predicate(ma.right) ? ma : empty;
-    };
-    var partition = function (ma, p) {
-        return isLeft(ma)
-            ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(ma, ma)
-            : p(ma.right)
-                ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(empty, right(ma.right))
-                : (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(right(ma.right), empty);
-    };
-    return {
-        URI: URI,
-        _E: undefined,
-        map: _map,
-        compact: compact,
-        separate: separate,
-        filter: filter,
-        filterMap: function (ma, f) {
-            if (isLeft(ma)) {
-                return ma;
-            }
-            var ob = f(ma.right);
-            return ob._tag === 'None' ? empty : right(ob.value);
-        },
-        partition: partition,
-        partitionMap: function (ma, f) {
-            if (isLeft(ma)) {
-                return (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(ma, ma);
-            }
-            var e = f(ma.right);
-            return isLeft(e) ? (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(right(e.left), empty) : (0,_Separated__WEBPACK_IMPORTED_MODULE_3__.separated)(empty, right(e.right));
-        }
-    };
-}
-/**
- * Builds `Witherable` instance for `Either` given `Monoid` for the left side
- *
- * @category instances
- * @since 2.0.0
- */
-function getWitherable(M) {
-    var F_ = getFilterable(M);
-    var wither = function (F) {
-        var traverseF = _traverse(F);
-        return function (ma, f) { return F.map(traverseF(ma, f), F_.compact); };
-    };
-    var wilt = function (F) {
-        var traverseF = _traverse(F);
-        return function (ma, f) { return F.map(traverseF(ma, f), F_.separate); };
-    };
-    return {
-        URI: URI,
-        _E: undefined,
-        map: _map,
-        compact: F_.compact,
-        separate: F_.separate,
-        filter: F_.filter,
-        filterMap: F_.filterMap,
-        partition: F_.partition,
-        partitionMap: F_.partitionMap,
-        traverse: _traverse,
-        sequence: sequence,
-        reduce: _reduce,
-        foldMap: _foldMap,
-        reduceRight: _reduceRight,
-        wither: wither,
-        wilt: wilt
-    };
-}
-/**
- * @category instances
- * @since 2.7.0
- */
-function getApplicativeValidation(SE) {
-    return {
-        URI: URI,
-        _E: undefined,
-        map: _map,
-        ap: function (fab, fa) {
-            return isLeft(fab)
-                ? isLeft(fa)
-                    ? left(SE.concat(fab.left, fa.left))
-                    : fab
-                : isLeft(fa)
-                    ? fa
-                    : right(fab.right(fa.right));
-        },
-        of: of
-    };
-}
-/**
- * @category instances
- * @since 2.7.0
- */
-function getAltValidation(SE) {
-    return {
-        URI: URI,
-        _E: undefined,
-        map: _map,
-        alt: function (me, that) {
-            if (isRight(me)) {
-                return me;
-            }
-            var ea = that();
-            return isLeft(ea) ? left(SE.concat(me.left, ea.left)) : ea;
-        }
-    };
-}
-/**
- * @category instances
- * @since 2.7.0
- */
-var Functor = {
-    URI: URI,
-    map: _map
-};
-/**
- * Derivable from `Functor`.
- *
- * @category combinators
- * @since 2.10.0
- */
-var flap = 
-/*#_PURE_*/
-(0,_Functor__WEBPACK_IMPORTED_MODULE_4__.flap)(Functor);
-/**
- * @category instances
- * @since 2.10.0
- */
-var Pointed = {
-    URI: URI,
-    of: of
-};
-/**
- * @category instances
- * @since 2.10.0
- */
-var Apply = {
-    URI: URI,
-    map: _map,
-    ap: _ap
-};
-/**
- * Combine two effectful actions, keeping only the result of the first.
- *
- * Derivable from `Apply`.
- *
- * @category combinators
- * @since 2.0.0
- */
-var apFirst = 
-/*#__PURE__*/
-(0,_Apply__WEBPACK_IMPORTED_MODULE_5__.apFirst)(Apply);
-/**
- * Combine two effectful actions, keeping only the result of the second.
- *
- * Derivable from `Apply`.
- *
- * @category combinators
- * @since 2.0.0
- */
-var apSecond = 
-/*#__PURE__*/
-(0,_Apply__WEBPACK_IMPORTED_MODULE_5__.apSecond)(Apply);
-/**
- * @category instances
- * @since 2.7.0
- */
-var Applicative = {
-    URI: URI,
-    map: _map,
-    ap: _ap,
-    of: of
-};
-/**
- * @category instances
- * @since 2.10.0
- */
-var Chain = {
-    URI: URI,
-    map: _map,
-    ap: _ap,
-    chain: _chain
-};
-/**
- * @category instances
- * @since 2.7.0
- */
-var Monad = {
-    URI: URI,
-    map: _map,
-    ap: _ap,
-    of: of,
-    chain: _chain
-};
-/**
- * Composes computations in sequence, using the return value of one computation to determine the next computation and
- * keeping only the result of the first.
- *
- * Derivable from `Chain`.
- *
- * @category combinators
- * @since 2.0.0
- */
-var chainFirst = 
-/*#__PURE__*/
-(0,_Chain__WEBPACK_IMPORTED_MODULE_6__.chainFirst)(Chain);
-/**
- * Less strict version of [`chainFirst`](#chainfirst)
- *
- * Derivable from `Chain`.
- *
- * @category combinators
- * @since 2.8.0
- */
-var chainFirstW = chainFirst;
-/**
- * @category instances
- * @since 2.7.0
- */
-var Foldable = {
-    URI: URI,
-    reduce: _reduce,
-    foldMap: _foldMap,
-    reduceRight: _reduceRight
-};
-/**
- * @category instances
- * @since 2.7.0
- */
-var Traversable = {
-    URI: URI,
-    map: _map,
-    reduce: _reduce,
-    foldMap: _foldMap,
-    reduceRight: _reduceRight,
-    traverse: _traverse,
-    sequence: sequence
-};
-/**
- * @category instances
- * @since 2.7.0
- */
-var Bifunctor = {
-    URI: URI,
-    bimap: _bimap,
-    mapLeft: _mapLeft
-};
-/**
- * @category instances
- * @since 2.7.0
- */
-var Alt = {
-    URI: URI,
-    map: _map,
-    alt: _alt
-};
-/**
- * @category instances
- * @since 2.7.0
- */
-var Extend = {
-    URI: URI,
-    map: _map,
-    extend: _extend
-};
-/**
- * @category instances
- * @since 2.7.0
- */
-var ChainRec = {
-    URI: URI,
-    map: _map,
-    ap: _ap,
-    chain: _chain,
-    chainRec: _chainRec
-};
-/**
- * @category instances
- * @since 2.7.0
- */
-var MonadThrow = {
-    URI: URI,
-    map: _map,
-    ap: _ap,
-    of: of,
-    chain: _chain,
-    throwError: throwError
-};
-/**
- * @category instances
- * @since 2.10.0
- */
-var FromEither = {
-    URI: URI,
-    fromEither: _function__WEBPACK_IMPORTED_MODULE_1__.identity
-};
-// -------------------------------------------------------------------------------------
 // utils
 // -------------------------------------------------------------------------------------
 /**
@@ -11958,11 +12025,14 @@ var FromEither = {
 function toError(e) {
     return e instanceof Error ? e : new Error(String(e));
 }
-/**
- * @since 2.0.0
- */
 function elem(E) {
-    return function (a, ma) { return (isLeft(ma) ? false : E.equals(a, ma.right)); };
+    return function (a, ma) {
+        if (ma === undefined) {
+            var elemE_1 = elem(E);
+            return function (ma) { return elemE_1(a, ma); };
+        }
+        return isLeft(ma) ? false : E.equals(a, ma.right);
+    };
 }
 /**
  * Returns `false` if `Left` or returns the result of the application of the given predicate to the `Right` value.
@@ -11978,9 +12048,9 @@ function elem(E) {
  *
  * @since 2.0.0
  */
-function exists(predicate) {
-    return function (ma) { return (isLeft(ma) ? false : predicate(ma.right)); };
-}
+var exists = function (predicate) { return function (ma) {
+    return isLeft(ma) ? false : predicate(ma.right);
+}; };
 // -------------------------------------------------------------------------------------
 // do notation
 // -------------------------------------------------------------------------------------
@@ -11989,19 +12059,19 @@ function exists(predicate) {
  */
 var Do = 
 /*#__PURE__*/
-of({});
+of(_internal__WEBPACK_IMPORTED_MODULE_0__.emptyRecord);
 /**
  * @since 2.8.0
  */
 var bindTo = 
 /*#__PURE__*/
-(0,_Functor__WEBPACK_IMPORTED_MODULE_4__.bindTo)(Functor);
+(0,_Functor__WEBPACK_IMPORTED_MODULE_6__.bindTo)(Functor);
 /**
  * @since 2.8.0
  */
 var bind = 
 /*#__PURE__*/
-(0,_Chain__WEBPACK_IMPORTED_MODULE_6__.bind)(Chain);
+(0,_Chain__WEBPACK_IMPORTED_MODULE_8__.bind)(Chain);
 /**
  * @since 2.8.0
  */
@@ -12014,39 +12084,61 @@ var bindW = bind;
  */
 var apS = 
 /*#__PURE__*/
-(0,_Apply__WEBPACK_IMPORTED_MODULE_5__.apS)(Apply);
+(0,_Apply__WEBPACK_IMPORTED_MODULE_7__.apS)(Apply);
 /**
  * @since 2.8.0
  */
 var apSW = apS;
 // -------------------------------------------------------------------------------------
+// sequence T
+// -------------------------------------------------------------------------------------
+/**
+ * @since 2.11.0
+ */
+var ApT = 
+/*#__PURE__*/
+of(_internal__WEBPACK_IMPORTED_MODULE_0__.emptyReadonlyArray);
+// -------------------------------------------------------------------------------------
 // array utils
 // -------------------------------------------------------------------------------------
 /**
- * Equivalent to `ReadonlyArray#traverseWithIndex(Applicative)`.
+ * Equivalent to `ReadonlyNonEmptyArray#traverseWithIndex(Applicative)`.
  *
- * @since 2.9.0
+ * @since 2.11.0
  */
-var traverseArrayWithIndex = function (f) { return function (as) {
-    var out = [];
-    for (var i = 0; i < as.length; i++) {
-        var e = f(i, as[i]);
-        if (isLeft(e)) {
-            return e;
+var traverseReadonlyNonEmptyArrayWithIndex = function (f) { return function (as) {
+    var e = f(0, _internal__WEBPACK_IMPORTED_MODULE_0__.head(as));
+    if (isLeft(e)) {
+        return e;
+    }
+    var out = [e.right];
+    for (var i = 1; i < as.length; i++) {
+        var e_1 = f(i, as[i]);
+        if (isLeft(e_1)) {
+            return e_1;
         }
-        out.push(e.right);
+        out.push(e_1.right);
     }
     return right(out);
 }; };
 /**
- * Equivalent to `ReadonlyArray#traverse(Applicative)`.
+ * Equivalent to `ReadonlyArray#traverseWithIndex(Applicative)`.
  *
+ * @since 2.11.0
+ */
+var traverseReadonlyArrayWithIndex = function (f) {
+    var g = traverseReadonlyNonEmptyArrayWithIndex(f);
+    return function (as) { return (_internal__WEBPACK_IMPORTED_MODULE_0__.isNonEmpty(as) ? g(as) : ApT); };
+};
+/**
  * @since 2.9.0
  */
-var traverseArray = function (f) { return traverseArrayWithIndex(function (_, a) { return f(a); }); };
+var traverseArrayWithIndex = traverseReadonlyArrayWithIndex;
 /**
- * Equivalent to `ReadonlyArray#sequence(Applicative)`.
- *
+ * @since 2.9.0
+ */
+var traverseArray = function (f) { return traverseReadonlyArrayWithIndex(function (_, a) { return f(a); }); };
+/**
  * @since 2.9.0
  */
 var sequenceArray = 
@@ -12059,7 +12151,6 @@ traverseArray(_function__WEBPACK_IMPORTED_MODULE_1__.identity);
  * @since 2.0.0
  * @deprecated
  */
-// tslint:disable-next-line: deprecation
 function parseJSON(s, onError) {
     return tryCatch(function () { return JSON.parse(s); }, onError);
 }
@@ -12105,7 +12196,7 @@ var either = {
     throwError: throwError
 };
 /**
- * Use [`getApplySemigroup`](./Apply.ts.html#getApplySemigroup) instead.
+ * Use [`getApplySemigroup`](./Apply.ts.html#getapplysemigroup) instead.
  *
  * Semigroup returning the left-most `Left` value. If both operands are `Right`s then the inner values
  * are concatenated using the provided `Semigroup`
@@ -12116,9 +12207,9 @@ var either = {
  */
 var getApplySemigroup = 
 /*#__PURE__*/
-(0,_Apply__WEBPACK_IMPORTED_MODULE_5__.getApplySemigroup)(Apply);
+(0,_Apply__WEBPACK_IMPORTED_MODULE_7__.getApplySemigroup)(Apply);
 /**
- * Use [`getApplicativeMonoid`](./Applicative.ts.html#getApplicativeMonoid) instead.
+ * Use [`getApplicativeMonoid`](./Applicative.ts.html#getapplicativemonoid) instead.
  *
  * @category instances
  * @since 2.0.0
@@ -12126,26 +12217,26 @@ var getApplySemigroup =
  */
 var getApplyMonoid = 
 /*#__PURE__*/
-(0,_Applicative__WEBPACK_IMPORTED_MODULE_7__.getApplicativeMonoid)(Applicative);
+(0,_Applicative__WEBPACK_IMPORTED_MODULE_9__.getApplicativeMonoid)(Applicative);
 /**
- * Use [`getApplySemigroup`](./Apply.ts.html#getApplySemigroup) instead.
+ * Use [`getApplySemigroup`](./Apply.ts.html#getapplysemigroup) instead.
  *
  * @category instances
  * @since 2.0.0
  * @deprecated
  */
 var getValidationSemigroup = function (SE, SA) {
-    return (0,_Apply__WEBPACK_IMPORTED_MODULE_5__.getApplySemigroup)(getApplicativeValidation(SE))(SA);
+    return (0,_Apply__WEBPACK_IMPORTED_MODULE_7__.getApplySemigroup)(getApplicativeValidation(SE))(SA);
 };
 /**
- * Use [`getApplicativeMonoid`](./Applicative.ts.html#getApplicativeMonoid) instead.
+ * Use [`getApplicativeMonoid`](./Applicative.ts.html#getapplicativemonoid) instead.
  *
  * @category instances
  * @since 2.0.0
  * @deprecated
  */
 var getValidationMonoid = function (SE, MA) {
-    return (0,_Applicative__WEBPACK_IMPORTED_MODULE_7__.getApplicativeMonoid)(getApplicativeValidation(SE))(MA);
+    return (0,_Applicative__WEBPACK_IMPORTED_MODULE_9__.getApplicativeMonoid)(getApplicativeValidation(SE))(MA);
 };
 /**
  * Use [`getApplicativeValidation`](#getapplicativevalidation) and [`getAltValidation`](#getaltvalidation) instead.
@@ -12176,6 +12267,76 @@ function getValidation(SE) {
         ap: ap,
         alt: alt
     };
+}
+
+
+/***/ }),
+
+/***/ 5710:
+/*!**********************************************!*\
+  !*** ./node_modules/fp-ts/es6/FromEither.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "chainEitherK": () => (/* binding */ chainEitherK),
+/* harmony export */   "chainFirstEitherK": () => (/* binding */ chainFirstEitherK),
+/* harmony export */   "chainOptionK": () => (/* binding */ chainOptionK),
+/* harmony export */   "filterOrElse": () => (/* binding */ filterOrElse),
+/* harmony export */   "fromEitherK": () => (/* binding */ fromEitherK),
+/* harmony export */   "fromOption": () => (/* binding */ fromOption),
+/* harmony export */   "fromOptionK": () => (/* binding */ fromOptionK),
+/* harmony export */   "fromPredicate": () => (/* binding */ fromPredicate)
+/* harmony export */ });
+/* harmony import */ var _Chain__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Chain */ 2820);
+/* harmony import */ var _function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./function */ 1280);
+/* harmony import */ var _internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./internal */ 8216);
+/**
+ * The `FromEither` type class represents those data types which support errors.
+ *
+ * @since 2.10.0
+ */
+
+
+
+function fromOption(F) {
+    return function (onNone) { return function (ma) { return F.fromEither(_internal__WEBPACK_IMPORTED_MODULE_0__.isNone(ma) ? _internal__WEBPACK_IMPORTED_MODULE_0__.left(onNone()) : _internal__WEBPACK_IMPORTED_MODULE_0__.right(ma.value)); }; };
+}
+function fromPredicate(F) {
+    return function (predicate, onFalse) { return function (a) {
+        return F.fromEither(predicate(a) ? _internal__WEBPACK_IMPORTED_MODULE_0__.right(a) : _internal__WEBPACK_IMPORTED_MODULE_0__.left(onFalse(a)));
+    }; };
+}
+function fromOptionK(F) {
+    var fromOptionF = fromOption(F);
+    return function (onNone) {
+        var from = fromOptionF(onNone);
+        return function (f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.flow)(f, from); };
+    };
+}
+function chainOptionK(F, M) {
+    var fromOptionKF = fromOptionK(F);
+    return function (onNone) {
+        var from = fromOptionKF(onNone);
+        return function (f) { return function (ma) { return M.chain(ma, from(f)); }; };
+    };
+}
+function fromEitherK(F) {
+    return function (f) { return (0,_function__WEBPACK_IMPORTED_MODULE_1__.flow)(f, F.fromEither); };
+}
+function chainEitherK(F, M) {
+    var fromEitherKF = fromEitherK(F);
+    return function (f) { return function (ma) { return M.chain(ma, fromEitherKF(f)); }; };
+}
+function chainFirstEitherK(F, M) {
+    return (0,_function__WEBPACK_IMPORTED_MODULE_1__.flow)(fromEitherK(F), (0,_Chain__WEBPACK_IMPORTED_MODULE_2__.chainFirst)(M));
+}
+function filterOrElse(F, M) {
+    return function (predicate, onFalse) { return function (ma) {
+        return M.chain(ma, function (a) { return F.fromEither(predicate(a) ? _internal__WEBPACK_IMPORTED_MODULE_0__.right(a) : _internal__WEBPACK_IMPORTED_MODULE_0__.left(onFalse(a))); });
+    }; };
 }
 
 
@@ -12346,7 +12507,7 @@ var Functor = {
  * @since 2.10.0
  */
 var flap = 
-/*#_PURE_*/
+/*#__PURE__*/
 (0,_Functor__WEBPACK_IMPORTED_MODULE_1__.flap)(Functor);
 // -------------------------------------------------------------------------------------
 // utils
@@ -12363,6 +12524,43 @@ var right = function (s) { return s.right; };
 
 /***/ }),
 
+/***/ 2322:
+/*!**********************************************!*\
+  !*** ./node_modules/fp-ts/es6/Witherable.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "filterE": () => (/* binding */ filterE),
+/* harmony export */   "wiltDefault": () => (/* binding */ wiltDefault),
+/* harmony export */   "witherDefault": () => (/* binding */ witherDefault)
+/* harmony export */ });
+/* harmony import */ var _internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./internal */ 8216);
+
+function wiltDefault(T, C) {
+    return function (F) {
+        var traverseF = T.traverse(F);
+        return function (wa, f) { return F.map(traverseF(wa, f), C.separate); };
+    };
+}
+function witherDefault(T, C) {
+    return function (F) {
+        var traverseF = T.traverse(F);
+        return function (wa, f) { return F.map(traverseF(wa, f), C.compact); };
+    };
+}
+function filterE(W) {
+    return function (F) {
+        var witherF = W.wither(F);
+        return function (predicate) { return function (ga) { return witherF(ga, function (a) { return F.map(predicate(a), function (b) { return (b ? _internal__WEBPACK_IMPORTED_MODULE_0__.some(a) : _internal__WEBPACK_IMPORTED_MODULE_0__.none); }); }); }; };
+    };
+}
+
+
+/***/ }),
+
 /***/ 1280:
 /*!********************************************!*\
   !*** ./node_modules/fp-ts/es6/function.js ***!
@@ -12372,7 +12570,9 @@ var right = function (s) { return s.right; };
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SK": () => (/* binding */ SK),
 /* harmony export */   "absurd": () => (/* binding */ absurd),
+/* harmony export */   "apply": () => (/* binding */ apply),
 /* harmony export */   "constFalse": () => (/* binding */ constFalse),
 /* harmony export */   "constNull": () => (/* binding */ constNull),
 /* harmony export */   "constTrue": () => (/* binding */ constTrue),
@@ -12443,7 +12643,8 @@ var getSemigroup = function (S) { return function () { return ({
  * Unary functions form a monoid as long as you can provide a monoid for the codomain.
  *
  * @example
- * import { Predicate, getMonoid } from 'fp-ts/function'
+ * import { Predicate } from 'fp-ts/Predicate'
+ * import { getMonoid } from 'fp-ts/function'
  * import * as B from 'fp-ts/boolean'
  *
  * const f: Predicate<number> = (n) => n <= 2
@@ -12493,16 +12694,13 @@ var getRing = function (R) {
         sub: function (f, g) { return function (x) { return R.sub(f(x), g(x)); }; }
     };
 };
+// -------------------------------------------------------------------------------------
+// utils
+// -------------------------------------------------------------------------------------
 /**
- * Endomorphism form a monoid where the `empty` value is the identity function.
- *
- * @category instances
- * @since 2.10.0
+ * @since 2.11.0
  */
-var getEndomorphismMonoid = function () { return ({
-    concat: function (x, y) { return function (a) { return y(x(a)); }; },
-    empty: identity
-}); };
+var apply = function (a) { return function (f) { return f(a); }; };
 /**
  * @since 2.0.0
  */
@@ -12513,12 +12711,6 @@ function identity(a) {
  * @since 2.0.0
  */
 var unsafeCoerce = identity;
-/**
- * @since 2.0.0
- */
-function not(predicate) {
-    return function (a) { return !predicate(a); };
-}
 /**
  * @since 2.0.0
  */
@@ -12667,7 +12859,7 @@ function untupled(f) {
         return f(a);
     };
 }
-function pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs, st) {
+function pipe(a, ab, bc, cd, de, ef, fg, gh, hi) {
     switch (arguments.length) {
         case 1:
             return a;
@@ -12687,30 +12879,13 @@ function pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq,
             return gh(fg(ef(de(cd(bc(ab(a)))))));
         case 9:
             return hi(gh(fg(ef(de(cd(bc(ab(a))))))));
-        case 10:
-            return ij(hi(gh(fg(ef(de(cd(bc(ab(a)))))))));
-        case 11:
-            return jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a))))))))));
-        case 12:
-            return kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a)))))))))));
-        case 13:
-            return lm(kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a))))))))))));
-        case 14:
-            return mn(lm(kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a)))))))))))));
-        case 15:
-            return no(mn(lm(kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a))))))))))))));
-        case 16:
-            return op(no(mn(lm(kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a)))))))))))))));
-        case 17:
-            return pq(op(no(mn(lm(kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a))))))))))))))));
-        case 18:
-            return qr(pq(op(no(mn(lm(kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a)))))))))))))))));
-        case 19:
-            return rs(qr(pq(op(no(mn(lm(kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a))))))))))))))))));
-        case 20:
-            return st(rs(qr(pq(op(no(mn(lm(kl(jk(ij(hi(gh(fg(ef(de(cd(bc(ab(a)))))))))))))))))));
+        default:
+            var ret = arguments[0];
+            for (var i = 1; i < arguments.length; i++) {
+                ret = arguments[i](ret);
+            }
+            return ret;
     }
-    return;
 }
 /**
  * Type hole simulation
@@ -12718,6 +12893,30 @@ function pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq,
  * @since 2.7.0
  */
 var hole = absurd;
+/**
+ * @since 2.11.0
+ */
+var SK = function (_, b) { return b; };
+/**
+ * Use `Predicate` module instead.
+ *
+ * @since 2.0.0
+ * @deprecated
+ */
+function not(predicate) {
+    return function (a) { return !predicate(a); };
+}
+/**
+ * Use `Endomorphism` module instead.
+ *
+ * @category instances
+ * @since 2.10.0
+ * @deprecated
+ */
+var getEndomorphismMonoid = function () { return ({
+    concat: function (first, second) { return flow(first, second); },
+    empty: identity
+}); };
 
 
 /***/ }),
@@ -12731,10 +12930,22 @@ var hole = absurd;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "emptyReadonlyArray": () => (/* binding */ emptyReadonlyArray),
+/* harmony export */   "emptyRecord": () => (/* binding */ emptyRecord),
 /* harmony export */   "fromReadonlyNonEmptyArray": () => (/* binding */ fromReadonlyNonEmptyArray),
 /* harmony export */   "has": () => (/* binding */ has),
+/* harmony export */   "head": () => (/* binding */ head),
 /* harmony export */   "isLeft": () => (/* binding */ isLeft),
-/* harmony export */   "isSome": () => (/* binding */ isSome)
+/* harmony export */   "isNonEmpty": () => (/* binding */ isNonEmpty),
+/* harmony export */   "isNone": () => (/* binding */ isNone),
+/* harmony export */   "isRight": () => (/* binding */ isRight),
+/* harmony export */   "isSome": () => (/* binding */ isSome),
+/* harmony export */   "left": () => (/* binding */ left),
+/* harmony export */   "none": () => (/* binding */ none),
+/* harmony export */   "right": () => (/* binding */ right),
+/* harmony export */   "singleton": () => (/* binding */ singleton),
+/* harmony export */   "some": () => (/* binding */ some),
+/* harmony export */   "tail": () => (/* binding */ tail)
 /* harmony export */ });
 var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from) {
     for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
@@ -12745,12 +12956,42 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 // Option
 // -------------------------------------------------------------------------------------
 /** @internal */
+var isNone = function (fa) { return fa._tag === 'None'; };
+/** @internal */
 var isSome = function (fa) { return fa._tag === 'Some'; };
+/** @internal */
+var none = { _tag: 'None' };
+/** @internal */
+var some = function (a) { return ({ _tag: 'Some', value: a }); };
 // -------------------------------------------------------------------------------------
 // Either
 // -------------------------------------------------------------------------------------
 /** @internal */
 var isLeft = function (ma) { return ma._tag === 'Left'; };
+/** @internal */
+var isRight = function (ma) { return ma._tag === 'Right'; };
+/** @internal */
+var left = function (e) { return ({ _tag: 'Left', left: e }); };
+/** @internal */
+var right = function (a) { return ({ _tag: 'Right', right: a }); };
+// -------------------------------------------------------------------------------------
+// ReadonlyNonEmptyArray
+// -------------------------------------------------------------------------------------
+/** @internal */
+var singleton = function (a) { return [a]; };
+/** @internal */
+var isNonEmpty = function (as) { return as.length > 0; };
+/** @internal */
+var head = function (as) { return as[0]; };
+/** @internal */
+var tail = function (as) { return as.slice(1); };
+// -------------------------------------------------------------------------------------
+// empty
+// -------------------------------------------------------------------------------------
+/** @internal */
+var emptyReadonlyArray = [];
+/** @internal */
+var emptyRecord = {};
 // -------------------------------------------------------------------------------------
 // Record
 // -------------------------------------------------------------------------------------
@@ -12930,7 +13171,7 @@ function pipeable(I) {
     return r;
 }
 /**
- * Use [`pipe`](https://gcanti.github.io/fp-ts/modules/function.ts.html#flow) from `function` module instead.
+ * Use [`pipe`](https://gcanti.github.io/fp-ts/modules/function.ts.html#pipe) from `function` module instead.
  *
  * @since 2.0.0
  * @deprecated
@@ -21773,11 +22014,13 @@ var REGEXP_QUOTE_2 = /&quot;/g;
 var REGEXP_ATTR_VALUE_1 = /&#([a-zA-Z0-9]*);?/gim;
 var REGEXP_ATTR_VALUE_COLON = /&colon;?/gim;
 var REGEXP_ATTR_VALUE_NEWLINE = /&newline;?/gim;
-var REGEXP_DEFAULT_ON_TAG_ATTR_3 = /\/\*|\*\//gm;
-var REGEXP_DEFAULT_ON_TAG_ATTR_4 = /((j\s*a\s*v\s*a|v\s*b|l\s*i\s*v\s*e)\s*s\s*c\s*r\s*i\s*p\s*t\s*|m\s*o\s*c\s*h\s*a)\:/gi;
-var REGEXP_DEFAULT_ON_TAG_ATTR_5 = /^[\s"'`]*(d\s*a\s*t\s*a\s*)\:/gi;
-var REGEXP_DEFAULT_ON_TAG_ATTR_6 = /^[\s"'`]*(d\s*a\s*t\s*a\s*)\:\s*image\//gi;
-var REGEXP_DEFAULT_ON_TAG_ATTR_7 = /e\s*x\s*p\s*r\s*e\s*s\s*s\s*i\s*o\s*n\s*\(.*/gi;
+// var REGEXP_DEFAULT_ON_TAG_ATTR_3 = /\/\*|\*\//gm;
+var REGEXP_DEFAULT_ON_TAG_ATTR_4 =
+  /((j\s*a\s*v\s*a|v\s*b|l\s*i\s*v\s*e)\s*s\s*c\s*r\s*i\s*p\s*t\s*|m\s*o\s*c\s*h\s*a):/gi;
+// var REGEXP_DEFAULT_ON_TAG_ATTR_5 = /^[\s"'`]*(d\s*a\s*t\s*a\s*)\:/gi;
+// var REGEXP_DEFAULT_ON_TAG_ATTR_6 = /^[\s"'`]*(d\s*a\s*t\s*a\s*)\:\s*image\//gi;
+var REGEXP_DEFAULT_ON_TAG_ATTR_7 =
+  /e\s*x\s*p\s*r\s*e\s*s\s*s\s*i\s*o\s*n\s*\(.*/gi;
 var REGEXP_DEFAULT_ON_TAG_ATTR_8 = /u\s*r\s*l\s*\(.*/gi;
 
 /**
@@ -21936,9 +22179,23 @@ function StripTagBody(tags, next) {
  * @return {String}
  */
 function stripCommentTag(html) {
-  return html.replace(STRIP_COMMENT_TAG_REGEXP, "");
+  var retHtml = "";
+  var lastPos = 0;
+  while (lastPos < html.length) {
+    var i = html.indexOf("<!--", lastPos);
+    if (i === -1) {
+      retHtml += html.slice(lastPos);
+      break;
+    }
+    retHtml += html.slice(lastPos, i);
+    var j = html.indexOf("-->", i);
+    if (j === -1) {
+      break;
+    }
+    lastPos = j + 3;
+  }
+  return retHtml;
 }
-var STRIP_COMMENT_TAG_REGEXP = /<!--[\s\S]*?-->/g;
 
 /**
  * remove invisible characters
@@ -22016,8 +22273,15 @@ function filterXSS(html, options) {
 exports = module.exports = filterXSS;
 exports.filterXSS = filterXSS;
 exports.FilterXSS = FilterXSS;
-for (var i in DEFAULT) exports[i] = DEFAULT[i];
-for (var i in parser) exports[i] = parser[i];
+
+(function () {
+  for (var i in DEFAULT) {
+    exports[i] = DEFAULT[i];
+  }
+  for (var j in parser) {
+    exports[j] = parser[j];
+  }
+})();
 
 // using `xss` on the browser, output `filterXSS` to the globals
 if (typeof window !== "undefined") {
@@ -22061,10 +22325,11 @@ var _ = __webpack_require__(/*! ./util */ 235);
  */
 function getTagName(html) {
   var i = _.spaceIndex(html);
+  var tagName;
   if (i === -1) {
-    var tagName = html.slice(1, -1);
+    tagName = html.slice(1, -1);
   } else {
-    var tagName = html.slice(1, i + 1);
+    tagName = html.slice(1, i + 1);
   }
   tagName = _.trim(tagName).toLowerCase();
   if (tagName.slice(0, 1) === "/") tagName = tagName.slice(1);
@@ -22159,7 +22424,7 @@ function parseTag(html, onTag, escapeHtml) {
   return rethtml;
 }
 
-var REGEXP_ILLEGAL_ATTR_NAME = /[^a-zA-Z0-9_:\.\-]/gim;
+var REGEXP_ILLEGAL_ATTR_NAME = /[^a-zA-Z0-9\\_:.-]/gim;
 
 /**
  * parse input attributes and returns processed attributes
@@ -22172,6 +22437,7 @@ function parseAttr(html, onAttr) {
   "use strict";
 
   var lastPos = 0;
+  var lastMarkPos = 0;
   var retAttrs = [];
   var tmpName = false;
   var len = html.length;
@@ -22191,19 +22457,18 @@ function parseAttr(html, onAttr) {
     if (tmpName === false && c === "=") {
       tmpName = html.slice(lastPos, i);
       lastPos = i + 1;
+      lastMarkPos = html.charAt(lastPos) === '"' || html.charAt(lastPos) === "'" ? lastPos : findNextQuotationMark(html, i + 1);
       continue;
     }
     if (tmpName !== false) {
       if (
-        i === lastPos &&
-        (c === '"' || c === "'") &&
-        html.charAt(i - 1) === "="
+        i === lastMarkPos
       ) {
         j = html.indexOf(c, i + 1);
         if (j === -1) {
           break;
         } else {
-          v = _.trim(html.slice(lastPos + 1, j));
+          v = _.trim(html.slice(lastMarkPos + 1, j));
           addAttr(tmpName, v);
           tmpName = false;
           i = j;
@@ -22258,6 +22523,15 @@ function findNextEqual(str, i) {
     var c = str[i];
     if (c === " ") continue;
     if (c === "=") return i;
+    return -1;
+  }
+}
+
+function findNextQuotationMark(str, i) {
+  for (; i < str.length; i++) {
+    var c = str[i];
+    if (c === " ") continue;
+    if (c === "'" || c === '"') return i;
     return -1;
   }
 }
@@ -22408,11 +22682,25 @@ function shallowCopyObject(obj) {
   return ret;
 }
 
+function keysToLowerCase(obj) {
+  var ret = {};
+  for (var i in obj) {
+    if (Array.isArray(obj[i])) {
+      ret[i.toLowerCase()] = obj[i].map(function (item) {
+        return item.toLowerCase();
+      });
+    } else {
+      ret[i.toLowerCase()] = obj[i];
+    }
+  }
+  return ret;
+}
+
 /**
  * FilterXSS class
  *
  * @param {Object} options
- *        whiteList, onTag, onTagAttr, onIgnoreTag,
+ *        whiteList (or allowList), onTag, onTagAttr, onIgnoreTag,
  *        onIgnoreTagAttr, safeAttrValue, escapeHtml
  *        stripIgnoreTagBody, allowCommentTag, stripBlankChar
  *        css{whiteList, onAttr, onIgnoreAttr} `css=false` means don't use `cssfilter`
@@ -22428,8 +22716,12 @@ function FilterXSS(options) {
     }
     options.onIgnoreTag = DEFAULT.onIgnoreTagStripAll;
   }
+  if (options.whiteList || options.allowList) {
+    options.whiteList = keysToLowerCase(options.whiteList || options.allowList);
+  } else {
+    options.whiteList = DEFAULT.whiteList;
+  }
 
-  options.whiteList = options.whiteList || DEFAULT.whiteList;
   options.onTag = options.onTag || DEFAULT.onTag;
   options.onTagAttr = options.onTagAttr || DEFAULT.onTagAttr;
   options.onIgnoreTag = options.onIgnoreTag || DEFAULT.onIgnoreTag;
@@ -22482,7 +22774,7 @@ FilterXSS.prototype.process = function (html) {
   // if enable stripIgnoreTagBody
   var stripIgnoreTagBody = false;
   if (options.stripIgnoreTagBody) {
-    var stripIgnoreTagBody = DEFAULT.StripTagBody(
+    stripIgnoreTagBody = DEFAULT.StripTagBody(
       options.stripIgnoreTagBody,
       onIgnoreTag
     );
@@ -22496,7 +22788,7 @@ FilterXSS.prototype.process = function (html) {
         sourcePosition: sourcePosition,
         position: position,
         isClosing: isClosing,
-        isWhite: whiteList.hasOwnProperty(tag),
+        isWhite: Object.prototype.hasOwnProperty.call(whiteList, tag),
       };
 
       // call `onTag()`
@@ -22526,21 +22818,21 @@ FilterXSS.prototype.process = function (html) {
             }
           } else {
             // call `onIgnoreTagAttr()`
-            var ret = onIgnoreTagAttr(tag, name, value, isWhiteAttr);
+            ret = onIgnoreTagAttr(tag, name, value, isWhiteAttr);
             if (!isNull(ret)) return ret;
             return;
           }
         });
 
         // build new tag html
-        var html = "<" + tag;
+        html = "<" + tag;
         if (attrsHtml) html += " " + attrsHtml;
         if (attrs.closing) html += " /";
         html += ">";
         return html;
       } else {
         // call `onIgnoreTag()`
-        var ret = onIgnoreTag(tag, html, info);
+        ret = onIgnoreTag(tag, html, info);
         if (!isNull(ret)) return ret;
         return escapeHtml(html);
       }
@@ -22591,7 +22883,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": () => (/* binding */ ɵPRE_STYLE)
 /* harmony export */ });
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -23837,7 +24129,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/animations */ 1631);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 3184);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -25486,11 +25778,11 @@ function isObject(value) {
 }
 
 function constructTimingAst(value, errors) {
-  let timings = null;
-
   if (value.hasOwnProperty('duration')) {
-    timings = value;
-  } else if (typeof value == 'number') {
+    return value;
+  }
+
+  if (typeof value == 'number') {
     const duration = resolveTiming(value, errors).duration;
     return makeTimingAst(duration, 0, '');
   }
@@ -25505,7 +25797,7 @@ function constructTimingAst(value, errors) {
     return ast;
   }
 
-  timings = timings || resolveTiming(strValue, errors);
+  const timings = resolveTiming(strValue, errors);
   return makeTimingAst(timings.duration, timings.delay, timings.easing);
 }
 
@@ -29395,7 +29687,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 3184);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -33244,11 +33536,11 @@ class NgForOfContext {
  * context according to its lexical position.
  *
  * When using the shorthand syntax, Angular allows only [one structural directive
- * on an element](guide/built-in-directives#one-per-element).
+ * on an element](guide/structural-directives#one-per-element).
  * If you want to iterate conditionally, for example,
  * put the `*ngIf` on a container element that wraps the `*ngFor` element.
  * For futher discussion, see
- * [Structural Directives](guide/built-in-directives#one-per-element).
+ * [Structural Directives](guide/structural-directives#one-per-element).
  *
  * @usageNotes
  *
@@ -33645,7 +33937,7 @@ function getTypeName(type) {
  *
  * The presence of the implicit template object has implications for the nesting of
  * structural directives. For more on this subject, see
- * [Structural Directives](https://angular.io/guide/built-in-directives#one-per-element).
+ * [Structural Directives](guide/structural-directives#one-per-element).
  *
  * @ngModule CommonModule
  * @publicApi
@@ -36030,7 +36322,7 @@ function isPlatformWorkerUi(platformId) {
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.3.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.3.11');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -36368,7 +36660,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 9151);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 6942);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -39589,7 +39881,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 8623);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 4514);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -41433,8 +41725,16 @@ function updateTransplantedViewCount(lContainer, amount) {
 const instructionState = {
     lFrame: createLFrame(null),
     bindingsEnabled: true,
-    isInCheckNoChangesMode: false,
 };
+/**
+ * In this mode, any changes in bindings will throw an ExpressionChangedAfterChecked error.
+ *
+ * Necessary to support ChangeDetectorRef.checkNoChanges().
+ *
+ * The `checkNoChanges` function is invoked only in ngDevMode=true and verifies that no unintended
+ * changes exist in the change detector or its children.
+ */
+let _isInCheckNoChangesMode = false;
 /**
  * Returns true if the instruction state stack is empty.
  *
@@ -41561,11 +41861,12 @@ function getContextLView() {
     return instructionState.lFrame.contextLView;
 }
 function isInCheckNoChangesMode() {
-    // TODO(misko): remove this from the LView since it is ngDevMode=true mode only.
-    return instructionState.isInCheckNoChangesMode;
+    !ngDevMode && throwError('Must never be called in production mode');
+    return _isInCheckNoChangesMode;
 }
 function setIsInCheckNoChangesMode(mode) {
-    instructionState.isInCheckNoChangesMode = mode;
+    !ngDevMode && throwError('Must never be called in production mode');
+    _isInCheckNoChangesMode = mode;
 }
 // top level variables should not be exported for performance reasons (PERF_NOTES.md)
 function getBindingRoot() {
@@ -46308,8 +46609,10 @@ function maybeUnwrapFn(value) {
  * found in the LICENSE file at https://angular.io/license
  */
 /** Called when there are multiple component selectors that match a given node */
-function throwMultipleComponentError(tNode) {
-    throw new RuntimeError(-300 /* MULTIPLE_COMPONENTS_MATCH */, `Multiple components match node with tagname ${tNode.value}`);
+function throwMultipleComponentError(tNode, first, second) {
+    throw new RuntimeError(-300 /* MULTIPLE_COMPONENTS_MATCH */, `Multiple components match node with tagname ${tNode.value}: ` +
+        `${stringifyForError(first)} and ` +
+        `${stringifyForError(second)}`);
 }
 /** Throws an ExpressionChangedAfterChecked error if checkNoChanges mode is on. */
 function throwErrorIfNoChangesMode(creationMode, oldValue, currValue, propName) {
@@ -47975,7 +48278,7 @@ const NO_CHANGE = (typeof ngDevMode === 'undefined' || ngDevMode) ? { __brand__:
  */
 function ɵɵadvance(delta) {
     ngDevMode && assertGreaterThan(delta, 0, 'Can only advance forward');
-    selectIndexInternal(getTView(), getLView(), getSelectedIndex() + delta, isInCheckNoChangesMode());
+    selectIndexInternal(getTView(), getLView(), getSelectedIndex() + delta, !!ngDevMode && isInCheckNoChangesMode());
 }
 function selectIndexInternal(tView, lView, index, checkNoChangesMode) {
     ngDevMode && assertIndexInDeclRange(lView, index);
@@ -49066,7 +49369,7 @@ function refreshView(tView, lView, templateFn, context) {
     enterView(lView);
     // Check no changes mode is a dev only mode used to verify that bindings have not changed
     // since they were assigned. We do not want to execute lifecycle hooks in that mode.
-    const isInCheckNoChangesPass = isInCheckNoChangesMode();
+    const isInCheckNoChangesPass = ngDevMode && isInCheckNoChangesMode();
     try {
         resetPreOrderHookFlags(lView);
         setBindingIndex(tView.bindingStartIndex);
@@ -49176,10 +49479,13 @@ function refreshView(tView, lView, templateFn, context) {
 }
 function renderComponentOrTemplate(tView, lView, templateFn, context) {
     const rendererFactory = lView[RENDERER_FACTORY];
-    const normalExecutionPath = !isInCheckNoChangesMode();
+    // Check no changes mode is a dev only mode used to verify that bindings have not changed
+    // since they were assigned. We do not want to invoke renderer factory functions in that mode
+    // to avoid any possible side-effects.
+    const checkNoChangesMode = !!ngDevMode && isInCheckNoChangesMode();
     const creationModeIsActive = isCreationMode(lView);
     try {
-        if (normalExecutionPath && !creationModeIsActive && rendererFactory.begin) {
+        if (!checkNoChangesMode && !creationModeIsActive && rendererFactory.begin) {
             rendererFactory.begin();
         }
         if (creationModeIsActive) {
@@ -49188,7 +49494,7 @@ function renderComponentOrTemplate(tView, lView, templateFn, context) {
         refreshView(tView, lView, templateFn, context);
     }
     finally {
-        if (normalExecutionPath && !creationModeIsActive && rendererFactory.end) {
+        if (!checkNoChangesMode && !creationModeIsActive && rendererFactory.end) {
             rendererFactory.end();
         }
     }
@@ -49201,7 +49507,7 @@ function executeTemplate(tView, lView, templateFn, rf, context) {
         if (isUpdatePhase && lView.length > HEADER_OFFSET) {
             // When we're updating, inherently select 0 so we don't
             // have to generate that instruction for most update blocks.
-            selectIndexInternal(tView, lView, HEADER_OFFSET, isInCheckNoChangesMode());
+            selectIndexInternal(tView, lView, HEADER_OFFSET, !!ngDevMode && isInCheckNoChangesMode());
         }
         const preHookType = isUpdatePhase ? 2 /* TemplateUpdateStart */ : 0 /* TemplateCreateStart */;
         profiler(preHookType, context);
@@ -49621,9 +49927,9 @@ function elementPropertyInternal(tView, tNode, lView, propName, value, renderer,
         propName = mapPropName(propName);
         if (ngDevMode) {
             validateAgainstEventProperties(propName);
-            if (!validateProperty(tView, element, propName, tNode)) {
+            if (!validateProperty(element, tNode.value, propName, tView.schemas)) {
                 // Return here since we only log warnings for unknown properties.
-                logUnknownPropertyError(propName, tNode);
+                logUnknownPropertyError(propName, tNode.value);
                 return;
             }
             ngDevMode.rendererSetProperty++;
@@ -49642,8 +49948,8 @@ function elementPropertyInternal(tView, tNode, lView, propName, value, renderer,
     else if (tNode.type & 12 /* AnyContainer */) {
         // If the node is a container and the property didn't
         // match any of the inputs or schemas we should throw.
-        if (ngDevMode && !matchingSchemas(tView, tNode.value)) {
-            logUnknownPropertyError(propName, tNode);
+        if (ngDevMode && !matchingSchemas(tView.schemas, tNode.value)) {
+            logUnknownPropertyError(propName, tNode.value);
         }
     }
 }
@@ -49695,24 +50001,44 @@ function setNgReflectProperties(lView, element, type, dataValue, value) {
         }
     }
 }
-function validateProperty(tView, element, propName, tNode) {
+/**
+ * Validates that the property of the element is known at runtime and returns
+ * false if it's not the case.
+ * This check is relevant for JIT-compiled components (for AOT-compiled
+ * ones this check happens at build time).
+ *
+ * The property is considered known if either:
+ * - it's a known property of the element
+ * - the element is allowed by one of the schemas
+ * - the property is used for animations
+ *
+ * @param element Element to validate
+ * @param tagName Name of the tag to check
+ * @param propName Name of the property to check
+ * @param schemas Array of schemas
+ */
+function validateProperty(element, tagName, propName, schemas) {
     // If `schemas` is set to `null`, that's an indication that this Component was compiled in AOT
     // mode where this check happens at compile time. In JIT mode, `schemas` is always present and
     // defined as an array (as an empty array in case `schemas` field is not defined) and we should
     // execute the check below.
-    if (tView.schemas === null)
+    if (schemas === null)
         return true;
-    // The property is considered valid if the element matches the schema, it exists on the element
+    // The property is considered valid if the element matches the schema, it exists on the element,
     // or it is synthetic, and we are in a browser context (web worker nodes should be skipped).
-    if (matchingSchemas(tView, tNode.value) || propName in element || isAnimationProp(propName)) {
+    if (matchingSchemas(schemas, tagName) || propName in element || isAnimationProp(propName)) {
         return true;
     }
     // Note: `typeof Node` returns 'function' in most browsers, but on IE it is 'object' so we
-    // need to account for both here, while being careful for `typeof null` also returning 'object'.
+    // need to account for both here, while being careful with `typeof null` also returning 'object'.
     return typeof Node === 'undefined' || Node === null || !(element instanceof Node);
 }
-function matchingSchemas(tView, tagName) {
-    const schemas = tView.schemas;
+/**
+ * Returns true if the tag name is allowed by specified schemas.
+ * @param schemas Array of schemas
+ * @param tagName Name of the tag
+ */
+function matchingSchemas(schemas, tagName) {
     if (schemas !== null) {
         for (let i = 0; i < schemas.length; i++) {
             const schema = schemas[i];
@@ -49727,10 +50053,10 @@ function matchingSchemas(tView, tagName) {
 /**
  * Logs an error that a property is not supported on an element.
  * @param propName Name of the invalid property.
- * @param tNode Node on which we encountered the property.
+ * @param tagName Name of the node on which we encountered the property.
  */
-function logUnknownPropertyError(propName, tNode) {
-    let message = `Can't bind to '${propName}' since it isn't a known property of '${tNode.value}'.`;
+function logUnknownPropertyError(propName, tagName) {
+    const message = `Can't bind to '${propName}' since it isn't a known property of '${tagName}'.`;
     console.error(formatRuntimeError(303 /* UNKNOWN_BINDING */, message));
 }
 /**
@@ -49948,8 +50274,11 @@ function findDirectiveDefMatches(tView, viewData, tNode) {
                     if (ngDevMode) {
                         assertTNodeType(tNode, 2 /* Element */, `"${tNode.value}" tags cannot be used as component hosts. ` +
                             `Please use a different tag to activate the ${stringify(def.type)} component.`);
-                        if (tNode.flags & 2 /* isComponentHost */)
-                            throwMultipleComponentError(tNode);
+                        if (tNode.flags & 2 /* isComponentHost */) {
+                            // If another component has been matched previously, it's the first element in the
+                            // `matches` array, see how we store components/directives in `matches` below.
+                            throwMultipleComponentError(tNode, matches[0].type, def.type);
+                        }
                     }
                     markAsComponentHost(tView, tNode);
                     // The component is always stored first with directives after.
@@ -51948,7 +52277,7 @@ function ɵɵInheritDefinitionFeature(definition) {
         else {
             if (superType.ɵcmp) {
                 const errorMessage = (typeof ngDevMode === 'undefined' || ngDevMode) ?
-                    'Directives cannot inherit Components' :
+                    `Directives cannot inherit Components. Directive ${stringifyForError(definition.type)} is attempting to extend component ${stringifyForError(superType)}` :
                     '';
                 throw new RuntimeError(903 /* INVALID_INHERITANCE */, errorMessage);
             }
@@ -54063,7 +54392,7 @@ function elementStartFirstCreatePass(index, tView, lView, native, name, attrsInd
     const attrs = getConstant(tViewConsts, attrsIndex);
     const tNode = getOrCreateTNode(tView, index, 2 /* Element */, name, attrs);
     const hasDirectives = resolveDirectives(tView, lView, tNode, getConstant(tViewConsts, localRefsIndex));
-    ngDevMode && logUnknownElementError(tView, native, tNode, hasDirectives);
+    ngDevMode && validateElementIsKnown(native, tNode.value, tView.schemas, hasDirectives);
     if (tNode.attrs !== null) {
         computeStaticStyling(tNode, tNode.attrs, false);
     }
@@ -54187,18 +54516,33 @@ function ɵɵelement(index, name, attrsIndex, localRefsIndex) {
     ɵɵelementEnd();
     return ɵɵelement;
 }
-function logUnknownElementError(tView, element, tNode, hasDirectives) {
-    const schemas = tView.schemas;
+/**
+ * Validates that the element is known at runtime and produces
+ * an error if it's not the case.
+ * This check is relevant for JIT-compiled components (for AOT-compiled
+ * ones this check happens at build time).
+ *
+ * The element is considered known if either:
+ * - it's a known HTML element
+ * - it's a known custom element
+ * - the element matches any directive
+ * - the element is allowed by one of the schemas
+ *
+ * @param element Element to validate
+ * @param tagName Name of the tag to check
+ * @param schemas Array of schemas
+ * @param hasDirectives Boolean indicating that the element matches any directive
+ */
+function validateElementIsKnown(element, tagName, schemas, hasDirectives) {
     // If `schemas` is set to `null`, that's an indication that this Component was compiled in AOT
     // mode where this check happens at compile time. In JIT mode, `schemas` is always present and
     // defined as an array (as an empty array in case `schemas` field is not defined) and we should
     // execute the check below.
     if (schemas === null)
         return;
-    const tagName = tNode.value;
     // If the element matches any directive, it's considered as valid.
     if (!hasDirectives && tagName !== null) {
-        // The element is unknown if it's an instance of HTMLUnknownElement or it isn't registered
+        // The element is unknown if it's an instance of HTMLUnknownElement, or it isn't registered
         // as a custom element. Note that unknown elements with a dash in their name won't be instances
         // of HTMLUnknownElement in browsers that support web components.
         const isUnknown = 
@@ -54208,7 +54552,7 @@ function logUnknownElementError(tView, element, tNode, hasDirectives) {
             element instanceof HTMLUnknownElement) ||
             (typeof customElements !== 'undefined' && tagName.indexOf('-') > -1 &&
                 !customElements.get(tagName));
-        if (isUnknown && !matchingSchemas(tView, tagName)) {
+        if (isUnknown && !matchingSchemas(schemas, tagName)) {
             let message = `'${tagName}' is not a known element:\n`;
             message += `1. If '${tagName}' is an Angular component, then verify that it is part of this module.\n`;
             if (tagName && tagName.indexOf('-') > -1) {
@@ -60678,7 +61022,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('13.3.0');
+const VERSION = new Version('13.3.11');
 
 /**
  * @license
@@ -61010,7 +61354,9 @@ class ViewRef$1 {
      * introduce other changes.
      */
     checkNoChanges() {
-        checkNoChangesInternal(this._lView[TVIEW], this._lView, this.context);
+        if (ngDevMode) {
+            checkNoChangesInternal(this._lView[TVIEW], this._lView, this.context);
+        }
     }
     attachToViewContainerRef() {
         if (this._appRef) {
@@ -61041,7 +61387,9 @@ class RootViewRef extends ViewRef$1 {
         detectChangesInRootView(this._view);
     }
     checkNoChanges() {
-        checkNoChangesInRootView(this._view);
+        if (ngDevMode) {
+            checkNoChangesInRootView(this._view);
+        }
     }
     get context() {
         return null;
@@ -64447,7 +64795,10 @@ const PLATFORM_INITIALIZER = new InjectionToken('Platform Initializer');
  * A token that indicates an opaque platform ID.
  * @publicApi
  */
-const PLATFORM_ID = new InjectionToken('Platform ID');
+const PLATFORM_ID = new InjectionToken('Platform ID', {
+    providedIn: 'platform',
+    factory: () => 'unknown', // set a default platform name, when none set explicitly
+});
 /**
  * A [DI token](guide/glossary#di-token "DI token definition") that provides a set of callbacks to
  * be called for every component that is bootstrapped.
@@ -64485,10 +64836,11 @@ class Console {
     }
 }
 Console.ɵfac = function Console_Factory(t) { return new (t || Console)(); };
-Console.ɵprov = /*@__PURE__*/ ɵɵdefineInjectable({ token: Console, factory: Console.ɵfac });
+Console.ɵprov = /*@__PURE__*/ ɵɵdefineInjectable({ token: Console, factory: Console.ɵfac, providedIn: 'platform' });
 (function () {
     (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Console, [{
-            type: Injectable
+            type: Injectable,
+            args: [{ providedIn: 'platform' }]
         }], null, null);
 })();
 
@@ -65451,10 +65803,11 @@ class TestabilityRegistry {
     }
 }
 TestabilityRegistry.ɵfac = function TestabilityRegistry_Factory(t) { return new (t || TestabilityRegistry)(); };
-TestabilityRegistry.ɵprov = /*@__PURE__*/ ɵɵdefineInjectable({ token: TestabilityRegistry, factory: TestabilityRegistry.ɵfac });
+TestabilityRegistry.ɵprov = /*@__PURE__*/ ɵɵdefineInjectable({ token: TestabilityRegistry, factory: TestabilityRegistry.ɵfac, providedIn: 'platform' });
 (function () {
     (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TestabilityRegistry, [{
-            type: Injectable
+            type: Injectable,
+            args: [{ providedIn: 'platform' }]
         }], function () { return []; }, null);
 })();
 class _NoopGetTestability {
@@ -65479,7 +65832,19 @@ let _testabilityGetter = new _NoopGetTestability();
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let _platform;
+let _platformInjector = null;
+/**
+ * Internal token to indicate whether having multiple bootstrapped platform should be allowed (only
+ * one bootstrapped platform is allowed by default). This token helps to support SSR scenarios.
+ */
+const ALLOW_MULTIPLE_PLATFORMS = new InjectionToken('AllowMultipleToken');
+/**
+ * Internal token that allows to register extra callbacks that should be invoked during the
+ * `PlatformRef.destroy` operation. This token is needed to avoid a direct reference to the
+ * `PlatformRef` class (i.e. register the callback via `PlatformRef.onDestroy`), thus making the
+ * entire class tree-shakeable.
+ */
+const PLATFORM_ON_DESTROY = new InjectionToken('PlatformOnDestroy');
 function compileNgModuleFactory(injector, options, moduleType) {
     ngDevMode && assertNgModuleType(moduleType);
     const moduleFactory = new NgModuleFactory(moduleType);
@@ -65524,7 +65889,6 @@ function publishDefaultGlobalUtils() {
 function isBoundToModule(cf) {
     return cf.isBoundToModule;
 }
-const ALLOW_MULTIPLE_PLATFORMS = new InjectionToken('AllowMultipleToken');
 /**
  * A token for third-party components that can register themselves with NgProbe.
  *
@@ -65543,19 +65907,19 @@ class NgProbeToken {
  * @publicApi
  */
 function createPlatform(injector) {
-    if (_platform && !_platform.destroyed &&
-        !_platform.injector.get(ALLOW_MULTIPLE_PLATFORMS, false)) {
+    if (_platformInjector && !_platformInjector.get(ALLOW_MULTIPLE_PLATFORMS, false)) {
         const errorMessage = (typeof ngDevMode === 'undefined' || ngDevMode) ?
             'There can be only one platform. Destroy the previous one to create a new one.' :
             '';
         throw new RuntimeError(400 /* MULTIPLE_PLATFORMS */, errorMessage);
     }
     publishDefaultGlobalUtils();
-    _platform = injector.get(PlatformRef);
+    _platformInjector = injector;
+    const platform = injector.get(PlatformRef);
     const inits = injector.get(PLATFORM_INITIALIZER, null);
     if (inits)
-        inits.forEach((init) => init());
-    return _platform;
+        inits.forEach(initFn => initFn());
+    return platform;
 }
 /**
  * Creates a factory for a platform. Can be used to provide or override `Providers` specific to
@@ -65574,15 +65938,16 @@ function createPlatformFactory(parentPlatformFactory, name, providers = []) {
     return (extraProviders = []) => {
         let platform = getPlatform();
         if (!platform || platform.injector.get(ALLOW_MULTIPLE_PLATFORMS, false)) {
+            const platformProviders = [
+                ...providers,
+                ...extraProviders,
+                { provide: marker, useValue: true }
+            ];
             if (parentPlatformFactory) {
-                parentPlatformFactory(providers.concat(extraProviders).concat({ provide: marker, useValue: true }));
+                parentPlatformFactory(platformProviders);
             }
             else {
-                const injectedProviders = providers.concat(extraProviders).concat({ provide: marker, useValue: true }, {
-                    provide: INJECTOR_SCOPE,
-                    useValue: 'platform'
-                });
-                createPlatform(Injector.create({ providers: injectedProviders, name: desc }));
+                createPlatform(createPlatformInjector(platformProviders, desc));
             }
         }
         return assertPlatform(marker);
@@ -65606,15 +65971,28 @@ function assertPlatform(requiredToken) {
     return platform;
 }
 /**
+ * Helper function to create an instance of a platform injector (that maintains the 'platform'
+ * scope).
+ */
+function createPlatformInjector(providers = [], name) {
+    return Injector.create({
+        name,
+        providers: [
+            { provide: INJECTOR_SCOPE, useValue: 'platform' },
+            { provide: PLATFORM_ON_DESTROY, useValue: () => _platformInjector = null },
+            ...providers
+        ],
+    });
+}
+/**
  * Destroys the current Angular platform and all Angular applications on the page.
  * Destroys all modules and listeners registered with the platform.
  *
  * @publicApi
  */
 function destroyPlatform() {
-    if (_platform && !_platform.destroyed) {
-        _platform.destroy();
-    }
+    var _a;
+    (_a = getPlatform()) === null || _a === void 0 ? void 0 : _a.destroy();
 }
 /**
  * Returns the current platform.
@@ -65622,7 +66000,8 @@ function destroyPlatform() {
  * @publicApi
  */
 function getPlatform() {
-    return _platform && !_platform.destroyed ? _platform : null;
+    var _a;
+    return (_a = _platformInjector === null || _platformInjector === void 0 ? void 0 : _platformInjector.get(PlatformRef)) !== null && _a !== void 0 ? _a : null;
 }
 /**
  * The Angular platform is the entry point for Angular on a web page.
@@ -65760,6 +66139,8 @@ class PlatformRef {
         }
         this._modules.slice().forEach(module => module.destroy());
         this._destroyListeners.forEach(listener => listener());
+        const destroyListener = this._injector.get(PLATFORM_ON_DESTROY, null);
+        destroyListener === null || destroyListener === void 0 ? void 0 : destroyListener();
         this._destroyed = true;
     }
     get destroyed() {
@@ -65767,10 +66148,11 @@ class PlatformRef {
     }
 }
 PlatformRef.ɵfac = function PlatformRef_Factory(t) { return new (t || PlatformRef)(ɵɵinject(Injector)); };
-PlatformRef.ɵprov = /*@__PURE__*/ ɵɵdefineInjectable({ token: PlatformRef, factory: PlatformRef.ɵfac });
+PlatformRef.ɵprov = /*@__PURE__*/ ɵɵdefineInjectable({ token: PlatformRef, factory: PlatformRef.ɵfac, providedIn: 'platform' });
 (function () {
     (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PlatformRef, [{
-            type: Injectable
+            type: Injectable,
+            args: [{ providedIn: 'platform' }]
         }], function () { return [{ type: Injector }]; }, null);
 })();
 function getNgZone(ngZoneOption, extra) {
@@ -65909,11 +66291,10 @@ function optionsReducer(dst, objs) {
  */
 class ApplicationRef {
     /** @internal */
-    constructor(_zone, _injector, _exceptionHandler, _componentFactoryResolver, _initStatus) {
+    constructor(_zone, _injector, _exceptionHandler, _initStatus) {
         this._zone = _zone;
         this._injector = _injector;
         this._exceptionHandler = _exceptionHandler;
-        this._componentFactoryResolver = _componentFactoryResolver;
         this._initStatus = _initStatus;
         /** @internal */
         this._bootstrapListeners = [];
@@ -66029,8 +66410,8 @@ class ApplicationRef {
             componentFactory = componentOrFactory;
         }
         else {
-            componentFactory =
-                this._componentFactoryResolver.resolveComponentFactory(componentOrFactory);
+            const resolver = this._injector.get(ComponentFactoryResolver$1);
+            componentFactory = resolver.resolveComponentFactory(componentOrFactory);
         }
         this.componentTypes.push(componentFactory.componentType);
         // Create a factory associated with the current module if it's not bound to some other
@@ -66131,13 +66512,13 @@ class ApplicationRef {
         return this._views.length;
     }
 }
-ApplicationRef.ɵfac = function ApplicationRef_Factory(t) { return new (t || ApplicationRef)(ɵɵinject(NgZone), ɵɵinject(Injector), ɵɵinject(ErrorHandler), ɵɵinject(ComponentFactoryResolver$1), ɵɵinject(ApplicationInitStatus)); };
+ApplicationRef.ɵfac = function ApplicationRef_Factory(t) { return new (t || ApplicationRef)(ɵɵinject(NgZone), ɵɵinject(Injector), ɵɵinject(ErrorHandler), ɵɵinject(ApplicationInitStatus)); };
 ApplicationRef.ɵprov = /*@__PURE__*/ ɵɵdefineInjectable({ token: ApplicationRef, factory: ApplicationRef.ɵfac, providedIn: 'root' });
 (function () {
     (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ApplicationRef, [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
-        }], function () { return [{ type: NgZone }, { type: Injector }, { type: ErrorHandler }, { type: ComponentFactoryResolver$1 }, { type: ApplicationInitStatus }]; }, null);
+        }], function () { return [{ type: NgZone }, { type: Injector }, { type: ErrorHandler }, { type: ApplicationInitStatus }]; }, null);
 })();
 function remove(list, el) {
     const index = list.indexOf(el);
@@ -68120,19 +68501,12 @@ const defaultKeyValueDiffers = new KeyValueDiffers(keyValDiff);
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const _CORE_PLATFORM_PROVIDERS = [
-    // Set a default platform name for platforms that don't set it explicitly.
-    { provide: PLATFORM_ID, useValue: 'unknown' },
-    { provide: PlatformRef, deps: [Injector] },
-    { provide: TestabilityRegistry, deps: [] },
-    { provide: Console, deps: [] },
-];
 /**
  * This platform has to be included in any other platform
  *
  * @publicApi
  */
-const platformCore = createPlatformFactory(null, 'core', _CORE_PLATFORM_PROVIDERS);
+const platformCore = createPlatformFactory(null, 'core', []);
 
 /**
  * Re-exported by `BrowserModule`, which is included automatically in the root
@@ -68336,7 +68710,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 9095);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 6942);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -68892,7 +69266,7 @@ function createCustomElement(component, config) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.3.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.3.11');
 
 /**
  * @license
@@ -68982,7 +69356,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 4350);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 6942);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -69585,7 +69959,7 @@ class Validators {
    * ### Validate that the field value is true
    *
    * ```typescript
-   * const control = new FormControl('', Validators.requiredTrue);
+   * const control = new FormControl('some value', Validators.requiredTrue);
    *
    * console.log(control.errors); // {required: true}
    * ```
@@ -78241,7 +78615,7 @@ FormBuilder.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.3.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.3.11');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -78299,7 +78673,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 289);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 6362);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -79060,7 +79434,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 6362);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 3184);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -81793,7 +82167,7 @@ DomSanitizerImpl.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('13.3.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('13.3.11');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -81920,7 +82294,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! rxjs/operators */ 6675);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @angular/common */ 6362);
 /**
- * @license Angular v13.3.0
+ * @license Angular v13.3.11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -87819,7 +88193,7 @@ function isBrowserTriggeredNavigation(source) {
  * For example, `['/team', teamId, 'user', userName, {details: true}]`
  * generates a link to `/team/11/user/bob;details=true`.
  *
- * Multiple static segments can be merged into one term and combined with dynamic segements.
+ * Multiple static segments can be merged into one term and combined with dynamic segments.
  * For example, `['/team/11/user', userName, {details: true}]`
  *
  * The input that you provide to the link is treated as a delta to the current URL.
@@ -89263,7 +89637,7 @@ function provideRouterInitializer() {
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.3.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.3.11');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -89319,6 +89693,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "NgbAccordionConfig": () => (/* binding */ NgbAccordionConfig),
 /* harmony export */   "NgbAccordionModule": () => (/* binding */ NgbAccordionModule),
 /* harmony export */   "NgbActiveModal": () => (/* binding */ NgbActiveModal),
+/* harmony export */   "NgbActiveOffcanvas": () => (/* binding */ NgbActiveOffcanvas),
 /* harmony export */   "NgbAlert": () => (/* binding */ NgbAlert),
 /* harmony export */   "NgbAlertConfig": () => (/* binding */ NgbAlertConfig),
 /* harmony export */   "NgbAlertModule": () => (/* binding */ NgbAlertModule),
@@ -89377,6 +89752,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "NgbNavOutlet": () => (/* binding */ NgbNavOutlet),
 /* harmony export */   "NgbNavPane": () => (/* binding */ NgbNavPane),
 /* harmony export */   "NgbNavbar": () => (/* binding */ NgbNavbar),
+/* harmony export */   "NgbOffcanvas": () => (/* binding */ NgbOffcanvas),
+/* harmony export */   "NgbOffcanvasConfig": () => (/* binding */ NgbOffcanvasConfig),
+/* harmony export */   "NgbOffcanvasModule": () => (/* binding */ NgbOffcanvasModule),
+/* harmony export */   "NgbOffcanvasRef": () => (/* binding */ NgbOffcanvasRef),
 /* harmony export */   "NgbPagination": () => (/* binding */ NgbPagination),
 /* harmony export */   "NgbPaginationConfig": () => (/* binding */ NgbPaginationConfig),
 /* harmony export */   "NgbPaginationEllipsis": () => (/* binding */ NgbPaginationEllipsis),
@@ -89420,7 +89799,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "NgbTooltipModule": () => (/* binding */ NgbTooltipModule),
 /* harmony export */   "NgbTypeahead": () => (/* binding */ NgbTypeahead),
 /* harmony export */   "NgbTypeaheadConfig": () => (/* binding */ NgbTypeaheadConfig),
-/* harmony export */   "NgbTypeaheadModule": () => (/* binding */ NgbTypeaheadModule)
+/* harmony export */   "NgbTypeaheadModule": () => (/* binding */ NgbTypeaheadModule),
+/* harmony export */   "OffcanvasDismissReasons": () => (/* binding */ OffcanvasDismissReasons)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 3184);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ 6362);
@@ -89447,15 +89827,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! rxjs/operators */ 8759);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! rxjs/operators */ 1745);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! rxjs/operators */ 5843);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! rxjs/operators */ 522);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! rxjs/operators */ 6276);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! rxjs/operators */ 4514);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! rxjs/operators */ 522);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! rxjs/operators */ 6276);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! rxjs/operators */ 4514);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! rxjs/operators */ 4661);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/forms */ 587);
 /* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @popperjs/core */ 8298);
 /* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @popperjs/core */ 6460);
 /* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @popperjs/core */ 6978);
 /* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @popperjs/core */ 4987);
-/* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @popperjs/core */ 8634);
+/* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @popperjs/core */ 8634);
 
 
 
@@ -89492,7 +89873,15 @@ function NgbAccordion_ng_template_2_div_3_ng_template_2_Template(rf, ctx) {}
 
 function NgbAccordion_ng_template_2_div_3_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 8)(1, "div", 9);
+    const _r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngbRef", function NgbAccordion_ng_template_2_div_3_Template_div_ngbRef_0_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r11);
+      const panel_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+      return panel_r5.panelDiv = $event;
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, NgbAccordion_ng_template_2_div_3_ng_template_2_Template, 0, 0, "ng-template", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
   }
@@ -89555,12 +89944,12 @@ function NgbAlert_button_1_Template(rf, ctx) {
 
 const _c3 = ["*"];
 
-function NgbCarousel_li_1_Template(rf, ctx) {
+function NgbCarousel_button_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function NgbCarousel_li_1_Template_li_click_0_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function NgbCarousel_button_1_Template_button_click_0_listener() {
       const restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r6);
       const slide_r4 = restoredCtx.$implicit;
       const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -89602,12 +89991,12 @@ function NgbCarousel_div_3_Template(rf, ctx) {
   }
 }
 
-function NgbCarousel_a_4_Template(rf, ctx) {
+function NgbCarousel_button_4_Template(rf, ctx) {
   if (rf & 1) {
     const _r12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function NgbCarousel_a_4_Template_a_click_0_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function NgbCarousel_button_4_Template_button_click_0_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r12);
       const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
       return ctx_r11.arrowLeft();
@@ -89619,12 +90008,12 @@ function NgbCarousel_a_4_Template(rf, ctx) {
   }
 }
 
-function NgbCarousel_a_5_Template(rf, ctx) {
+function NgbCarousel_button_5_Template(rf, ctx) {
   if (rf & 1) {
     const _r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function NgbCarousel_a_5_Template_a_click_0_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function NgbCarousel_button_5_Template_button_click_0_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r14);
       const ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
       return ctx_r13.arrowRight();
@@ -90837,28 +91226,6 @@ function hasClassName(element, className) {
   return element && element.className && element.className.split && element.className.split(/\s+/).indexOf(className) >= 0;
 }
 
-if (typeof Element !== 'undefined' && !Element.prototype.closest) {
-  // Polyfill for ie10+
-  Element.prototype.closest = function (s) {
-    /* eslint-disable-next-line @typescript-eslint/no-this-alias */
-    let el = this;
-
-    if (!document.documentElement.contains(el)) {
-      return null;
-    }
-
-    do {
-      if (el.matches(s)) {
-        return el;
-      }
-
-      el = el.parentElement || el.parentNode;
-    } while (el !== null && el.nodeType === 1);
-
-    return null;
-  };
-}
-
 function closest(element, selector) {
   if (!selector) {
     return null;
@@ -91410,6 +91777,51 @@ NgbPanel.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
     }]
   });
 })();
+
+class NgbRefDirective {
+  constructor(_El) {
+    this._El = _El;
+    this.ngbRef = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+  }
+
+  ngOnInit() {
+    this.ngbRef.emit(this._El.nativeElement);
+  }
+
+  ngOnDestroy() {
+    this.ngbRef.emit(null);
+  }
+
+}
+
+NgbRefDirective.ɵfac = function NgbRefDirective_Factory(t) {
+  return new (t || NgbRefDirective)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef));
+};
+
+NgbRefDirective.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({
+  type: NgbRefDirective,
+  selectors: [["", "ngbRef", ""]],
+  outputs: {
+    ngbRef: "ngbRef"
+  }
+});
+
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgbRefDirective, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Directive,
+    args: [{
+      selector: '[ngbRef]'
+    }]
+  }], function () {
+    return [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef
+    }];
+  }, {
+    ngbRef: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output
+    }]
+  });
+})();
 /**
  * Accordion is a collection of collapsible panels (bootstrap cards).
  *
@@ -91419,8 +91831,7 @@ NgbPanel.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
 
 
 class NgbAccordion {
-  constructor(config, _element, _ngZone, _changeDetector) {
-    this._element = _element;
+  constructor(config, _ngZone, _changeDetector) {
     this._ngZone = _ngZone;
     this._changeDetector = _changeDetector;
     /**
@@ -91551,7 +91962,7 @@ class NgbAccordion {
 
     this._ngZone.onStable.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
       this.panels.forEach(panel => {
-        const panelElement = this._getPanelElement(panel.id);
+        const panelElement = panel.panelDiv;
 
         if (panelElement) {
           if (!panel.initClassDone) {
@@ -91624,8 +92035,7 @@ class NgbAccordion {
       // When panel.transitionRunning is true, the transition needs to be started OR reversed,
       // The direction (show or hide) is choosen by each panel.isOpen state
       if (panel.transitionRunning) {
-        const panelElement = this._getPanelElement(panel.id);
-
+        const panelElement = panel.panelDiv;
         ngbRunTransition(this._ngZone, panelElement, ngbCollapsingTransition, {
           animation,
           runningTransition: 'stop',
@@ -91650,14 +92060,10 @@ class NgbAccordion {
     });
   }
 
-  _getPanelElement(panelId) {
-    return this._element.nativeElement.querySelector('#' + panelId);
-  }
-
 }
 
 NgbAccordion.ɵfac = function NgbAccordion_Factory(t) {
-  return new (t || NgbAccordion)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](NgbAccordionConfig), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ChangeDetectorRef));
+  return new (t || NgbAccordion)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](NgbAccordionConfig), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ChangeDetectorRef));
 };
 
 NgbAccordion.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -91696,7 +92102,7 @@ NgbAccordion.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
   exportAs: ["ngbAccordion"],
   decls: 3,
   vars: 1,
-  consts: [["ngbPanelHeader", ""], ["t", ""], ["ngFor", "", 3, "ngForOf"], [1, "accordion-button", 3, "ngbPanelToggle"], [3, "ngTemplateOutlet"], ["role", "tab", 3, "id"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], ["role", "tabpanel", 3, "id", 4, "ngIf"], ["role", "tabpanel", 3, "id"], [1, "accordion-body"]],
+  consts: [["ngbPanelHeader", ""], ["t", ""], ["ngFor", "", 3, "ngForOf"], [1, "accordion-button", 3, "ngbPanelToggle"], [3, "ngTemplateOutlet"], ["role", "tab", 3, "id"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], ["role", "tabpanel", 3, "id", "ngbRef", 4, "ngIf"], ["role", "tabpanel", 3, "id", "ngbRef"], [1, "accordion-body"]],
   template: function NgbAccordion_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, NgbAccordion_ng_template_0_Template, 3, 3, "ng-template", 0, 1, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplateRefExtractor"]);
@@ -91709,7 +92115,7 @@ NgbAccordion.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
     }
   },
   directives: function () {
-    return [NgbPanelHeader, NgbPanelToggle, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgIf];
+    return [NgbPanelHeader, NgbPanelToggle, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgIf, NgbRefDirective];
   },
   encapsulation: 2
 });
@@ -91738,7 +92144,7 @@ NgbAccordion.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
           <ng-template [ngTemplateOutlet]="panel.headerTpl?.templateRef || t"
                        [ngTemplateOutletContext]="{$implicit: panel, opened: panel.isOpen}"></ng-template>
         </div>
-        <div id="{{panel.id}}" role="tabpanel" [attr.aria-labelledby]="panel.id + '-header'"
+        <div id="{{panel.id}}" (ngbRef)="panel.panelDiv = $event" role="tabpanel" [attr.aria-labelledby]="panel.id + '-header'"
              *ngIf="!destroyOnHide || panel.isOpen || panel.transitionRunning">
           <div class="accordion-body">
             <ng-template [ngTemplateOutlet]="panel.contentTpl?.templateRef || null"></ng-template>
@@ -91751,8 +92157,6 @@ NgbAccordion.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
   }], function () {
     return [{
       type: NgbAccordionConfig
-    }, {
-      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef
     }, {
       type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone
     }, {
@@ -91891,7 +92295,7 @@ NgbAccordionModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE
   (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgbAccordionModule, [{
     type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
     args: [{
-      declarations: NGB_ACCORDION_DIRECTIVES,
+      declarations: [NgbRefDirective, ...NGB_ACCORDION_DIRECTIVES],
       exports: NGB_ACCORDION_DIRECTIVES,
       imports: [_angular_common__WEBPACK_IMPORTED_MODULE_12__.CommonModule]
     }]
@@ -92044,8 +92448,8 @@ NgbAlert.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_2 = goog.getMsg("Close");
-      i18n_1 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_2;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_2 = goog.getMsg("Close");
+      i18n_1 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_2;
     } else {
       i18n_1 = $localize`:@@ngb.alert.close:Close`;
     }
@@ -92141,6 +92545,12 @@ NgbAlertModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__
     }]
   }], null, null);
 })();
+/* eslint-disable */
+
+/**
+ * @deprecated 12.0.0 Please use native Angular code instead
+ */
+
 
 class NgbButtonLabel {}
 
@@ -92173,11 +92583,15 @@ NgbButtonLabel.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__
     }]
   }], null, null);
 })();
+/* eslint-disable */
+
 /**
  * Allows to easily create Bootstrap-style checkbox buttons.
  *
  * Integrates with forms, so the value of a checked button is bound to the underlying form control
  * either in a reactive or template-driven way.
+ *
+ * @deprecated 12.0.0 Please use native Angular code instead
  */
 
 
@@ -92314,6 +92728,8 @@ NgbCheckBox.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["�
     }]
   });
 })();
+/* eslint-disable */
+
 
 let nextId$3 = 0;
 /**
@@ -92321,6 +92737,8 @@ let nextId$3 = 0;
  *
  * Integrates with forms, so the value of a checked button is bound to the underlying form control
  * either in a reactive or template-driven way.
+ *
+ * @deprecated 12.0.0 Please use native Angular code instead
  */
 
 class NgbRadioGroup {
@@ -92439,6 +92857,8 @@ NgbRadioGroup.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
 /**
  * A directive that marks an input of type "radio" as a part of the
  * [`NgbRadioGroup`](#/components/buttons/api#NgbRadioGroup).
+ *
+ * @deprecated 12.0.0 Please use native Angular code instead
  */
 
 
@@ -92596,8 +93016,13 @@ NgbRadio.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
     }]
   });
 })();
+/* eslint-disable */
+
 
 const NGB_BUTTON_DIRECTIVES = [NgbButtonLabel, NgbCheckBox, NgbRadioGroup, NgbRadio];
+/**
+ * @deprecated 12.0.0 Please use native Angular code instead
+ */
 
 class NgbButtonsModule {}
 
@@ -93240,11 +93665,11 @@ NgbCarousel.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["�
       /**
        * @desc Currently selected slide number read by screen reader
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__5 = goog.getMsg(" Slide {$interpolation} of {$interpolation_1} ", {
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__5 = goog.getMsg(" Slide {$interpolation} of {$interpolation_1} ", {
         "interpolation": "\uFFFD0\uFFFD",
         "interpolation_1": "\uFFFD1\uFFFD"
       });
-      i18n_4 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__5;
+      i18n_4 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__5;
     } else {
       i18n_4 = $localize`:Currently selected slide number read by screen reader@@ngb.carousel.slide-number: Slide ${"\uFFFD0\uFFFD"}:INTERPOLATION: of ${"\uFFFD1\uFFFD"}:INTERPOLATION_1: `;
     }
@@ -93255,8 +93680,8 @@ NgbCarousel.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["�
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__7 = goog.getMsg("Previous");
-      i18n_6 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__7;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__7 = goog.getMsg("Previous");
+      i18n_6 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__7;
     } else {
       i18n_6 = $localize`:@@ngb.carousel.previous:Previous`;
     }
@@ -93267,24 +93692,24 @@ NgbCarousel.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["�
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__9 = goog.getMsg("Next");
-      i18n_8 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__9;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__9 = goog.getMsg("Next");
+      i18n_8 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__9;
     } else {
       i18n_8 = $localize`:@@ngb.carousel.next:Next`;
     }
 
-    return [["role", "tablist", 1, "carousel-indicators"], ["role", "tab", 3, "active", "click", 4, "ngFor", "ngForOf"], [1, "carousel-inner"], ["class", "carousel-item", "role", "tabpanel", 3, "id", 4, "ngFor", "ngForOf"], ["class", "carousel-control-prev", "role", "button", 3, "click", 4, "ngIf"], ["class", "carousel-control-next", "role", "button", 3, "click", 4, "ngIf"], ["role", "tab", 3, "click"], ["role", "tabpanel", 1, "carousel-item", 3, "id"], [1, "visually-hidden"], i18n_4, [3, "ngTemplateOutlet"], ["role", "button", 1, "carousel-control-prev", 3, "click"], ["aria-hidden", "true", 1, "carousel-control-prev-icon"], i18n_6, ["role", "button", 1, "carousel-control-next", 3, "click"], ["aria-hidden", "true", 1, "carousel-control-next-icon"], i18n_8];
+    return [["role", "tablist", 1, "carousel-indicators"], ["type", "button", "data-bs-target", "", "role", "tab", 3, "active", "click", 4, "ngFor", "ngForOf"], [1, "carousel-inner"], ["class", "carousel-item", "role", "tabpanel", 3, "id", 4, "ngFor", "ngForOf"], ["class", "carousel-control-prev", "type", "button", 3, "click", 4, "ngIf"], ["class", "carousel-control-next", "type", "button", 3, "click", 4, "ngIf"], ["type", "button", "data-bs-target", "", "role", "tab", 3, "click"], ["role", "tabpanel", 1, "carousel-item", 3, "id"], [1, "visually-hidden"], i18n_4, [3, "ngTemplateOutlet"], ["type", "button", 1, "carousel-control-prev", 3, "click"], ["aria-hidden", "true", 1, "carousel-control-prev-icon"], i18n_6, ["type", "button", 1, "carousel-control-next", 3, "click"], ["aria-hidden", "true", 1, "carousel-control-next-icon"], i18n_8];
   },
   template: function NgbCarousel_Template(rf, ctx) {
     if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ol", 0);
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, NgbCarousel_li_1_Template, 1, 5, "li", 1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, NgbCarousel_button_1_Template, 1, 5, "button", 1);
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, NgbCarousel_div_3_Template, 4, 4, "div", 3);
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, NgbCarousel_a_4_Template, 4, 0, "a", 4);
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, NgbCarousel_a_5_Template, 4, 0, "a", 5);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, NgbCarousel_button_4_Template, 4, 0, "button", 4);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, NgbCarousel_button_5_Template, 4, 0, "button", 5);
     }
 
     if (rf & 2) {
@@ -93325,12 +93750,12 @@ NgbCarousel.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         '[attr.aria-activedescendant]': `'slide-' + activeId`
       },
       template: `
-    <ol class="carousel-indicators" [class.visually-hidden]="!showNavigationIndicators" role="tablist">
-      <li *ngFor="let slide of slides" [class.active]="slide.id === activeId"
+    <div class="carousel-indicators" [class.visually-hidden]="!showNavigationIndicators" role="tablist">
+      <button type="button" data-bs-target *ngFor="let slide of slides" [class.active]="slide.id === activeId"
           role="tab" [attr.aria-labelledby]="'slide-' + slide.id" [attr.aria-controls]="'slide-' + slide.id"
           [attr.aria-selected]="slide.id === activeId"
-          (click)="focus();select(slide.id, NgbSlideEventSource.INDICATOR);"></li>
-    </ol>
+          (click)="focus();select(slide.id, NgbSlideEventSource.INDICATOR);"></button>
+    </div>
     <div class="carousel-inner">
       <div *ngFor="let slide of slides; index as i; count as c" class="carousel-item" [id]="'slide-' + slide.id" role="tabpanel">
         <span class="visually-hidden" i18n="Currently selected slide number read by screen reader@@ngb.carousel.slide-number">
@@ -93339,14 +93764,14 @@ NgbCarousel.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         <ng-template [ngTemplateOutlet]="slide.tplRef"></ng-template>
       </div>
     </div>
-    <a class="carousel-control-prev" role="button" (click)="arrowLeft()" *ngIf="showNavigationArrows">
+    <button class="carousel-control-prev" type="button" (click)="arrowLeft()" *ngIf="showNavigationArrows">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden" i18n="@@ngb.carousel.previous">Previous</span>
-    </a>
-    <a class="carousel-control-next" role="button" (click)="arrowRight()" *ngIf="showNavigationArrows">
+    </button>
+    <button class="carousel-control-next" type="button" (click)="arrowRight()" *ngIf="showNavigationArrows">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden" i18n="@@ngb.carousel.next">Next</span>
-    </a>
+    </button>
   `
     }]
   }], function () {
@@ -94966,8 +95391,8 @@ NgbDatepickerNavigationSelect.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPO
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_14 = goog.getMsg("Select month");
-      i18n_13 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_14;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_14 = goog.getMsg("Select month");
+      i18n_13 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_14;
     } else {
       i18n_13 = $localize`:@@ngb.datepicker.select-month:Select month`;
     }
@@ -94978,8 +95403,8 @@ NgbDatepickerNavigationSelect.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPO
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_16 = goog.getMsg("Select month");
-      i18n_15 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_16;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_16 = goog.getMsg("Select month");
+      i18n_15 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_16;
     } else {
       i18n_15 = $localize`:@@ngb.datepicker.select-month:Select month`;
     }
@@ -94990,8 +95415,8 @@ NgbDatepickerNavigationSelect.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPO
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_18 = goog.getMsg("Select year");
-      i18n_17 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_18;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_18 = goog.getMsg("Select year");
+      i18n_17 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_18;
     } else {
       i18n_17 = $localize`:@@ngb.datepicker.select-year:Select year`;
     }
@@ -95002,8 +95427,8 @@ NgbDatepickerNavigationSelect.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPO
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_20 = goog.getMsg("Select year");
-      i18n_19 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_20;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_20 = goog.getMsg("Select year");
+      i18n_19 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_20;
     } else {
       i18n_19 = $localize`:@@ngb.datepicker.select-year:Select year`;
     }
@@ -95158,8 +95583,8 @@ NgbDatepickerNavigation.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_M
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_22 = goog.getMsg("Previous month");
-      i18n_21 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_22;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_22 = goog.getMsg("Previous month");
+      i18n_21 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_22;
     } else {
       i18n_21 = $localize`:@@ngb.datepicker.previous-month:Previous month`;
     }
@@ -95170,8 +95595,8 @@ NgbDatepickerNavigation.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_M
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_24 = goog.getMsg("Previous month");
-      i18n_23 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_24;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_24 = goog.getMsg("Previous month");
+      i18n_23 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_24;
     } else {
       i18n_23 = $localize`:@@ngb.datepicker.previous-month:Previous month`;
     }
@@ -95182,8 +95607,8 @@ NgbDatepickerNavigation.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_M
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_26 = goog.getMsg("Next month");
-      i18n_25 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_26;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_26 = goog.getMsg("Next month");
+      i18n_25 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_26;
     } else {
       i18n_25 = $localize`:@@ngb.datepicker.next-month:Next month`;
     }
@@ -95194,8 +95619,8 @@ NgbDatepickerNavigation.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_M
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_28 = goog.getMsg("Next month");
-      i18n_27 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_28;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_28 = goog.getMsg("Next month");
+      i18n_27 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_28;
     } else {
       i18n_27 = $localize`:@@ngb.datepicker.next-month:Next month`;
     }
@@ -95802,7 +96227,7 @@ NgbDatepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
   directives: function () {
     return [NgbDatepickerDayView, NgbDatepickerMonth, NgbDatepickerNavigation, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgTemplateOutlet];
   },
-  styles: ["ngb-datepicker{border:1px solid #dfdfdf;border-radius:.25rem;display:inline-block}ngb-datepicker-month{pointer-events:auto}ngb-datepicker.dropdown-menu{padding:0}.ngb-dp-body{z-index:1050}.ngb-dp-header{border-bottom:0;border-radius:.25rem .25rem 0 0;padding-top:.25rem;background-color:#f8f9fa;background-color:var(--bs-light)}.ngb-dp-months{display:flex}.ngb-dp-month{pointer-events:none}.ngb-dp-month-name{font-size:larger;height:2rem;line-height:2rem;text-align:center;background-color:#f8f9fa;background-color:var(--bs-light)}.ngb-dp-month+.ngb-dp-month .ngb-dp-month-name,.ngb-dp-month+.ngb-dp-month .ngb-dp-week{padding-left:1rem}.ngb-dp-month:last-child .ngb-dp-week{padding-right:.25rem}.ngb-dp-month:first-child .ngb-dp-week{padding-left:.25rem}.ngb-dp-month .ngb-dp-week:last-child{padding-bottom:.25rem}\n"],
+  styles: ["ngb-datepicker{border:1px solid #dfdfdf;border-radius:.25rem;display:inline-block}ngb-datepicker-month{pointer-events:auto}ngb-datepicker.dropdown-menu{padding:0}.ngb-dp-body{z-index:1055}.ngb-dp-header{border-bottom:0;border-radius:.25rem .25rem 0 0;padding-top:.25rem;background-color:#f8f9fa;background-color:var(--bs-light)}.ngb-dp-months{display:flex}.ngb-dp-month{pointer-events:none}.ngb-dp-month-name{font-size:larger;height:2rem;line-height:2rem;text-align:center;background-color:#f8f9fa;background-color:var(--bs-light)}.ngb-dp-month+.ngb-dp-month .ngb-dp-month-name,.ngb-dp-month+.ngb-dp-month .ngb-dp-week{padding-left:1rem}.ngb-dp-month:last-child .ngb-dp-week{padding-right:.25rem}.ngb-dp-month:first-child .ngb-dp-week{padding-left:.25rem}.ngb-dp-month .ngb-dp-week:last-child{padding-bottom:.25rem}\n"],
   encapsulation: 2,
   changeDetection: 0
 });
@@ -95861,7 +96286,7 @@ NgbDatepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
         useExisting: (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(() => NgbDatepicker),
         multi: true
       }, NgbDatepickerService],
-      styles: ["ngb-datepicker{border:1px solid #dfdfdf;border-radius:.25rem;display:inline-block}ngb-datepicker-month{pointer-events:auto}ngb-datepicker.dropdown-menu{padding:0}.ngb-dp-body{z-index:1050}.ngb-dp-header{border-bottom:0;border-radius:.25rem .25rem 0 0;padding-top:.25rem;background-color:#f8f9fa;background-color:var(--bs-light)}.ngb-dp-months{display:flex}.ngb-dp-month{pointer-events:none}.ngb-dp-month-name{font-size:larger;height:2rem;line-height:2rem;text-align:center;background-color:#f8f9fa;background-color:var(--bs-light)}.ngb-dp-month+.ngb-dp-month .ngb-dp-month-name,.ngb-dp-month+.ngb-dp-month .ngb-dp-week{padding-left:1rem}.ngb-dp-month:last-child .ngb-dp-week{padding-right:.25rem}.ngb-dp-month:first-child .ngb-dp-week{padding-left:.25rem}.ngb-dp-month .ngb-dp-week:last-child{padding-bottom:.25rem}\n"]
+      styles: ["ngb-datepicker{border:1px solid #dfdfdf;border-radius:.25rem;display:inline-block}ngb-datepicker-month{pointer-events:auto}ngb-datepicker.dropdown-menu{padding:0}.ngb-dp-body{z-index:1055}.ngb-dp-header{border-bottom:0;border-radius:.25rem .25rem 0 0;padding-top:.25rem;background-color:#f8f9fa;background-color:var(--bs-light)}.ngb-dp-months{display:flex}.ngb-dp-month{pointer-events:none}.ngb-dp-month-name{font-size:larger;height:2rem;line-height:2rem;text-align:center;background-color:#f8f9fa;background-color:var(--bs-light)}.ngb-dp-month+.ngb-dp-month .ngb-dp-month-name,.ngb-dp-month+.ngb-dp-month .ngb-dp-week{padding-left:1rem}.ngb-dp-month:last-child .ngb-dp-week{padding-right:.25rem}.ngb-dp-month:first-child .ngb-dp-week{padding-left:.25rem}.ngb-dp-month .ngb-dp-week:last-child{padding-bottom:.25rem}\n"]
     }]
   }], function () {
     return [{
@@ -96262,7 +96687,7 @@ function getPopperOptions({
     fn({
       state
     }) {
-      const bsClassRegExp = new RegExp(baseClass + '-[a-z]+', 'gi');
+      const bsClassRegExp = new RegExp(baseClass + '(-[a-z]+)*', 'gi');
       const popperElement = state.elements.popper;
       const popperPlacement = state.placement;
       let className = popperElement.className; // Remove old bootstrap classes
@@ -96373,6 +96798,18 @@ NgbInputDatepickerConfig.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED
     }]
   }], null, null);
 })();
+
+function addPopperOffset(offset$1) {
+  return options => {
+    options.modifiers.push(_popperjs_core__WEBPACK_IMPORTED_MODULE_30__["default"], {
+      name: 'offset',
+      options: {
+        offset: () => offset$1
+      }
+    });
+    return options;
+  };
+}
 
 function NGB_DATEPICKER_PARSER_FORMATTER_FACTORY() {
   return new NgbDateISOParserFormatter();
@@ -96493,6 +96930,7 @@ class NgbInputDatepicker {
     this._elWithFocus = null;
     this._model = null;
     this._positioning = ngbPositioning();
+    this._destroyCloseHandlers$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
     /**
      * An event emitted when user selects a date using keyboard or mouse.
      *
@@ -96524,7 +96962,6 @@ class NgbInputDatepicker {
     this._validatorChange = () => {};
 
     ['autoClose', 'container', 'positionTarget', 'placement'].forEach(input => this[input] = config[input]);
-    this._zoneSubscription = _ngZone.onStable.subscribe(() => this._positioning.update());
   }
 
   get disabled() {
@@ -96664,9 +97101,11 @@ class NgbInputDatepicker {
 
       this._elWithFocus = this._document.activeElement;
       ngbFocusTrap(this._ngZone, this._cRef.location.nativeElement, this.closed, true);
+      setTimeout(() => {
+        var _a;
 
-      this._cRef.instance.focus();
-
+        return (_a = this._cRef) === null || _a === void 0 ? void 0 : _a.instance.focus();
+      });
       let hostElement;
 
       if (isString(this.positionTarget)) {
@@ -96675,16 +97114,20 @@ class NgbInputDatepicker {
         hostElement = this.positionTarget;
       } else {
         hostElement = this._elRef.nativeElement;
-      }
+      } // Setting up popper and scheduling updates when zone is stable
 
-      this._ngZone.onStable.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+
+      this._ngZone.runOutsideAngular(() => {
         if (this._cRef) {
           this._positioning.createPopper({
             hostElement,
             targetElement: this._cRef.location.nativeElement,
             placement: this.placement,
-            appendToBody: this.container === 'body'
+            appendToBody: this.container === 'body',
+            updatePopperOptions: addPopperOffset([0, 2])
           });
+
+          this._zoneSubscription = this._ngZone.onStable.subscribe(() => this._positioning.update());
         }
       });
 
@@ -96692,7 +97135,7 @@ class NgbInputDatepicker {
         throw new Error('ngbDatepicker could not find element declared in [positionTarget] to position against.');
       }
 
-      ngbAutoClose(this._ngZone, this._document, this.autoClose, () => this.close(), this.closed, [], [this._elRef.nativeElement, this._cRef.location.nativeElement]);
+      this._setCloseHandlers();
     }
   }
   /**
@@ -96701,10 +97144,19 @@ class NgbInputDatepicker {
 
 
   close() {
+    var _a;
+
     if (this.isOpen()) {
       this._vcRef.remove(this._vcRef.indexOf(this._cRef.hostView));
 
       this._cRef = null;
+
+      this._positioning.destroy();
+
+      (_a = this._zoneSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
+
+      this._destroyCloseHandlers$.next();
+
       this.closed.emit();
 
       this._changeDetector.markForCheck(); // restore focus
@@ -96724,8 +97176,6 @@ class NgbInputDatepicker {
       } else {
         this._document.body.focus();
       }
-
-      this._positioning.destroy();
     }
   }
   /**
@@ -96789,12 +97239,14 @@ class NgbInputDatepicker {
 
       this._applyPopupClass(currentValue, previousValue);
     }
+
+    if (changes['autoClose'] && this.isOpen()) {
+      this._setCloseHandlers();
+    }
   }
 
   ngOnDestroy() {
     this.close();
-
-    this._zoneSubscription.unsubscribe();
   }
 
   _applyDatepickerInputs(datepickerInstance) {
@@ -96862,6 +97314,12 @@ class NgbInputDatepicker {
   _fromDateStruct(date) {
     const ngbDate = date ? new NgbDate(date.year, date.month, date.day) : null;
     return this._calendar.isValid(ngbDate) ? ngbDate : null;
+  }
+
+  _setCloseHandlers() {
+    this._destroyCloseHandlers$.next();
+
+    ngbAutoClose(this._ngZone, this._document, this.autoClose, () => this.close(), this._destroyCloseHandlers$, [], [this._elRef.nativeElement, this._cRef.location.nativeElement]);
   }
 
 }
@@ -98670,13 +99128,19 @@ NgbNavbar.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
 
 
 class NgbDropdownItem {
-  constructor(elementRef) {
+  constructor(elementRef, _renderer) {
     this.elementRef = elementRef;
+    this._renderer = _renderer;
     this._disabled = false;
   }
 
   set disabled(value) {
     this._disabled = value === '' || value === true; // accept an empty attribute as true
+    // note: we don't use a host binding for disabled because when used on links, it fails because links don't have a
+    // disabled property
+    // setting the property using the renderer, OTOH, works fine in both cases.
+
+    this._renderer.setProperty(this.elementRef.nativeElement, 'disabled', this._disabled);
   }
 
   get disabled() {
@@ -98686,16 +99150,17 @@ class NgbDropdownItem {
 }
 
 NgbDropdownItem.ɵfac = function NgbDropdownItem_Factory(t) {
-  return new (t || NgbDropdownItem)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef));
+  return new (t || NgbDropdownItem)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Renderer2));
 };
 
 NgbDropdownItem.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({
   type: NgbDropdownItem,
   selectors: [["", "ngbDropdownItem", ""]],
   hostAttrs: [1, "dropdown-item"],
-  hostVars: 2,
+  hostVars: 3,
   hostBindings: function NgbDropdownItem_HostBindings(rf, ctx) {
     if (rf & 2) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵhostProperty"]("tabIndex", ctx.disabled ? -1 : 0);
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("disabled", ctx.disabled);
     }
   },
@@ -98711,12 +99176,15 @@ NgbDropdownItem.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0_
       selector: '[ngbDropdownItem]',
       host: {
         'class': 'dropdown-item',
-        '[class.disabled]': 'disabled'
+        '[class.disabled]': 'disabled',
+        '[tabIndex]': 'disabled ? -1 : 0'
       }
     }]
   }], function () {
     return [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Renderer2
     }];
   }, {
     disabled: [{
@@ -98757,7 +99225,7 @@ NgbDropdownMenu.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0_
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.menuItems = _t);
     }
   },
-  hostVars: 5,
+  hostVars: 4,
   hostBindings: function NgbDropdownMenu_HostBindings(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("keydown.ArrowUp", function NgbDropdownMenu_keydown_ArrowUp_HostBindingHandler($event) {
@@ -98780,7 +99248,6 @@ NgbDropdownMenu.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0_
     }
 
     if (rf & 2) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("data-popper", ctx.placement);
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("dropdown-menu", true)("show", ctx.dropdown.isOpen());
     }
   }
@@ -98794,7 +99261,6 @@ NgbDropdownMenu.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0_
       host: {
         '[class.dropdown-menu]': 'true',
         '[class.show]': 'dropdown.isOpen()',
-        '[attr.data-popper]': 'placement',
         '(keydown.ArrowUp)': 'dropdown.onKeyDown($event)',
         '(keydown.ArrowDown)': 'dropdown.onKeyDown($event)',
         '(keydown.Home)': 'dropdown.onKeyDown($event)',
@@ -98976,7 +99442,7 @@ class NgbDropdown {
     this._ngZone = _ngZone;
     this._elementRef = _elementRef;
     this._renderer = _renderer;
-    this._closed$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
+    this._destroyCloseHandlers$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
     this._bodyContainer = null;
     this._positioning = ngbPositioning();
     /**
@@ -98997,9 +99463,6 @@ class NgbDropdown {
     this.container = config.container;
     this.autoClose = config.autoClose;
     this.display = ngbNavbar ? 'static' : 'dynamic';
-    this._zoneSubscription = _ngZone.onStable.subscribe(() => {
-      this._positionMenu();
-    });
   }
 
   ngAfterContentInit() {
@@ -99036,6 +99499,12 @@ class NgbDropdown {
 
       this._applyCustomDropdownClass(currentValue, previousValue);
     }
+
+    if (changes.autoClose && this._open) {
+      this.autoClose = changes.autoClose.currentValue;
+
+      this._setCloseHandlers();
+    }
   }
   /**
    * Checks if the dropdown menu is open.
@@ -99064,15 +99533,18 @@ class NgbDropdown {
         this._anchor.nativeElement.focus();
 
         if (this.display === 'dynamic') {
-          this._ngZone.onStable.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+          this._ngZone.runOutsideAngular(() => {
             this._positioning.createPopper({
               hostElement: this._anchor.nativeElement,
               targetElement: this._bodyContainer || this._menu.nativeElement,
               placement: this.placement,
-              appendToBody: this.container === 'body'
+              appendToBody: this.container === 'body',
+              updatePopperOptions: addPopperOffset([0, 2])
             });
 
             this._applyPlacementClasses();
+
+            this._zoneSubscription = this._ngZone.onStable.subscribe(() => this._positionMenu());
           });
         }
       }
@@ -99080,6 +99552,9 @@ class NgbDropdown {
   }
 
   _setCloseHandlers() {
+    this._destroyCloseHandlers$.next(); // destroy any existing close handlers
+
+
     ngbAutoClose(this._ngZone, this._document, this.autoClose, source => {
       this.close();
 
@@ -99088,7 +99563,7 @@ class NgbDropdown {
       ) {
         this._anchor.nativeElement.focus();
       }
-    }, this._closed$, this._menu ? [this._menu.nativeElement] : [], this._anchor ? [this._anchor.nativeElement] : [], '.dropdown-item,.dropdown-divider');
+    }, this._destroyCloseHandlers$, this._menu ? [this._menu.nativeElement] : [], this._anchor ? [this._anchor.nativeElement] : [], '.dropdown-item,.dropdown-divider');
   }
   /**
    * Closes the dropdown menu.
@@ -99096,14 +99571,18 @@ class NgbDropdown {
 
 
   close() {
+    var _a;
+
     if (this._open) {
       this._open = false;
 
-      this._positioning.destroy();
-
       this._resetContainer();
 
-      this._closed$.next();
+      this._positioning.destroy();
+
+      (_a = this._zoneSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
+
+      this._destroyCloseHandlers$.next();
 
       this.openChange.emit(false);
 
@@ -99124,11 +99603,7 @@ class NgbDropdown {
   }
 
   ngOnDestroy() {
-    this._resetContainer();
-
-    this._closed$.next();
-
-    this._zoneSubscription.unsubscribe();
+    this.close();
   }
 
   onKeyDown(event) {
@@ -99307,7 +99782,7 @@ class NgbDropdown {
 
       renderer.setStyle(bodyContainer, 'position', 'absolute');
       renderer.setStyle(dropdownMenuElement, 'position', 'static');
-      renderer.setStyle(bodyContainer, 'z-index', '1050');
+      renderer.setStyle(bodyContainer, 'z-index', '1055');
       renderer.appendChild(bodyContainer, dropdownMenuElement);
       renderer.appendChild(this._document.body, bodyContainer);
     }
@@ -99543,7 +100018,7 @@ class PopupService {
       nativeElement
     } = this._windowRef.location;
 
-    const transition$ = this._ngZone.onStable.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_30__.mergeMap)(() => ngbRunTransition(this._ngZone, nativeElement, ({
+    const transition$ = this._ngZone.onStable.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_31__.mergeMap)(() => ngbRunTransition(this._ngZone, nativeElement, ({
       classList
     }) => classList.add('show'), {
       animation,
@@ -99918,6 +100393,10 @@ class NgbModalWindow {
     this.hidden = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
   }
 
+  get fullscreenClass() {
+    return this.fullscreen === true ? ' modal-fullscreen' : isString(this.fullscreen) ? ` modal-fullscreen-${this.fullscreen}-down` : '';
+  }
+
   dismiss(reason) {
     this.dismissEvent.emit(reason);
   }
@@ -100110,6 +100589,7 @@ NgbModalWindow.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__
     ariaDescribedBy: "ariaDescribedBy",
     backdrop: "backdrop",
     centered: "centered",
+    fullscreen: "fullscreen",
     keyboard: "keyboard",
     scrollable: "scrollable",
     size: "size",
@@ -100132,7 +100612,7 @@ NgbModalWindow.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__
     }
 
     if (rf & 2) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"]("modal-dialog" + (ctx.size ? " modal-" + ctx.size : "") + (ctx.centered ? " modal-dialog-centered" : "") + (ctx.scrollable ? " modal-dialog-scrollable" : "") + (ctx.modalDialogClass ? " " + ctx.modalDialogClass : ""));
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"]("modal-dialog" + (ctx.size ? " modal-" + ctx.size : "") + (ctx.centered ? " modal-dialog-centered" : "") + ctx.fullscreenClass + (ctx.scrollable ? " modal-dialog-scrollable" : "") + (ctx.modalDialogClass ? " " + ctx.modalDialogClass : ""));
     }
   },
   styles: ["ngb-modal-window .component-host-scrollable{display:flex;flex-direction:column;overflow:hidden}\n"],
@@ -100155,7 +100635,7 @@ NgbModalWindow.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__
       },
       template: `
     <div #dialog [class]="'modal-dialog' + (size ? ' modal-' + size : '') + (centered ? ' modal-dialog-centered' : '') +
-     (scrollable ? ' modal-dialog-scrollable' : '') + (modalDialogClass ? ' ' + modalDialogClass : '')" role="document">
+     fullscreenClass + (scrollable ? ' modal-dialog-scrollable' : '') + (modalDialogClass ? ' ' + modalDialogClass : '')" role="document">
         <div class="modal-content"><ng-content></ng-content></div>
     </div>
     `,
@@ -100194,6 +100674,9 @@ NgbModalWindow.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__
       type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
     }],
     centered: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    fullscreen: [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
     }],
     keyboard: [{
@@ -100302,9 +100785,10 @@ class NgbModalStack {
     this._ngZone = _ngZone;
     this._activeWindowCmptHasChanged = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
     this._ariaHiddenValues = new Map();
+    this._scrollBarRestoreFn = null;
     this._backdropAttributes = ['animation', 'backdropClass'];
     this._modalRefs = [];
-    this._windowAttributes = ['animation', 'ariaLabelledBy', 'ariaDescribedBy', 'backdrop', 'centered', 'keyboard', 'scrollable', 'size', 'windowClass', 'modalDialogClass'];
+    this._windowAttributes = ['animation', 'ariaLabelledBy', 'ariaDescribedBy', 'backdrop', 'centered', 'fullscreen', 'keyboard', 'scrollable', 'size', 'windowClass', 'modalDialogClass'];
     this._windowCmpts = [];
     this._activeInstances = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter(); // Trap focus on active WindowCmpt
 
@@ -100320,24 +100804,31 @@ class NgbModalStack {
     });
   }
 
+  _restoreScrollBar() {
+    const scrollBarRestoreFn = this._scrollBarRestoreFn;
+
+    if (scrollBarRestoreFn) {
+      this._scrollBarRestoreFn = null;
+      scrollBarRestoreFn();
+    }
+  }
+
+  _hideScrollBar() {
+    if (!this._scrollBarRestoreFn) {
+      this._scrollBarRestoreFn = this._scrollBar.hide();
+    }
+  }
+
   open(moduleCFR, contentInjector, content, options) {
     const containerEl = options.container instanceof HTMLElement ? options.container : isDefined(options.container) ? this._document.querySelector(options.container) : this._document.body;
 
     const renderer = this._rendererFactory.createRenderer(null, null);
 
-    const revertScrollBar = this._scrollBar.hide();
-
-    const removeBodyClass = () => {
-      if (!this._modalRefs.length) {
-        renderer.removeClass(this._document.body, 'modal-open');
-
-        this._revertAriaHidden();
-      }
-    };
-
     if (!containerEl) {
       throw new Error(`The specified modal container "${options.container || 'body'}" was not found in the DOM.`);
     }
+
+    this._hideScrollBar();
 
     const activeModal = new NgbActiveModal();
 
@@ -100351,10 +100842,20 @@ class NgbModalStack {
 
     this._registerModalRef(ngbModalRef);
 
-    this._registerWindowCmpt(windowCmptRef);
+    this._registerWindowCmpt(windowCmptRef); // We have to cleanup DOM after the last modal when BOTH 'hidden' was emitted and 'result' promise was resolved:
+    // - with animations OFF, 'hidden' emits synchronously, then 'result' is resolved asynchronously
+    // - with animations ON, 'result' is resolved asynchronously, then 'hidden' emits asynchronously
 
-    ngbModalRef.result.then(revertScrollBar, revertScrollBar);
-    ngbModalRef.result.then(removeBodyClass, removeBodyClass);
+
+    ngbModalRef.hidden.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => Promise.resolve(true).then(() => {
+      if (!this._modalRefs.length) {
+        renderer.removeClass(this._document.body, 'modal-open');
+
+        this._restoreScrollBar();
+
+        this._revertAriaHidden();
+      }
+    }));
 
     activeModal.close = result => {
       ngbModalRef.close(result);
@@ -100603,6 +101104,7 @@ class NgbModalConfig {
   constructor(_ngbConfig) {
     this._ngbConfig = _ngbConfig;
     this.backdrop = true;
+    this.fullscreen = false;
     this.keyboard = true;
   }
 
@@ -101520,7 +102022,7 @@ class NgbNavOutlet {
     this._updateActivePane(); // this will be emitted for all 3 types of nav changes: .select(), [activeId] or (click)
 
 
-    this.nav.navItemChange$.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.takeUntil)(this.nav.destroy$), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.startWith)(((_a = this._activePane) === null || _a === void 0 ? void 0 : _a.item) || null), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.distinctUntilChanged)(), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_31__.skip)(1)).subscribe(nextItem => {
+    this.nav.navItemChange$.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.takeUntil)(this.nav.destroy$), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.startWith)(((_a = this._activePane) === null || _a === void 0 ? void 0 : _a.item) || null), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.distinctUntilChanged)(), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_32__.skip)(1)).subscribe(nextItem => {
       const options = {
         animation: this.nav.animation,
         runningTransition: 'stop'
@@ -102219,8 +102721,8 @@ NgbPagination.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__35 = goog.getMsg("\xAB\xAB");
-      i18n_34 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__35;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__35 = goog.getMsg("\xAB\xAB");
+      i18n_34 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__35;
     } else {
       i18n_34 = $localize`:@@ngb.pagination.first:««`;
     }
@@ -102231,8 +102733,8 @@ NgbPagination.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__37 = goog.getMsg("\xAB");
-      i18n_36 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__37;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__37 = goog.getMsg("\xAB");
+      i18n_36 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__37;
     } else {
       i18n_36 = $localize`:@@ngb.pagination.previous:«`;
     }
@@ -102243,8 +102745,8 @@ NgbPagination.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__39 = goog.getMsg("\xBB");
-      i18n_38 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__39;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__39 = goog.getMsg("\xBB");
+      i18n_38 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__39;
     } else {
       i18n_38 = $localize`:@@ngb.pagination.next:»`;
     }
@@ -102255,8 +102757,8 @@ NgbPagination.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__41 = goog.getMsg("\xBB\xBB");
-      i18n_40 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__41;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__41 = goog.getMsg("\xBB\xBB");
+      i18n_40 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__41;
     } else {
       i18n_40 = $localize`:@@ngb.pagination.last:»»`;
     }
@@ -102267,8 +102769,8 @@ NgbPagination.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__45 = goog.getMsg("First");
-      i18n_44 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__45;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__45 = goog.getMsg("First");
+      i18n_44 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__45;
     } else {
       i18n_44 = $localize`:@@ngb.pagination.first-aria:First`;
     }
@@ -102279,8 +102781,8 @@ NgbPagination.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__48 = goog.getMsg("Previous");
-      i18n_47 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__48;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__48 = goog.getMsg("Previous");
+      i18n_47 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__48;
     } else {
       i18n_47 = $localize`:@@ngb.pagination.previous-aria:Previous`;
     }
@@ -102291,8 +102793,8 @@ NgbPagination.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__51 = goog.getMsg("Next");
-      i18n_50 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__51;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__51 = goog.getMsg("Next");
+      i18n_50 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__51;
     } else {
       i18n_50 = $localize`:@@ngb.pagination.next-aria:Next`;
     }
@@ -102303,8 +102805,8 @@ NgbPagination.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__53 = goog.getMsg("Last");
-      i18n_52 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__53;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__53 = goog.getMsg("Last");
+      i18n_52 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__53;
     } else {
       i18n_52 = $localize`:@@ngb.pagination.last-aria:Last`;
     }
@@ -102626,7 +103128,7 @@ function triggerDelay(openDelay, closeDelay, isOpenedFn) {
       }
 
       return false;
-    }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_32__.share)());
+    }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_33__.share)());
     const delayedOpen$ = filteredInput$.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.filter)(event => event.open), delayOrNoop(openDelay));
     const delayedClose$ = filteredInput$.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.filter)(event => !event.open), delayOrNoop(closeDelay));
     return (0,rxjs__WEBPACK_IMPORTED_MODULE_22__.merge)(delayedOpen$, delayedClose$).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.filter)(event => {
@@ -102703,18 +103205,6 @@ NgbPopoverConfig.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_
 })();
 
 let nextId$1 = 0;
-
-function updatePopperOptions(options) {
-  options.modifiers.push(_popperjs_core__WEBPACK_IMPORTED_MODULE_33__["default"], {
-    name: 'offset',
-    options: {
-      offset: () => {
-        return [0, 12];
-      }
-    }
-  });
-  return options;
-}
 
 class NgbPopoverWindow {
   isTitleTemplate() {
@@ -102846,9 +103336,6 @@ class NgbPopover {
     this.openDelay = config.openDelay;
     this.closeDelay = config.closeDelay;
     this._popupService = new PopupService(NgbPopoverWindow, injector, viewContainerRef, _renderer, this._ngZone, applicationRef);
-    this._zoneSubscription = _ngZone.onStable.subscribe(() => {
-      this._positioning.update();
-    });
   }
 
   _isDisabled() {
@@ -102901,17 +103388,24 @@ class NgbPopover {
       // mark the parent component to be checked.
 
 
-      this._windowRef.changeDetectorRef.markForCheck(); // Schedule positioning on stable, to avoid several positioning updates.
+      this._windowRef.changeDetectorRef.markForCheck(); // Setting up popper and scheduling updates when zone is stable
 
 
-      this._ngZone.onStable.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+      this._ngZone.runOutsideAngular(() => {
         this._positioning.createPopper({
           hostElement: this._elementRef.nativeElement,
           targetElement: this._windowRef.location.nativeElement,
           placement: this.placement,
           appendToBody: this.container === 'body',
           baseClass: 'bs-popover',
-          updatePopperOptions
+          updatePopperOptions: addPopperOffset([0, 8])
+        });
+
+        Promise.resolve().then(() => {
+          // This update is required for correct arrow placement
+          this._positioning.update();
+
+          this._zoneSubscription = this._ngZone.onStable.subscribe(() => this._positioning.update());
         });
       });
 
@@ -102926,15 +103420,18 @@ class NgbPopover {
    */
 
 
-  close() {
+  close(animation = this.animation) {
     if (this._windowRef) {
       this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
 
-      this._popupService.close(this.animation).subscribe(() => {
+      this._popupService.close(animation).subscribe(() => {
+        var _a;
+
         this._windowRef = null;
 
         this._positioning.destroy();
 
+        (_a = this._zoneSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
         this.hidden.emit();
 
         this._changeDetector.markForCheck();
@@ -102985,14 +103482,12 @@ class NgbPopover {
   }
 
   ngOnDestroy() {
-    this.close(); // This check is needed as it might happen that ngOnDestroy is called before ngOnInit
+    var _a;
+
+    this.close(false); // This check is needed as it might happen that ngOnDestroy is called before ngOnInit
     // under certain conditions, see: https://github.com/ng-bootstrap/ng-bootstrap/issues/2199
 
-    if (this._unregisterListenersFn) {
-      this._unregisterListenersFn();
-    }
-
-    this._zoneSubscription.unsubscribe();
+    (_a = this._unregisterListenersFn) === null || _a === void 0 ? void 0 : _a.call(this);
   }
 
 }
@@ -103238,10 +103733,10 @@ NgbProgressbar.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__56 = goog.getMsg("{$interpolation}", {
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__56 = goog.getMsg("{$interpolation}", {
         "interpolation": "\uFFFD0\uFFFD"
       });
-      i18n_55 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__56;
+      i18n_55 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__56;
     } else {
       i18n_55 = $localize`:@@ngb.progressbar.value:${"\uFFFD0\uFFFD"}:INTERPOLATION:`;
     }
@@ -103408,7 +103903,7 @@ class NgbRating {
 
     this.leave = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     /**
-     * An event emitted when the user selects a new rating.
+     * An event emitted when the rating is changed.
      *
      * Event payload equals to the newly selected rating.
      */
@@ -103482,15 +103977,14 @@ class NgbRating {
     if (changes['rate']) {
       this.update(this.rate);
     }
+
+    if (changes['max']) {
+      this._updateMax();
+    }
   }
 
   ngOnInit() {
-    this.contexts = Array.from({
-      length: this.max
-    }, (v, k) => ({
-      fill: 0,
-      index: k
-    }));
+    this._setupContexts();
 
     this._updateState(this.rate);
   }
@@ -103538,6 +104032,23 @@ class NgbRating {
   _updateState(nextValue) {
     this.nextRate = nextValue;
     this.contexts.forEach((context, index) => context.fill = Math.round(getValueInRange(nextValue - index, 1, 0) * 100));
+  }
+
+  _updateMax() {
+    if (this.max > 0) {
+      this._setupContexts();
+
+      this.update(this.rate);
+    }
+  }
+
+  _setupContexts() {
+    this.contexts = Array.from({
+      length: this.max
+    }, (v, k) => ({
+      fill: 0,
+      index: k
+    }));
   }
 
 }
@@ -104197,8 +104708,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_58 = goog.getMsg("HH");
-      i18n_57 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_58;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_58 = goog.getMsg("HH");
+      i18n_57 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_58;
     } else {
       i18n_57 = $localize`:@@ngb.timepicker.HH:HH`;
     }
@@ -104209,8 +104720,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_60 = goog.getMsg("Hours");
-      i18n_59 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_60;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_60 = goog.getMsg("Hours");
+      i18n_59 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_60;
     } else {
       i18n_59 = $localize`:@@ngb.timepicker.hours:Hours`;
     }
@@ -104221,8 +104732,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_62 = goog.getMsg("MM");
-      i18n_61 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_62;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_62 = goog.getMsg("MM");
+      i18n_61 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_62;
     } else {
       i18n_61 = $localize`:@@ngb.timepicker.MM:MM`;
     }
@@ -104233,8 +104744,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_64 = goog.getMsg("Minutes");
-      i18n_63 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_64;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_64 = goog.getMsg("Minutes");
+      i18n_63 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_64;
     } else {
       i18n_63 = $localize`:@@ngb.timepicker.minutes:Minutes`;
     }
@@ -104245,8 +104756,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__66 = goog.getMsg("Increment hours");
-      i18n_65 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__66;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__66 = goog.getMsg("Increment hours");
+      i18n_65 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__66;
     } else {
       i18n_65 = $localize`:@@ngb.timepicker.increment-hours:Increment hours`;
     }
@@ -104257,8 +104768,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__68 = goog.getMsg("Decrement hours");
-      i18n_67 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__68;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__68 = goog.getMsg("Decrement hours");
+      i18n_67 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__68;
     } else {
       i18n_67 = $localize`:@@ngb.timepicker.decrement-hours:Decrement hours`;
     }
@@ -104269,8 +104780,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__70 = goog.getMsg("Increment minutes");
-      i18n_69 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__70;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__70 = goog.getMsg("Increment minutes");
+      i18n_69 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__70;
     } else {
       i18n_69 = $localize`:@@ngb.timepicker.increment-minutes:Increment minutes`;
     }
@@ -104281,8 +104792,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__72 = goog.getMsg("Decrement minutes");
-      i18n_71 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__72;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__72 = goog.getMsg("Decrement minutes");
+      i18n_71 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__72;
     } else {
       i18n_71 = $localize`:@@ngb.timepicker.decrement-minutes:Decrement minutes`;
     }
@@ -104293,8 +104804,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__74 = goog.getMsg("SS");
-      i18n_73 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__74;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__74 = goog.getMsg("SS");
+      i18n_73 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__74;
     } else {
       i18n_73 = $localize`:@@ngb.timepicker.SS:SS`;
     }
@@ -104305,8 +104816,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__76 = goog.getMsg("Seconds");
-      i18n_75 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__76;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__76 = goog.getMsg("Seconds");
+      i18n_75 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__76;
     } else {
       i18n_75 = $localize`:@@ngb.timepicker.seconds:Seconds`;
     }
@@ -104317,8 +104828,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___78 = goog.getMsg("Increment seconds");
-      i18n_77 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___78;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___78 = goog.getMsg("Increment seconds");
+      i18n_77 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___78;
     } else {
       i18n_77 = $localize`:@@ngb.timepicker.increment-seconds:Increment seconds`;
     }
@@ -104329,8 +104840,8 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___80 = goog.getMsg("Decrement seconds");
-      i18n_79 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___80;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___80 = goog.getMsg("Decrement seconds");
+      i18n_79 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___80;
     } else {
       i18n_79 = $localize`:@@ngb.timepicker.decrement-seconds:Decrement seconds`;
     }
@@ -104341,10 +104852,10 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___82 = goog.getMsg("{$interpolation}", {
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___82 = goog.getMsg("{$interpolation}", {
         "interpolation": "\uFFFD0\uFFFD"
       });
-      i18n_81 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___82;
+      i18n_81 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___82;
     } else {
       i18n_81 = $localize`:@@ngb.timepicker.PM:${"\uFFFD0\uFFFD"}:INTERPOLATION:`;
     }
@@ -104355,10 +104866,10 @@ NgbTimepicker.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___84 = goog.getMsg("{$interpolation}", {
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___84 = goog.getMsg("{$interpolation}", {
         "interpolation": "\uFFFD0\uFFFD"
       });
-      i18n_83 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___84;
+      i18n_83 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___84;
     } else {
       i18n_83 = $localize`:@@ngb.timepicker.AM:${"\uFFFD0\uFFFD"}:INTERPOLATION:`;
     }
@@ -104885,8 +105396,8 @@ NgbToast.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
       /**
        * @suppress {msgDescriptions}
        */
-      const MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__86 = goog.getMsg("Close");
-      i18n_85 = MSG_C__TFS_RELEASE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__86;
+      const MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__86 = goog.getMsg("Close");
+      i18n_85 = MSG_F__BUILDS_157_SOURCES_MAINLINE_EVENTOWEBMODULES_STELLVERTRETUNG_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__86;
     } else {
       i18n_85 = $localize`:@@ngb.toast.close-aria:Close`;
     }
@@ -105166,9 +105677,6 @@ class NgbTooltip {
     this.openDelay = config.openDelay;
     this.closeDelay = config.closeDelay;
     this._popupService = new PopupService(NgbTooltipWindow, injector, viewContainerRef, _renderer, this._ngZone, applicationRef);
-    this._zoneSubscription = _ngZone.onStable.subscribe(() => {
-      this._positioning.update();
-    });
   }
   /**
    * The string content or a `TemplateRef` for the content to be displayed in the tooltip.
@@ -105224,16 +105732,23 @@ class NgbTooltip {
       // mark the parent component to be checked.
 
 
-      this._windowRef.changeDetectorRef.markForCheck(); // Schedule positioning on stable, to avoid several positioning updates.
+      this._windowRef.changeDetectorRef.markForCheck(); // Setting up popper and scheduling updates when zone is stable
 
 
-      this._ngZone.onStable.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+      this._ngZone.runOutsideAngular(() => {
         this._positioning.createPopper({
           hostElement: this._elementRef.nativeElement,
           targetElement: this._windowRef.location.nativeElement,
           placement: this.placement,
           appendToBody: this.container === 'body',
           baseClass: 'bs-tooltip'
+        });
+
+        Promise.resolve().then(() => {
+          // This update is required for correct arrow placement
+          this._positioning.update();
+
+          this._zoneSubscription = this._ngZone.onStable.subscribe(() => this._positioning.update());
         });
       });
 
@@ -105248,15 +105763,18 @@ class NgbTooltip {
    */
 
 
-  close() {
+  close(animation = this.animation) {
     if (this._windowRef != null) {
       this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
 
-      this._popupService.close(this.animation).subscribe(() => {
+      this._popupService.close(animation).subscribe(() => {
+        var _a;
+
         this._windowRef = null;
 
         this._positioning.destroy();
 
+        (_a = this._zoneSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
         this.hidden.emit();
 
         this._changeDetector.markForCheck();
@@ -105299,14 +105817,12 @@ class NgbTooltip {
   }
 
   ngOnDestroy() {
-    this.close(); // This check is needed as it might happen that ngOnDestroy is called before ngOnInit
+    var _a;
+
+    this.close(false); // This check is needed as it might happen that ngOnDestroy is called before ngOnInit
     // under certain conditions, see: https://github.com/ng-bootstrap/ng-bootstrap/issues/2199
 
-    if (this._unregisterListenersFn) {
-      this._unregisterListenersFn();
-    }
-
-    this._zoneSubscription.unsubscribe();
+    (_a = this._unregisterListenersFn) === null || _a === void 0 ? void 0 : _a.call(this);
   }
 
 }
@@ -105920,9 +106436,6 @@ class NgbTypeahead {
     this._valueChanges = (0,rxjs__WEBPACK_IMPORTED_MODULE_6__.fromEvent)(_elementRef.nativeElement, 'input').pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)($event => $event.target.value));
     this._resubscribeTypeahead = new rxjs__WEBPACK_IMPORTED_MODULE_14__.BehaviorSubject(null);
     this._popupService = new PopupService(NgbTypeaheadWindow, injector, viewContainerRef, _renderer, this._ngZone, applicationRef);
-    this._zoneSubscription = ngZone.onStable.subscribe(() => {
-      this._positioning.update();
-    });
   }
 
   ngOnInit() {
@@ -105943,8 +106456,6 @@ class NgbTypeahead {
     this._closePopup();
 
     this._unsubscribeFromUserInput();
-
-    this._zoneSubscription.unsubscribe();
   }
 
   registerOnChange(fn) {
@@ -106062,20 +106573,25 @@ class NgbTypeahead {
       this._windowRef.instance.popupClass = this.popupClass;
 
       if (this.container === 'body') {
+        this._renderer.setStyle(this._windowRef.location.nativeElement, 'z-index', '1055');
+
         this._document.querySelector(this.container).appendChild(this._windowRef.location.nativeElement);
       }
 
-      this._changeDetector.markForCheck(); // Schedule positioning on stable, to avoid several positioning updates.
+      this._changeDetector.markForCheck(); // Setting up popper and scheduling updates when zone is stable
 
 
-      this._ngZone.onStable.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+      this._ngZone.runOutsideAngular(() => {
         if (this._windowRef) {
           this._positioning.createPopper({
             hostElement: this._elementRef.nativeElement,
             targetElement: this._windowRef.location.nativeElement,
             placement: this.placement,
-            appendToBody: this.container === 'body'
+            appendToBody: this.container === 'body',
+            updatePopperOptions: addPopperOffset([0, 2])
           });
+
+          this._zoneSubscription = this._ngZone.onStable.subscribe(() => this._positioning.update());
         }
       });
 
@@ -106085,7 +106601,11 @@ class NgbTypeahead {
 
   _closePopup() {
     this._popupService.close().subscribe(() => {
+      var _a;
+
       this._positioning.destroy();
+
+      (_a = this._zoneSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
 
       this._closed$.next();
 
@@ -106362,7 +106882,971 @@ NgbTypeaheadModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE
   }], null, null);
 })();
 
-const NGB_MODULES = [NgbAccordionModule, NgbAlertModule, NgbButtonsModule, NgbCarouselModule, NgbCollapseModule, NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbNavModule, NgbPaginationModule, NgbPopoverModule, NgbProgressbarModule, NgbRatingModule, NgbTimepickerModule, NgbToastModule, NgbTooltipModule, NgbTypeaheadModule];
+var OffcanvasDismissReasons;
+
+(function (OffcanvasDismissReasons) {
+  OffcanvasDismissReasons[OffcanvasDismissReasons["BACKDROP_CLICK"] = 0] = "BACKDROP_CLICK";
+  OffcanvasDismissReasons[OffcanvasDismissReasons["ESC"] = 1] = "ESC";
+})(OffcanvasDismissReasons || (OffcanvasDismissReasons = {}));
+
+class NgbOffcanvasBackdrop {
+  constructor(_el, _zone) {
+    this._el = _el;
+    this._zone = _zone;
+    this.dismissEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+  }
+
+  ngOnInit() {
+    this._zone.onStable.asObservable().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+      ngbRunTransition(this._zone, this._el.nativeElement, (element, animation) => {
+        if (animation) {
+          reflow(element);
+        }
+
+        element.classList.add('show');
+      }, {
+        animation: this.animation,
+        runningTransition: 'continue'
+      });
+    });
+  }
+
+  hide() {
+    return ngbRunTransition(this._zone, this._el.nativeElement, ({
+      classList
+    }) => classList.remove('show'), {
+      animation: this.animation,
+      runningTransition: 'stop'
+    });
+  }
+
+  dismiss() {
+    this.dismissEvent.emit(OffcanvasDismissReasons.BACKDROP_CLICK);
+  }
+
+}
+
+NgbOffcanvasBackdrop.ɵfac = function NgbOffcanvasBackdrop_Factory(t) {
+  return new (t || NgbOffcanvasBackdrop)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone));
+};
+
+NgbOffcanvasBackdrop.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+  type: NgbOffcanvasBackdrop,
+  selectors: [["ngb-offcanvas-backdrop"]],
+  hostVars: 6,
+  hostBindings: function NgbOffcanvasBackdrop_HostBindings(rf, ctx) {
+    if (rf & 1) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("mousedown", function NgbOffcanvasBackdrop_mousedown_HostBindingHandler() {
+        return ctx.dismiss();
+      });
+    }
+
+    if (rf & 2) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"]("offcanvas-backdrop" + (ctx.backdropClass ? " " + ctx.backdropClass : ""));
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("show", !ctx.animation)("fade", ctx.animation);
+    }
+  },
+  inputs: {
+    animation: "animation",
+    backdropClass: "backdropClass"
+  },
+  outputs: {
+    dismissEvent: "dismiss"
+  },
+  decls: 0,
+  vars: 0,
+  template: function NgbOffcanvasBackdrop_Template(rf, ctx) {},
+  encapsulation: 2
+});
+
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgbOffcanvasBackdrop, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Component,
+    args: [{
+      selector: 'ngb-offcanvas-backdrop',
+      encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewEncapsulation.None,
+      template: '',
+      host: {
+        '[class]': '"offcanvas-backdrop" + (backdropClass ? " " + backdropClass : "")',
+        '[class.show]': '!animation',
+        '[class.fade]': 'animation',
+        '(mousedown)': 'dismiss()'
+      }
+    }]
+  }], function () {
+    return [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone
+    }];
+  }, {
+    animation: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    backdropClass: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    dismissEvent: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output,
+      args: ['dismiss']
+    }]
+  });
+})();
+
+class NgbOffcanvasPanel {
+  constructor(_document, _elRef, _zone) {
+    this._document = _document;
+    this._elRef = _elRef;
+    this._zone = _zone;
+    this._closed$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
+    this._elWithFocus = null; // element that is focused prior to offcanvas opening
+
+    this.keyboard = true;
+    this.position = 'start';
+    this.dismissEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+    this.shown = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
+    this.hidden = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
+  }
+
+  dismiss(reason) {
+    this.dismissEvent.emit(reason);
+  }
+
+  ngOnInit() {
+    this._elWithFocus = this._document.activeElement;
+
+    this._zone.onStable.asObservable().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+      this._show();
+    });
+  }
+
+  ngOnDestroy() {
+    this._disableEventHandling();
+  }
+
+  hide() {
+    const {
+      nativeElement
+    } = this._elRef;
+    const context = {
+      animation: this.animation,
+      runningTransition: 'stop'
+    }; // TODO when we target Bootstrap 5.2+, the style.visibility handling can be removed, because Bootstrap has improved
+    // its CSS
+
+    const offcanvasTransition$ = ngbRunTransition(this._zone, this._elRef.nativeElement, element => {
+      nativeElement.classList.remove('show');
+      return () => element.style.visibility = 'hidden';
+    }, context);
+    offcanvasTransition$.subscribe(() => {
+      this.hidden.next();
+      this.hidden.complete();
+    });
+
+    this._disableEventHandling();
+
+    this._restoreFocus();
+
+    return offcanvasTransition$;
+  }
+
+  _show() {
+    const context = {
+      animation: this.animation,
+      runningTransition: 'continue'
+    }; // TODO when we target Bootstrap 5.2+, the style.visibility handling can be removed, because Bootstrap has improved
+    // its CSS
+
+    const offcanvasTransition$ = ngbRunTransition(this._zone, this._elRef.nativeElement, (element, animation) => {
+      if (animation) {
+        reflow(element);
+      }
+
+      element.classList.add('show');
+      element.style.visibility = 'visible';
+    }, context);
+    offcanvasTransition$.subscribe(() => {
+      this.shown.next();
+      this.shown.complete();
+    });
+
+    this._enableEventHandling();
+
+    this._setFocus();
+  }
+
+  _enableEventHandling() {
+    const {
+      nativeElement
+    } = this._elRef;
+
+    this._zone.runOutsideAngular(() => {
+      (0,rxjs__WEBPACK_IMPORTED_MODULE_6__.fromEvent)(nativeElement, 'keydown').pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.takeUntil)(this._closed$),
+      /* eslint-disable-next-line deprecation/deprecation */
+      (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.filter)(e => e.which === Key.Escape)).subscribe(event => {
+        if (this.keyboard) {
+          requestAnimationFrame(() => {
+            if (!event.defaultPrevented) {
+              this._zone.run(() => this.dismiss(OffcanvasDismissReasons.ESC));
+            }
+          });
+        }
+      });
+    });
+  }
+
+  _disableEventHandling() {
+    this._closed$.next();
+  }
+
+  _setFocus() {
+    const {
+      nativeElement
+    } = this._elRef;
+
+    if (!nativeElement.contains(document.activeElement)) {
+      const autoFocusable = nativeElement.querySelector(`[ngbAutofocus]`);
+      const firstFocusable = getFocusableBoundaryElements(nativeElement)[0];
+      const elementToFocus = autoFocusable || firstFocusable || nativeElement;
+      elementToFocus.focus();
+    }
+  }
+
+  _restoreFocus() {
+    const body = this._document.body;
+    const elWithFocus = this._elWithFocus;
+    let elementToFocus;
+
+    if (elWithFocus && elWithFocus['focus'] && body.contains(elWithFocus)) {
+      elementToFocus = elWithFocus;
+    } else {
+      elementToFocus = body;
+    }
+
+    this._zone.runOutsideAngular(() => {
+      setTimeout(() => elementToFocus.focus());
+      this._elWithFocus = null;
+    });
+  }
+
+}
+
+NgbOffcanvasPanel.ɵfac = function NgbOffcanvasPanel_Factory(t) {
+  return new (t || NgbOffcanvasPanel)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_12__.DOCUMENT), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone));
+};
+
+NgbOffcanvasPanel.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+  type: NgbOffcanvasPanel,
+  selectors: [["ngb-offcanvas-panel"]],
+  hostAttrs: ["role", "dialog", "tabindex", "-1"],
+  hostVars: 5,
+  hostBindings: function NgbOffcanvasPanel_HostBindings(rf, ctx) {
+    if (rf & 2) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("aria-modal", true)("aria-labelledby", ctx.ariaLabelledBy)("aria-describedby", ctx.ariaDescribedBy);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"]("offcanvas offcanvas-" + ctx.position + (ctx.panelClass ? " " + ctx.panelClass : ""));
+    }
+  },
+  inputs: {
+    animation: "animation",
+    ariaLabelledBy: "ariaLabelledBy",
+    ariaDescribedBy: "ariaDescribedBy",
+    keyboard: "keyboard",
+    panelClass: "panelClass",
+    position: "position"
+  },
+  outputs: {
+    dismissEvent: "dismiss"
+  },
+  ngContentSelectors: _c3,
+  decls: 1,
+  vars: 0,
+  template: function NgbOffcanvasPanel_Template(rf, ctx) {
+    if (rf & 1) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵprojectionDef"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵprojection"](0);
+    }
+  },
+  encapsulation: 2
+});
+
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgbOffcanvasPanel, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Component,
+    args: [{
+      selector: 'ngb-offcanvas-panel',
+      template: '<ng-content></ng-content>',
+      encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewEncapsulation.None,
+      host: {
+        '[class]': '"offcanvas offcanvas-" + position  + (panelClass ? " " + panelClass : "")',
+        'role': 'dialog',
+        'tabindex': '-1',
+        '[attr.aria-modal]': 'true',
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.aria-describedby]': 'ariaDescribedBy'
+      },
+      styles: []
+    }]
+  }], function () {
+    return [{
+      type: undefined,
+      decorators: [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
+        args: [_angular_common__WEBPACK_IMPORTED_MODULE_12__.DOCUMENT]
+      }]
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone
+    }];
+  }, {
+    animation: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    ariaLabelledBy: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    ariaDescribedBy: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    keyboard: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    panelClass: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    position: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    dismissEvent: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output,
+      args: ['dismiss']
+    }]
+  });
+})();
+/**
+ * A reference to the currently opened (active) offcanvas.
+ *
+ * Instances of this class can be injected into your component passed as offcanvas content.
+ * So you can `.close()` or `.dismiss()` the offcanvas window from your component.
+ *
+ * @since 12.1.0
+ */
+
+
+class NgbActiveOffcanvas {
+  /**
+   * Closes the offcanvas with an optional `result` value.
+   *
+   * The `NgbOffcanvasRef.result` promise will be resolved with the provided value.
+   */
+  close(result) {}
+  /**
+   * Dismisses the offcanvas with an optional `reason` value.
+   *
+   * The `NgbOffcanvasRef.result` promise will be rejected with the provided value.
+   */
+
+
+  dismiss(reason) {}
+
+}
+/**
+ * A reference to the newly opened offcanvas returned by the `NgbOffcanvas.open()` method.
+ *
+ * @since 12.1.0
+ */
+
+
+class NgbOffcanvasRef {
+  constructor(_panelCmptRef, _contentRef, _backdropCmptRef, _beforeDismiss) {
+    this._panelCmptRef = _panelCmptRef;
+    this._contentRef = _contentRef;
+    this._backdropCmptRef = _backdropCmptRef;
+    this._beforeDismiss = _beforeDismiss;
+    this._closed = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
+    this._dismissed = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
+    this._hidden = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
+
+    _panelCmptRef.instance.dismissEvent.subscribe(reason => {
+      this.dismiss(reason);
+    });
+
+    if (_backdropCmptRef) {
+      _backdropCmptRef.instance.dismissEvent.subscribe(reason => {
+        this.dismiss(reason);
+      });
+    }
+
+    this.result = new Promise((resolve, reject) => {
+      this._resolve = resolve;
+      this._reject = reject;
+    });
+    this.result.then(null, () => {});
+  }
+  /**
+   * The instance of a component used for the offcanvas content.
+   *
+   * When a `TemplateRef` is used as the content or when the offcanvas is closed, will return `undefined`.
+   */
+
+
+  get componentInstance() {
+    if (this._contentRef && this._contentRef.componentRef) {
+      return this._contentRef.componentRef.instance;
+    }
+  }
+  /**
+   * The observable that emits when the offcanvas is closed via the `.close()` method.
+   *
+   * It will emit the result passed to the `.close()` method.
+   */
+
+
+  get closed() {
+    return this._closed.asObservable().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.takeUntil)(this._hidden));
+  }
+  /**
+   * The observable that emits when the offcanvas is dismissed via the `.dismiss()` method.
+   *
+   * It will emit the reason passed to the `.dismissed()` method by the user, or one of the internal
+   * reasons like backdrop click or ESC key press.
+   */
+
+
+  get dismissed() {
+    return this._dismissed.asObservable().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.takeUntil)(this._hidden));
+  }
+  /**
+   * The observable that emits when both offcanvas window and backdrop are closed and animations were finished.
+   * At this point offcanvas and backdrop elements will be removed from the DOM tree.
+   *
+   * This observable will be completed after emitting.
+   */
+
+
+  get hidden() {
+    return this._hidden.asObservable();
+  }
+  /**
+   * The observable that emits when offcanvas is fully visible and animation was finished.
+   * The offcanvas DOM element is always available synchronously after calling 'offcanvas.open()' service.
+   *
+   * This observable will be completed after emitting.
+   * It will not emit, if offcanvas is closed before open animation is finished.
+   */
+
+
+  get shown() {
+    return this._panelCmptRef.instance.shown.asObservable();
+  }
+  /**
+   * Closes the offcanvas with an optional `result` value.
+   *
+   * The `NgbMobalRef.result` promise will be resolved with the provided value.
+   */
+
+
+  close(result) {
+    if (this._panelCmptRef) {
+      this._closed.next(result);
+
+      this._resolve(result);
+
+      this._removeOffcanvasElements();
+    }
+  }
+
+  _dismiss(reason) {
+    this._dismissed.next(reason);
+
+    this._reject(reason);
+
+    this._removeOffcanvasElements();
+  }
+  /**
+   * Dismisses the offcanvas with an optional `reason` value.
+   *
+   * The `NgbOffcanvasRef.result` promise will be rejected with the provided value.
+   */
+
+
+  dismiss(reason) {
+    if (this._panelCmptRef) {
+      if (!this._beforeDismiss) {
+        this._dismiss(reason);
+      } else {
+        const dismiss = this._beforeDismiss();
+
+        if (isPromise(dismiss)) {
+          dismiss.then(result => {
+            if (result !== false) {
+              this._dismiss(reason);
+            }
+          }, () => {});
+        } else if (dismiss !== false) {
+          this._dismiss(reason);
+        }
+      }
+    }
+  }
+
+  _removeOffcanvasElements() {
+    const panelTransition$ = this._panelCmptRef.instance.hide();
+
+    const backdropTransition$ = this._backdropCmptRef ? this._backdropCmptRef.instance.hide() : (0,rxjs__WEBPACK_IMPORTED_MODULE_3__.of)(undefined); // hiding panel
+
+    panelTransition$.subscribe(() => {
+      const {
+        nativeElement
+      } = this._panelCmptRef.location;
+      nativeElement.parentNode.removeChild(nativeElement);
+
+      this._panelCmptRef.destroy();
+
+      if (this._contentRef && this._contentRef.viewRef) {
+        this._contentRef.viewRef.destroy();
+      }
+
+      this._panelCmptRef = null;
+      this._contentRef = null;
+    }); // hiding backdrop
+
+    backdropTransition$.subscribe(() => {
+      if (this._backdropCmptRef) {
+        const {
+          nativeElement
+        } = this._backdropCmptRef.location;
+        nativeElement.parentNode.removeChild(nativeElement);
+
+        this._backdropCmptRef.destroy();
+
+        this._backdropCmptRef = null;
+      }
+    }); // all done
+
+    (0,rxjs__WEBPACK_IMPORTED_MODULE_21__.zip)(panelTransition$, backdropTransition$).subscribe(() => {
+      this._hidden.next();
+
+      this._hidden.complete();
+    });
+  }
+
+}
+
+class NgbOffcanvasStack {
+  constructor(_applicationRef, _injector, _document, _scrollBar, _ngZone) {
+    this._applicationRef = _applicationRef;
+    this._injector = _injector;
+    this._document = _document;
+    this._scrollBar = _scrollBar;
+    this._ngZone = _ngZone;
+    this._activePanelCmptHasChanged = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Subject();
+    this._scrollBarRestoreFn = null;
+    this._backdropAttributes = ['animation', 'backdropClass'];
+    this._panelAttributes = ['animation', 'ariaDescribedBy', 'ariaLabelledBy', 'keyboard', 'panelClass', 'position'];
+    this._activeInstance = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter(); // Trap focus on active PanelCmpt
+
+    this._activePanelCmptHasChanged.subscribe(() => {
+      if (this._panelCmpt) {
+        ngbFocusTrap(this._ngZone, this._panelCmpt.location.nativeElement, this._activePanelCmptHasChanged);
+      }
+    });
+  }
+
+  _restoreScrollBar() {
+    const scrollBarRestoreFn = this._scrollBarRestoreFn;
+
+    if (scrollBarRestoreFn) {
+      this._scrollBarRestoreFn = null;
+      scrollBarRestoreFn();
+    }
+  }
+
+  _hideScrollBar() {
+    if (!this._scrollBarRestoreFn) {
+      this._scrollBarRestoreFn = this._scrollBar.hide();
+    }
+  }
+
+  open(moduleCFR, contentInjector, content, options) {
+    const containerEl = options.container instanceof HTMLElement ? options.container : isDefined(options.container) ? this._document.querySelector(options.container) : this._document.body;
+
+    if (!containerEl) {
+      throw new Error(`The specified offcanvas container "${options.container || 'body'}" was not found in the DOM.`);
+    }
+
+    if (!options.scroll) {
+      this._hideScrollBar();
+    }
+
+    const activeOffcanvas = new NgbActiveOffcanvas();
+
+    const contentRef = this._getContentRef(moduleCFR, options.injector || contentInjector, content, activeOffcanvas);
+
+    let backdropCmptRef = options.backdrop !== false ? this._attachBackdrop(moduleCFR, containerEl) : undefined;
+
+    let panelCmptRef = this._attachWindowComponent(moduleCFR, containerEl, contentRef);
+
+    let ngbOffcanvasRef = new NgbOffcanvasRef(panelCmptRef, contentRef, backdropCmptRef, options.beforeDismiss);
+
+    this._registerOffcanvasRef(ngbOffcanvasRef);
+
+    this._registerPanelCmpt(panelCmptRef);
+
+    ngbOffcanvasRef.hidden.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_34__.finalize)(() => this._restoreScrollBar())).subscribe();
+
+    activeOffcanvas.close = result => {
+      ngbOffcanvasRef.close(result);
+    };
+
+    activeOffcanvas.dismiss = reason => {
+      ngbOffcanvasRef.dismiss(reason);
+    };
+
+    this._applyPanelOptions(panelCmptRef.instance, options);
+
+    if (backdropCmptRef && backdropCmptRef.instance) {
+      this._applyBackdropOptions(backdropCmptRef.instance, options);
+
+      backdropCmptRef.changeDetectorRef.detectChanges();
+    }
+
+    panelCmptRef.changeDetectorRef.detectChanges();
+    return ngbOffcanvasRef;
+  }
+
+  get activeInstance() {
+    return this._activeInstance;
+  }
+
+  dismiss(reason) {
+    var _a;
+
+    (_a = this._offcanvasRef) === null || _a === void 0 ? void 0 : _a.dismiss(reason);
+  }
+
+  hasOpenOffcanvas() {
+    return !!this._offcanvasRef;
+  }
+
+  _attachBackdrop(moduleCFR, containerEl) {
+    let backdropFactory = moduleCFR.resolveComponentFactory(NgbOffcanvasBackdrop);
+    let backdropCmptRef = backdropFactory.create(this._injector);
+
+    this._applicationRef.attachView(backdropCmptRef.hostView);
+
+    containerEl.appendChild(backdropCmptRef.location.nativeElement);
+    return backdropCmptRef;
+  }
+
+  _attachWindowComponent(moduleCFR, containerEl, contentRef) {
+    let panelFactory = moduleCFR.resolveComponentFactory(NgbOffcanvasPanel);
+    let panelCmptRef = panelFactory.create(this._injector, contentRef.nodes);
+
+    this._applicationRef.attachView(panelCmptRef.hostView);
+
+    containerEl.appendChild(panelCmptRef.location.nativeElement);
+    return panelCmptRef;
+  }
+
+  _applyPanelOptions(windowInstance, options) {
+    this._panelAttributes.forEach(optionName => {
+      if (isDefined(options[optionName])) {
+        windowInstance[optionName] = options[optionName];
+      }
+    });
+  }
+
+  _applyBackdropOptions(backdropInstance, options) {
+    this._backdropAttributes.forEach(optionName => {
+      if (isDefined(options[optionName])) {
+        backdropInstance[optionName] = options[optionName];
+      }
+    });
+  }
+
+  _getContentRef(moduleCFR, contentInjector, content, activeOffcanvas) {
+    if (!content) {
+      return new ContentRef([]);
+    } else if (content instanceof _angular_core__WEBPACK_IMPORTED_MODULE_0__.TemplateRef) {
+      return this._createFromTemplateRef(content, activeOffcanvas);
+    } else if (isString(content)) {
+      return this._createFromString(content);
+    } else {
+      return this._createFromComponent(moduleCFR, contentInjector, content, activeOffcanvas);
+    }
+  }
+
+  _createFromTemplateRef(content, activeOffcanvas) {
+    const context = {
+      $implicit: activeOffcanvas,
+
+      close(result) {
+        activeOffcanvas.close(result);
+      },
+
+      dismiss(reason) {
+        activeOffcanvas.dismiss(reason);
+      }
+
+    };
+    const viewRef = content.createEmbeddedView(context);
+
+    this._applicationRef.attachView(viewRef);
+
+    return new ContentRef([viewRef.rootNodes], viewRef);
+  }
+
+  _createFromString(content) {
+    const component = this._document.createTextNode(`${content}`);
+
+    return new ContentRef([[component]]);
+  }
+
+  _createFromComponent(moduleCFR, contentInjector, content, context) {
+    const contentCmptFactory = moduleCFR.resolveComponentFactory(content);
+    const offcanvasContentInjector = _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector.create({
+      providers: [{
+        provide: NgbActiveOffcanvas,
+        useValue: context
+      }],
+      parent: contentInjector
+    });
+    const componentRef = contentCmptFactory.create(offcanvasContentInjector);
+    const componentNativeEl = componentRef.location.nativeElement;
+
+    this._applicationRef.attachView(componentRef.hostView);
+
+    return new ContentRef([[componentNativeEl]], componentRef.hostView, componentRef);
+  }
+
+  _registerOffcanvasRef(ngbOffcanvasRef) {
+    const unregisterOffcanvasRef = () => {
+      this._offcanvasRef = undefined;
+
+      this._activeInstance.emit(this._offcanvasRef);
+    };
+
+    this._offcanvasRef = ngbOffcanvasRef;
+
+    this._activeInstance.emit(this._offcanvasRef);
+
+    ngbOffcanvasRef.result.then(unregisterOffcanvasRef, unregisterOffcanvasRef);
+  }
+
+  _registerPanelCmpt(ngbPanelCmpt) {
+    this._panelCmpt = ngbPanelCmpt;
+
+    this._activePanelCmptHasChanged.next();
+
+    ngbPanelCmpt.onDestroy(() => {
+      this._panelCmpt = undefined;
+
+      this._activePanelCmptHasChanged.next();
+    });
+  }
+
+}
+
+NgbOffcanvasStack.ɵfac = function NgbOffcanvasStack_Factory(t) {
+  return new (t || NgbOffcanvasStack)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ApplicationRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_12__.DOCUMENT), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ScrollBar), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone));
+};
+
+NgbOffcanvasStack.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+  token: NgbOffcanvasStack,
+  factory: NgbOffcanvasStack.ɵfac,
+  providedIn: 'root'
+});
+
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgbOffcanvasStack, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable,
+    args: [{
+      providedIn: 'root'
+    }]
+  }], function () {
+    return [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ApplicationRef
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector
+    }, {
+      type: undefined,
+      decorators: [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
+        args: [_angular_common__WEBPACK_IMPORTED_MODULE_12__.DOCUMENT]
+      }]
+    }, {
+      type: ScrollBar
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone
+    }];
+  }, null);
+})();
+/**
+ * A configuration service for the [`NgbOffcanvas`](#/components/offcanvas/api#NgbOffcanvas) service.
+ *
+ * You can inject this service, typically in your root component, and customize the values of its properties in
+ * order to provide default values for all offcanvases used in the application.
+ *
+ * @since 12.1.0
+ */
+
+
+class NgbOffcanvasConfig {
+  constructor(_ngbConfig) {
+    this._ngbConfig = _ngbConfig;
+    this.backdrop = true;
+    this.keyboard = true;
+    this.position = 'start';
+    this.scroll = false;
+  }
+
+  get animation() {
+    return this._animation === undefined ? this._ngbConfig.animation : this._animation;
+  }
+
+  set animation(animation) {
+    this._animation = animation;
+  }
+
+}
+
+NgbOffcanvasConfig.ɵfac = function NgbOffcanvasConfig_Factory(t) {
+  return new (t || NgbOffcanvasConfig)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](NgbConfig));
+};
+
+NgbOffcanvasConfig.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+  token: NgbOffcanvasConfig,
+  factory: NgbOffcanvasConfig.ɵfac,
+  providedIn: 'root'
+});
+
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgbOffcanvasConfig, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable,
+    args: [{
+      providedIn: 'root'
+    }]
+  }], function () {
+    return [{
+      type: NgbConfig
+    }];
+  }, null);
+})();
+/**
+ * A service for opening an offcanvas.
+ *
+ * Creating an offcanvas is straightforward: create a component or a template and pass it as an argument to
+ * the `.open()` method.
+ *
+ * @since 12.1.0
+ */
+
+
+class NgbOffcanvas {
+  constructor(_moduleCFR, _injector, _offcanvasStack, _config) {
+    this._moduleCFR = _moduleCFR;
+    this._injector = _injector;
+    this._offcanvasStack = _offcanvasStack;
+    this._config = _config;
+  }
+  /**
+   * Opens a new offcanvas panel with the specified content and supplied options.
+   *
+   * Content can be provided as a `TemplateRef` or a component type. If you pass a component type as content,
+   * then instances of those components can be injected with an instance of the `NgbActiveOffcanvas` class. You can then
+   * use `NgbActiveOffcanvas` methods to close / dismiss offcanvas from "inside" of your component.
+   *
+   * Also see the [`NgbOffcanvasOptions`](#/components/offcanvas/api#NgbOffcanvasOptions) for the list of supported
+   * options.
+   */
+
+
+  open(content, options = {}) {
+    const combinedOptions = Object.assign(Object.assign(Object.assign({}, this._config), {
+      animation: this._config.animation
+    }), options);
+    return this._offcanvasStack.open(this._moduleCFR, this._injector, content, combinedOptions);
+  }
+  /**
+   * Returns an observable that holds the active offcanvas instance.
+   */
+
+
+  get activeInstance() {
+    return this._offcanvasStack.activeInstance;
+  }
+  /**
+   * Dismisses the currently displayed offcanvas with the supplied reason.
+   */
+
+
+  dismiss(reason) {
+    this._offcanvasStack.dismiss(reason);
+  }
+  /**
+   * Indicates if there is currently an open offcanvas in the application.
+   */
+
+
+  hasOpenOffcanvas() {
+    return this._offcanvasStack.hasOpenOffcanvas();
+  }
+
+}
+
+NgbOffcanvas.ɵfac = function NgbOffcanvas_Factory(t) {
+  return new (t || NgbOffcanvas)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ComponentFactoryResolver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](NgbOffcanvasStack), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](NgbOffcanvasConfig));
+};
+
+NgbOffcanvas.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+  token: NgbOffcanvas,
+  factory: NgbOffcanvas.ɵfac,
+  providedIn: 'root'
+});
+
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgbOffcanvas, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable,
+    args: [{
+      providedIn: 'root'
+    }]
+  }], function () {
+    return [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ComponentFactoryResolver
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector
+    }, {
+      type: NgbOffcanvasStack
+    }, {
+      type: NgbOffcanvasConfig
+    }];
+  }, null);
+})();
+
+class NgbOffcanvasModule {}
+
+NgbOffcanvasModule.ɵfac = function NgbOffcanvasModule_Factory(t) {
+  return new (t || NgbOffcanvasModule)();
+};
+
+NgbOffcanvasModule.ɵmod = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
+  type: NgbOffcanvasModule
+});
+NgbOffcanvasModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({});
+
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgbOffcanvasModule, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
+    args: [{
+      declarations: [NgbOffcanvasPanel, NgbOffcanvasBackdrop]
+    }]
+  }], null, null);
+})();
+
+const NGB_MODULES = [
+/* eslint-disable-next-line deprecation/deprecation */
+NgbAccordionModule, NgbAlertModule, NgbButtonsModule, NgbCarouselModule, NgbCollapseModule, NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbNavModule, NgbOffcanvasModule, NgbPaginationModule, NgbPopoverModule, NgbProgressbarModule, NgbRatingModule, NgbTimepickerModule, NgbToastModule, NgbTooltipModule, NgbTypeaheadModule];
 
 class NgbModule {}
 
@@ -106374,7 +107858,9 @@ NgbModule.ɵmod = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
   type: NgbModule
 });
 NgbModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-  imports: [NGB_MODULES, NgbAccordionModule, NgbAlertModule, NgbButtonsModule, NgbCarouselModule, NgbCollapseModule, NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbNavModule, NgbPaginationModule, NgbPopoverModule, NgbProgressbarModule, NgbRatingModule, NgbTimepickerModule, NgbToastModule, NgbTooltipModule, NgbTypeaheadModule]
+  imports: [NGB_MODULES,
+  /* eslint-disable-next-line deprecation/deprecation */
+  NgbAccordionModule, NgbAlertModule, NgbButtonsModule, NgbCarouselModule, NgbCollapseModule, NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbNavModule, NgbOffcanvasModule, NgbPaginationModule, NgbPopoverModule, NgbProgressbarModule, NgbRatingModule, NgbTimepickerModule, NgbToastModule, NgbTooltipModule, NgbTypeaheadModule]
 });
 
 (function () {
@@ -109759,7 +111245,7 @@ class NgSelectComponent {
   }
 
   open() {
-    if (this.disabled || this.isOpen || this.itemsList.maxItemsSelected || this._manualOpen) {
+    if (this.disabled || this.isOpen || this._manualOpen) {
       return;
     }
 
@@ -112217,7 +113703,8 @@ class OverlayContainer {
   }
   /**
    * Create the overlay container element, which is simply a div
-   * with the 'cdk-overlay-container' class on the document body.
+   * with the 'cdk-overlay-container' class on the document body
+   * and 'aria-live="polite"'
    */
 
 
@@ -112225,6 +113712,7 @@ class OverlayContainer {
     const container = this._document.createElement('div');
 
     container.classList.add('overlay-container');
+    container.setAttribute('aria-live', 'polite');
 
     this._document.body.appendChild(container);
 
@@ -112866,7 +114354,7 @@ Toast.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
   attrs: _c0,
   decls: 5,
   vars: 5,
-  consts: [["type", "button", "class", "toast-close-button", "aria-label", "Close", 3, "click", 4, "ngIf"], [3, "class", 4, "ngIf"], ["role", "alertdialog", "aria-live", "polite", 3, "class", "innerHTML", 4, "ngIf"], ["role", "alertdialog", "aria-live", "polite", 3, "class", 4, "ngIf"], [4, "ngIf"], ["type", "button", "aria-label", "Close", 1, "toast-close-button", 3, "click"], ["aria-hidden", "true"], ["role", "alertdialog", "aria-live", "polite", 3, "innerHTML"], ["role", "alertdialog", "aria-live", "polite"], [1, "toast-progress"]],
+  consts: [["type", "button", "class", "toast-close-button", "aria-label", "Close", 3, "click", 4, "ngIf"], [3, "class", 4, "ngIf"], ["role", "alert", 3, "class", "innerHTML", 4, "ngIf"], ["role", "alert", 3, "class", 4, "ngIf"], [4, "ngIf"], ["type", "button", "aria-label", "Close", 1, "toast-close-button", 3, "click"], ["aria-hidden", "true"], ["role", "alert", 3, "innerHTML"], ["role", "alert"], [1, "toast-progress"]],
   template: function Toast_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, Toast_button_0_Template, 3, 0, "button", 0);
@@ -112913,10 +114401,10 @@ Toast.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
   <div *ngIf="title" [class]="options.titleClass" [attr.aria-label]="title">
     {{ title }} <ng-container *ngIf="duplicatesCount">[{{ duplicatesCount + 1 }}]</ng-container>
   </div>
-  <div *ngIf="message && options.enableHtml" role="alertdialog" aria-live="polite"
+  <div *ngIf="message && options.enableHtml" role="alert"
     [class]="options.messageClass" [innerHTML]="message">
   </div>
-  <div *ngIf="message && !options.enableHtml" role="alertdialog" aria-live="polite"
+  <div *ngIf="message && !options.enableHtml" role="alert"
     [class]="options.messageClass" [attr.aria-label]="message">
     {{ message }}
   </div>
@@ -113244,7 +114732,7 @@ ToastNoAnimation.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0
   attrs: _c0,
   decls: 5,
   vars: 5,
-  consts: [["type", "button", "class", "toast-close-button", "aria-label", "Close", 3, "click", 4, "ngIf"], [3, "class", 4, "ngIf"], ["role", "alert", "aria-live", "polite", 3, "class", "innerHTML", 4, "ngIf"], ["role", "alert", "aria-live", "polite", 3, "class", 4, "ngIf"], [4, "ngIf"], ["type", "button", "aria-label", "Close", 1, "toast-close-button", 3, "click"], ["aria-hidden", "true"], ["role", "alert", "aria-live", "polite", 3, "innerHTML"], ["role", "alert", "aria-live", "polite"], [1, "toast-progress"]],
+  consts: [["type", "button", "class", "toast-close-button", "aria-label", "Close", 3, "click", 4, "ngIf"], [3, "class", 4, "ngIf"], ["role", "alert", 3, "class", "innerHTML", 4, "ngIf"], ["role", "alert", 3, "class", 4, "ngIf"], [4, "ngIf"], ["type", "button", "aria-label", "Close", 1, "toast-close-button", 3, "click"], ["aria-hidden", "true"], ["role", "alert", 3, "innerHTML"], ["role", "alert"], [1, "toast-progress"]],
   template: function ToastNoAnimation_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, ToastNoAnimation_button_0_Template, 3, 0, "button", 0);
@@ -113282,10 +114770,10 @@ ToastNoAnimation.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0
   <div *ngIf="title" [class]="options.titleClass" [attr.aria-label]="title">
     {{ title }} <ng-container *ngIf="duplicatesCount">[{{ duplicatesCount + 1 }}]</ng-container>
   </div>
-  <div *ngIf="message && options.enableHtml" role="alert" aria-live="polite"
+  <div *ngIf="message && options.enableHtml" role="alert"
     [class]="options.messageClass" [innerHTML]="message">
   </div>
-  <div *ngIf="message && !options.enableHtml" role="alert" aria-live="polite"
+  <div *ngIf="message && !options.enableHtml" role="alert"
     [class]="options.messageClass" [attr.aria-label]="message">
     {{ message }}
   </div>

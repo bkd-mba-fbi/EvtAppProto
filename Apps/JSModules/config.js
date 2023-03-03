@@ -1,6 +1,6 @@
 define({
     // add the version here to force cache to reload files
-    urlArgs: 'bust=EVT2022.R1.Beta01.20220513054854',
+    urlArgs: 'bust=EVT2022.R2.P1.20230209120425',
     //baseUrl: '../JSModules',
     app_name: 'CLX.Evento Modules',
     shim: {

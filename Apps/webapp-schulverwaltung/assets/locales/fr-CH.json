@@ -53,7 +53,7 @@
       "save": "Valider"
     },
     "block-lesson": {
-      "text": "La leçon sélectionnée fait partie d'un bloc. Pour quelle période souhaitez-vous saisir une absence ?",
+      "text": "La leçon sélectionnée fait partie d'un bloc. Quelles leçons souhaitez-vous traiter (saisir ou supprimer une absence) ?",
       "cancel": "Annuler",
       "save": "Valider"
     },
@@ -108,7 +108,8 @@
       "all": "Tout",
       "mail": {
         "subject": "Rappel sur les absences en suspens",
-        "body": "Veuillez excuser les absences en suspens suivantes :"
+        "body": "Veuillez excuser vos absences en suspens :",
+        "bodyToLargeForEmailTo": "Et d'autres (texte trop long pour être traité)"
       }
     },
     "edit": {
@@ -129,6 +130,7 @@
       "student": "Nom",
       "module-instance": "Discipline",
       "study-class": "Classe",
+      "teacher": "Enseignant-e",
       "date-from": "Date du",
       "date-to": "Date au",
       "presence-type": "Motif",
@@ -185,7 +187,8 @@
         "total": "Total",
         "valid-excuse": "Excusé-e",
         "without-excuse": "Non excusé-e",
-        "unconfirmed": "En cours",
+        "unconfirmed": "En suspens",
+        "unchecked": "A contrôler",
         "incident": "Incidents",
         "halfday": "Demi-journées"
       }
@@ -261,7 +264,7 @@
       }
     },
     "publishing": {
-      "publish": "Voulez-vous publier le test « {{designation}} » ? Cela déclenche une notification.",
+      "publish": "Voulez-vous publier les notes « {{designation}} » ? Cela déclenche une notification.",
       "unpublish": "Voulez-vous modifier le test « {{designation}} » ?",
       "confirm": "Valider",
       "cancel": "Annuler"
@@ -282,6 +285,7 @@
     "average": "Moyenne",
     "no-tests": "Aucun test disponible",
     "no-grades": "Aucune note disponible",
+    "no-courses": "Aucun événement disponible",
     "dialog": {
       "grade": "Note",
       "points": "Points",
@@ -294,6 +298,7 @@
   },
   "my-absences": {
     "title": "Mes absences",
+    "description": "Vous pouvez annoncer des absences et traiter vos absences en suspens.",
     "show": {
       "default-absence-selection-message": "Vous devez saisir un motif pour toutes les absences sélectionnées avant de pouvoir télécharger le formulaire d'excuses.",
       "confirm-presence-type": "Saisir un motif"
@@ -321,6 +326,11 @@
       }
     }
   },
+  "person-search": {
+    "title": "Recherche des élèves",
+    "description": "Vous pouvez rechercher vos élèves et accéder directement à leur dossier en cliquant sur le nom.",
+    "name": "Nom"
+  },
   "my-profile": {
     "title": "Mon profil",
     "show": {
@@ -346,7 +356,7 @@
   },
   "my-grades": {
     "title": "Mes notes",
-    "header": "Les notes des tests sont visibles dès que le test a été publié par l'enseignant-e."
+    "header": "Les notes des tests sont visibles dès qu'elles ont été publiées par l'enseignant-e."
   },
   "my-settings": {
     "title": "Mes paramètres",
@@ -355,6 +365,7 @@
       "gui": "Affichage sur le web",
       "mail": "E-mail",
       "phoneMobile": "SMS",
+      "privacy-hint": "Remarque : les informations relatives à la protection des données ne sont pas envoyées par e-mail et SMS.",
       "save": "Mettre à jour",
       "save-success": "Les paramètres de notification ont été mis à jour avec succès"
     }

@@ -144,7 +144,7 @@ html, body {
                         min-width: 2rem;
                     }
 
-                    .dialogContextMenu{
+                    .dialogContextMenu {
                         min-width: 8rem;
                     }
                 }
@@ -222,6 +222,43 @@ html, body {
 
     .formRow .combobox button {
         height: 1.6rem;
+    }
+
+    .row {
+        clear: both;
+        float: left;
+        width: 100%;
+
+        .dialogInfo {
+            margin: 2*$dialogPadding 0 0 0 !important;
+        }
+
+        > div {
+            float: left;
+            box-sizing: border-box;
+            margin: 2*$dialogPadding $dialogPadding 0 0;
+
+            &:last-child {
+                margin: 2*$dialogPadding 0 0 0 !important;
+            }
+            
+            .colLine {
+                margin: 2*$dialogPadding 0 !important;
+            }
+
+            h4.rowTitle {
+                font-weight: bold;
+                margin: 0 0 $dialogPadding / 2 0;
+            }
+        }
+
+        &:first-child {
+            margin-top: -$dialogPadding !important;
+        }
+
+        .rowTitle, .blockTitle {
+            margin: 3*$dialogPadding 0 0 0;
+        }
     }
 }   
 
@@ -1269,44 +1306,6 @@ th.iconColumn {
     > span.combobox input {
         width: 100%;
     }     
-}
-
-.row {
-    clear: both;
-    float: left;
-    width: 100%;
-
-    .dialogInfo {
-        margin: 2*$dialogPadding 0 0 0 !important;
-    }
-
-    > div {
-        float: left;
-        box-sizing: border-box;
-        margin: 2*$dialogPadding $dialogPadding 0 0;
-
-        &:last-child {
-            margin: 2*$dialogPadding 0 0 0 !important;
-        }
-
-        .colLine {
-            margin: 2*$dialogPadding 0 !important;
-        }
-
-        h4.rowTitle {
-            font-weight: bold;
-            margin: 0 0 $dialogPadding / 2 0;
-        }
-    }
-
-    &:first-child {
-         margin-top: -$dialogPadding !important;
-        
-    }
-
-    .rowTitle, .blockTitle {
-        margin: 3*$dialogPadding 0 0 0;
-    }
 }
 
 div.col12 {

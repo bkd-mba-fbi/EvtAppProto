@@ -11,9 +11,6 @@ window.kursausschreibung.settings = {
     // items per page on the event-list (required)
     "itemsPerPage": 6,
 
-
-
-
     // title and fields to show on the event-list (required)
     // possible values in this array can be
     // * keys of the /Events API-endpoint
@@ -46,12 +43,16 @@ window.kursausschreibung.settings = {
         "BuildingAddress"
     ],
 
+    // configure sort options: you can choose the same fileds like in eventListFields or eventDetailsFields
+    "sortOptions": ["DateFrom","SubscriptionDateTo","Leadership", "Location"],
     // show breadcrumbs navigation (optional)
     "showBreadcrumbs": true,
 
     // show event-text on the details-route (optional)
     "showEventText": true,
 
+    // configure how many lessons show. if count of lessons > howManyLessonsShow lessons will be collaps
+    "howManyLessonsShow": 5,
     // enable freeSeats badge and set polling interval (optional)
     "badgeFreeSeats": {
         "enabled": true,
@@ -190,6 +191,8 @@ window.kursausschreibung.settings = {
     // put event-categories in a dropdown menu (required)
     "eventCategoryDropdown": true,
 
+    // default display eventlist as grid(true) oder list(false)
+    "displayGrid": true,
     // when a field is optional or not in the form you can set a default value.
 	// it will overwrite null values in the post to the person endpoint (optional)
     "personDefaultValue": {"CountryId": "CH"},

@@ -1,1 +1,22 @@
-{{foto-list idEvent=idEvent idPerson=idPerson changeStudent="dummyAction"}}
+<h1 class="photolist__header">{{model.designation}} - {{model.management}}</h1>
+<div class="photolist__container">
+    {{#if detailsVisible}}
+    <div class="photolist__details" style={{detailsCSS}}>
+        <div class="photolist__details__pointer" style={{pointerCSS}}></div>
+        <div class="photolist__details__box">
+            {{outlet}}
+        </div>
+    </div>
+    {{/if}}
+    {{#each model.students as |student index|}}
+    {{#link-to (if student.active "photos" "photoDetail") (if student.active model.idEvent student.idPerson)}}
+    <div class="photolist__student">
+        <img src={{student.photo}} alt={{student.fullname}} class="photolist__student__photo">
+        <span class="photolist__student__label" title={{student.fullname}}>{{student.fullname}}</span>
+    </div>
+    {{/link-to}}
+    {{#if student.placeholder}}
+    <div class="photolist__placeholder" style={{placeholderCSS}}></div>
+    {{/if}}
+    {{/each}}
+</div>

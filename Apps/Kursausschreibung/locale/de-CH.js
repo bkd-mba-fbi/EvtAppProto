@@ -5,7 +5,7 @@ window.kursausschreibung.locale["de-CH"] = {
     "no": "Nein",
     "overview": "Kursübersicht",
     "contact": "Kontakt",
-    "contactContent": "Erziehungsdirektion des Kantons Bern<br>Mittelschul- und Berufsbildungsamt<br>Fachbereich Informatikanwendungen<br> Kasernenstrasse 27<br>3000 Bern 22<br><a href='tel:+41 31 633 86 00'>+41 31 633 86 00</a><br><a href='mailto:mba-fbi@erz.myhelpdesk.ch'>Support</a>",
+    "contactContent": "Bldungs- und Kulturdirektion des Kantons Bern<br>Mittelschul- und Berufsbildungsamt<br>Fachbereich Informatikanwendungen<br> Kasernenstrasse 27<br>3013 Bern<br><a href='tel:+41 31 633 86 00'>+41 31 633 86 00</a><br><a href='mailto:ticket@gemini.myhelpdesk.ch'>Support</a>",
     "search": "Suche...",
     "legend": "",
     "noResults": "Keine Ergebnisse",
@@ -45,6 +45,16 @@ window.kursausschreibung.locale["de-CH"] = {
     "backToSubscripton": "Anmeldeformular",
     "invalidInput": "Ungültige Eingabe",
     "FilterTagAllEvents": "Alle",
+    "notAvailable": "nicht verfügbar",
+    "useLogin": "Ihre Anmeldung wird gemäss Ihrem Login erstellt {0}.",
+    "backToSubscripton": "Zurück zum Anmeldeformular",
+    "invalidInput": "Ungültige Eingabe",
+    "sortDateFrom": "Sortiert nach Startdatum aufsteigend",
+    "sortLeadership": "Sortiert nach Leitung A-Z",
+    "sortLocation": "Sortiert nach Ort A-Z",
+    "sortSubscriptionDateTo": "Sortiert nach Anmeldeschluss aufsteigend",
+    "sortLanguageOfInstruction": "Sortiert nach Sprache A-Z",
+    "searchNoEvents": "Mit dem Filter wurden keine Kurse gefunden.",
 
     // properties of an event
     "subscriptionFrom": "Start",
@@ -86,5 +96,5 @@ window.kursausschreibung.locale["de-CH"] = {
     "FileSizeTooBig": "Die Datei ist zu gross. Zugelassen sind maximal ",
     "FileTypeNotAccept": "Dieser Dateityp wird nicht akzeptiert. <br>Akzeptiert wird: ",
     "FileImageResolution": "Bilder müssen eine Auflösung von 300 x 400 Pixel haben.<br> Ihr Bild hat eine Auflösung von ",
-    "UploadErfolgreich": "Das Hochladen der Datei war erfolgreich: "
-};
+    "UploadErfolgreich": "Das Hochladen der Datei war erfolgreich: ",
+    "subscriptionFilesUploadFaild": "Das Hochladen der Datei war nicht erfolgreich. Bitte melden Sie sich beim Veranstalter, damit geklärt werden kann welche Dateien nicht übermittelt wurden."}

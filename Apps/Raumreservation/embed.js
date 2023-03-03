@@ -1,7 +1,7 @@
 (function() {
     var headElement = document.querySelector('html > head');
     var scriptPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/' + document.currentScript.getAttribute('src');
-    var baseURL = './Apps/Raumreservation/';
+    var baseURL = scriptPath.substring(0, scriptPath.lastIndexOf('/')) + '/';
 
     // Config
     var config = {};
@@ -24,7 +24,33 @@
         "showRoomReservation": true,
         "showDeviceReservation": true,
         "useHashRouting": true,
-        "assetPath": baseURL + 'assets/'
+        "assetPath": baseURL + 'assets/',
+        "ShowAvailableRoomsChecked": true,
+        "DefaultTimePeriod": 45,
+        "DefaultTimeFragmentation": 5,
+        "AllowFurtherEvents": true,
+        "RoomColumns": [
+            {
+              "Column": "Room",
+              "Size": 1
+            },
+            {
+              "Column": "RoomType",
+              "Size": 1
+            },
+            {
+              "Column": "Building",
+              "Size": 0
+            },
+            {
+              "Column": "Floor",
+              "Size": 0
+            },
+            {
+              "Column": "NumberPersons",
+              "Size": 0
+            }
+          ]
     };
 
     if (globalConfig.initialPath) {
@@ -53,7 +79,7 @@
     '</div>'].join('\n');
 
     document.currentScript.parentElement.insertBefore(rootElement, document.currentScript.nextSibling);
-    
+
     // CSS
     var cssURLs = [
         baseURL + './assets/css/bootstrap-clx.min.css',

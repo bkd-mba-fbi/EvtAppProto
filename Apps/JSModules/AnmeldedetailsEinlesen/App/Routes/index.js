@@ -1,1 +1,12 @@
-define(["ember","application","translate"],function(a,b){b.IndexRoute=a.Route.extend({beforeModel:function(){this.transitionTo("input")}})});
+define([
+    'ember',
+    'application',
+    'translate'
+], function (ember, app, translate) {
+    app.IndexRoute = ember.Route.extend({
+        beforeModel: function (transition) {
+            // always transition to input
+            this.transitionTo('input');
+        }
+    });
+});

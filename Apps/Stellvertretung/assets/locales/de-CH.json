@@ -2,17 +2,17 @@
   "navigation": {
     "title": "Stellvertretung",
     "item-execute": "Stellvertretung ausüben",
-    "item-assign": "Stellvertretung vergeben",
+    "item-assign": "Stellvertretung erfassen",
     "item-admin": "Administration",
     "user.signed-in-as": "Angemeldet als",
     "user.substituted-by": "Stellvertretung durch",
-    "user.stop-button-label": "Stellvertretung Abgeben",
+    "user.stop-button-label": "Stellvertretung beenden",
     "user.logout-button-label": "Logout",
     "user.login-button-label": "Login"
   },
 
   "substitutions.title": "Meine Stellvertretungen",
-  "substitutions/current.title": "Stellvertretung Ausüben",
+  "substitutions/current.title": "Stellvertretung ausüben",
 
   "substitution-model": {
     "Holder": "Für Lehrperson",
@@ -33,17 +33,41 @@
     "field-remarks-placeholder": "Kommentar...",
 
     "cancel-button-label": "Abbrechen",
-    "save-button-label": "Speichern",
+    "save-button-label": "Übernehmen",
 
     "confirm-delete-message": "Wollen Sie diese Stellvertretung löschen?",
-    "confirm-delete-cancel-button-label": "Abbrechen",
-    "confirm-delete-confirm-button-label": "Löschen"
+    "confirm-delete-cancel-button-label": "Nein",
+    "confirm-delete-confirm-button-label": "Ja",
+
+    "save-success-message": "Die Stellvertretung wurde gespeichert.",
+    "delete-success-message": "Die Stellvertretung wurde gelöscht."
+  },
+  
+    "substitution-edit": {
+    "title-holder-prefix": "für",
+
+    "field-date-from-label": "Datum von",
+    "field-date-from-placeholder": "Datum wählen...",
+    "field-date-to-label": "Datum bis",
+    "field-date-to-placeholder": "Datum wählen...",
+    "field-remarks-label": "Kommentar",
+    "field-remarks-placeholder": "Kommentar...",
+
+    "cancel-button-label": "Abbrechen",
+    "save-button-label": "Übernehmen",
+
+    "confirm-delete-message": "Wollen Sie diese Stellvertretung löschen?",
+    "confirm-delete-cancel-button-label": "Nein",
+    "confirm-delete-confirm-button-label": "Ja",
+
+    "save-success-message": "Die Stellvertretung wurde gespeichert.",
+    "delete-success-message": "Die Stellvertretung wurde gelöscht."
   },
 
   "substitution-create": {
     "field-holder-label": "Für Lehrperson",
     "field-holder-placeholder": "Name suchen...",
-    "field-substitute-label": "Stellvertretung",
+    "field-substitute-label": "Name",
     "field-substitute-placeholder": "Name suchen...",
     "field-date-from-label": "Datum von",
     "field-date-from-placeholder": "Datum wählen...",
@@ -53,15 +77,19 @@
     "field-remarks-placeholder": "Kommentar...",
     
     "cancel-button-label": "Abbrechen",
-    "save-button-label": "Speichern",
+    "save-button-label": "Übernehmen",
 
     "confirm-delete-message": "Wollen Sie diese Stellvertretung löschen?",
-    "confirm-delete-cancel-button-label": "Abbrechen",
-    "confirm-delete-confirm-button-label": "Löschen"
+    "confirm-delete-cancel-button-label": "Nein",
+    "confirm-delete-confirm-button-label": "Ja",
+
+    "save-success-message": "Die Stellvertretung wurde gespeichert."
+	
   },
 
   "page-substitution-list": {
-    "title-message": "Von Ihnen erfasste Stellvertretung: Die Person ist berechtigt, in der definierten Zeitspanne Ihre Funktion zu übernehmen."
+    "title-message": "Erfasste Stellvertretung: Die Person ist berechtigt, in der definierten Zeitspanne Ihre Funktion zu übernehmen.",
+    "empty-message": "Keine Stellvertretung vorhanden"
   },
 
   "substitution-list": {
@@ -78,12 +106,16 @@
     "column-title-substitute": "Stellvertretung",
     "column-title-holder": "Für Lehrperson",
     "column-title-date-range": "Zeitspanne",
-    "column-title-remarks": "Kommentar "
+    "column-title-remarks": "Kommentar ",
+
+    "substitution-holder-prefix": "für "
   },
 
   "execute-substitution-list": {
     "substitution-inactive-title-message": "Sie üben zurzeit keine Stellvertretung aus.",
     "substitution-active-title-message": "Sie üben zurzeit eine Stellvertretung aus.",
+
+    "substitution-holder-prefix": "für ",
 
     "column-title-holder": "Für Lehrperson",
     "column-title-date-range": "Zeitspanne",
@@ -127,17 +159,6 @@
   "unauthenticated": {
     "message": "Nicht angemeldet oder kein Zugriff."
   },
-  "execute-substitution": {
-    "title": "Stellvertretung ausüben" 
-  },
-  "assign-substitution": {
-    "title": "Stellvertretung vergeben" 
-  },
-  "my-notifications": {
-    "title": "Benachrichtigungen",
-    "deleteAll": "Alle löschen",
-    "none": "Keine Benachrichtigungen"
-  },
   "shared": {
     "date-select": {
       "default-placeholder": "Datum wählen..."
@@ -149,9 +170,6 @@
       "ago": "vor {{count}} Tagen",
       "in": "in {{count}} Tagen"
     },
-    "lesson-presences-update": {
-      "error": "Beim Speichern der Änderungen ist ein Fehler aufgetreten."
-    }, 
     "select": {
       "empty-option": "Wählen..."
     },

@@ -1,1 +1,11 @@
-define(["ember","main_settings"],function(a,b){var c=a.Object.extend(b),d=c.extend({});return d.create()});
+define([
+    'ember',
+    'main_settings'
+], function (ember, mainSettings) {
+    var settingsClass = ember.Object.extend(mainSettings);
+    var settings = {
+        // module specific settings
+    };
+    var inheritedSettingsClass = settingsClass.extend(settings);
+    return inheritedSettingsClass.create();
+});

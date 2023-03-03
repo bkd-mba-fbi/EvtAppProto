@@ -1,0 +1,81 @@
+﻿<tr id="{{model.IdObject}}">
+    {{#unless hideControlColumns}}
+
+    {{#if hasSDsForDetailsView}}
+    {{#if hasRangeDetails}}
+    <td {{action 'toggleRow'}} style="cursor: pointer;" class="iconColumn-small">
+        <div class="{{toggleClassName}}"></div>
+      </td>
+      {{else}}
+      <td></td>
+      {{/if}}
+    {{/if}}
+
+    <td class="validationColumn iconColumn" title="{{if allValid '' validationErrorExplanation}}" {{action 'toggleRowValidation' model.IdObject}}>
+      {{#if allValid}}
+      <span class="material-icons md-24 valid">done</span>
+      {{else}}
+      <span class="material-icons md-24 no-valid">close</span>
+      {{/if}}
+    </td>
+
+    {{/unless}}
+    <td style="white-space: nowrap;" title="{{PersonNameTooltip}}" {{action 'toggleRow'}}>
+        {{PersonFullname}}
+    </td>
+
+    {{#if scale}}
+    {{#if isReadOnly}}
+    <td style="white-space: nowrap;" title="{{gradeDesignation}}" class="{{unless columnVisibility.grade.isVisible 'hide-column' '' }}">{{gradeDesignation}}</td>
+    {{#if scale.CommentsAllowed}}
+    <td title="{{Comment}}" class="{{unless columnVisibility.comment.isVisible 'hide-column' ''}}">{{Comment}}</td>
+    {{/if}}
+    {{else}}
+    <td class="gradeInput {{unless columnVisibility.grade.isVisible 'hide-column' ''}}">
+        {{#if scale.FreeGrading}}
+        {{number-textbox classBinding='invalidatedClass' number=model.GradeValue minValue=scale.MinGrade maxValue=scale.MaxGrade}}
+        {{else}}
+        {{combo-box classBinding='invalidatedClass' source=scale.Grades keyName="Id" valueName="Designation" value=IdGrade}}
+        {{/if}}
+    </td>
+    {{#if scale.CommentsAllowed}}
+    <td class="{{unless columnVisibility.comment.isVisible 'hide-column' ''}}">{{textarea maxlength="(constant 'inputSizes.gradeRemark')" value=Comment rows='2'}}</td>
+    {{/if}}
+    {{/if}}
+    {{/if}}
+
+    {{#each columnDetails as |contentColumn|}} 
+    <td class="{{unless contentColumn.isVisible 'hide-column' ''}} ">
+      {{subscription-detail overrideControlId=(concat contentColumn.IdObject '_col')
+        model=contentColumn
+        save='saveSD'
+        hiddenSubscriptionDetails=hiddenSubscriptionDetails
+        showLabel=false
+        validated='sdValidated'
+        setReadOnly=isReadOnly
+        setInvalid=(if (get changesets contentColumn.IdObject) (not (get validatedChildren contentColumn.IdObject)))
+        }}
+    </td>
+    {{/each}}
+</tr>
+{{#if isExpanded}}
+{{#blend-element tagName='tr' blendType='slideDown'}}
+<td colspan="{{colCount}}">
+    <div>
+      {{#each rangeDetails as |detail|}}
+      <div class="formRow">
+        {{subscription-detail overrideControlId=(concat detail.IdObject '_range') 
+          model=detail save='saveSD' 
+          hiddenSubscriptionDetails=hiddenSubscriptionDetails 
+          validated='sdValidated' 
+          setReadOnly=isReadOnly 
+          setInvalid=(if (get changesets detail.IdObject) (not (get validatedChildren detail.IdObject)))
+          }}
+      </div>
+      {{else}}
+        {{translate 'noData'}}
+      {{/each}}
+    </div>
+  </td>
+  {{/blend-element}}
+{{/if}}

@@ -42,7 +42,7 @@
                 return api.getEmber('Subscriptions/'+subscriptionId+'/SubscriptionDetails');
             };
             api.ember.GetReports = function(eventId) {
-                return api.getEmber('CrystalReports/AvailableReports/Anlass?ids=290049,230049&keys='+eventId);
+                return api.getEmber('CrystalReports/AvailableReports/Anlass?ids=290049,230049,290044&keys='+eventId);
             };
 
             // start application

@@ -1,5 +1,5 @@
 ﻿(function (root) {
-    require(['../config', '../customConfig'], function (mainConfig, customConfig) {
+    require(['config', 'customConfig'], function (mainConfig, customConfig) {
         requirejs.config(mainConfig);
         requirejs.config(customConfig);
         require([
@@ -7,30 +7,36 @@
             'ember',
             'framework',
             'applicationHelpers',
-            'App/router',
-            'App/Templates/application',
-            'App/Templates/index',
-            'App/Templates/loading',
+            'router',
+            'App/Templates/index', 
             'controllers/gradingController',
-            'controllers/statisticController'
+            'controllers/statisticController',
         ], function (app, ember, framework, applicationHelpers) {
-
-            // Noteneingabe stuff
-            app.IndexController = ember.Controller.extend({
+            app.IndexController = ember.Controller.extend({ 
                 actions: {
-                    click: function() {
-                        this.transitionToRoute('grading', this.get('idEvent_save'));
-                    }
+                    seeDetails: function (item) {
+                        if(item && item.Id)
+                            this.transitionToRoute('grading', item.Id);
+                    } 
                 },
-
-                idEvent: ember.computed({
+        
+                hasItems: ember.computed('model', {
                     get: function() {
-                        return this.get('idEvent_save');
-                    },
-                    set: function(_, value) {
-                        this.set('idEvent_save', value);
+                        const model = this.get('model') || null;
+                        if(!model) return false;
+        
+                        return model.toGrade && model.toGrade.length;
                     }
-                })
+                }),
+        
+                events: ember.computed('model.toGrade', {
+                    get: function() {
+                        const model = this.get('model') || null;
+                        if(!model) return [];
+         
+                        return model.toGrade;
+                    }
+                }),
             });
 
             // start application

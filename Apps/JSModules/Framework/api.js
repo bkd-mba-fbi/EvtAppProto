@@ -196,8 +196,14 @@
             api.post('Persons/Commentary/' + id, commentary, success);
         },
 
-        getUserSettings: function(success) {
-            api.get('UserSettings/', success);
+        getUserSettings: function (success) {
+            var tokenPayload = loginHelpers.parseJwt(storage.access_token());
+            tokenPayload['ApplicationScope'] = tokenPayload.scope;
+            tokenPayload['UiCulture'] = tokenPayload.culture_info;
+            tokenPayload['IdPerson'] = tokenPayload.id_person;
+            tokenPayload['FullName'] = tokenPayload.fullname;
+            tokenPayload['Id'] = tokenPayload.username;
+            success(tokenPayload);
         },
 
         getSearchDefinition: function(dataClassId, designation, success, error) {

@@ -144,6 +144,28 @@ html, body {
 #CLX_Root .formRow .combobox button {
   height: 1.6rem; }
 
+#CLX_Root .row {
+  clear: both;
+  float: left;
+  width: 100%; }
+  #CLX_Root .row .dialogInfo {
+    margin: 1.6rem 0 0 0 !important; }
+  #CLX_Root .row > div {
+    float: left;
+    box-sizing: border-box;
+    margin: 1.6rem 0.8rem 0 0; }
+    #CLX_Root .row > div:last-child {
+      margin: 1.6rem 0 0 0 !important; }
+    #CLX_Root .row > div .colLine {
+      margin: 1.6rem 0 !important; }
+    #CLX_Root .row > div h4.rowTitle {
+      font-weight: bold;
+      margin: 0 0 0.4rem 0; }
+  #CLX_Root .row:first-child {
+    margin-top: -0.8rem !important; }
+  #CLX_Root .row .rowTitle, #CLX_Root .row .blockTitle {
+    margin: 2.4rem 0 0 0; }
+
 .material-icons.reverse {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1); }
@@ -969,28 +991,6 @@ th.iconColumn {
 
 .formControl > span.combobox input {
   width: 100%; }
-
-.row {
-  clear: both;
-  float: left;
-  width: 100%; }
-  .row .dialogInfo {
-    margin: 1.6rem 0 0 0 !important; }
-  .row > div {
-    float: left;
-    box-sizing: border-box;
-    margin: 1.6rem 0.8rem 0 0; }
-    .row > div:last-child {
-      margin: 1.6rem 0 0 0 !important; }
-    .row > div .colLine {
-      margin: 1.6rem 0 !important; }
-    .row > div h4.rowTitle {
-      font-weight: bold;
-      margin: 0 0 0.4rem 0; }
-  .row:first-child {
-    margin-top: -0.8rem !important; }
-  .row .rowTitle, .row .blockTitle {
-    margin: 2.4rem 0 0 0; }
 
 div.col12 {
   width: calc(100% - 0.8rem); }

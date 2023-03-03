@@ -9,9 +9,9 @@
     <base href="/">
 
     <!-- CLX -->
-    <link rel="stylesheet" href="./assets/css/bootstrap-clx.css?bust=20.2.20210416044813">
+    <link rel="stylesheet" href="./assets/css/bootstrap-clx.css?bust=22.2.20221216131212">
 
-    <link href="./assets/icons/open-iconic/css/open-iconic-bootstrap.min.css?bust=20.2.20210416044813" rel="stylesheet">
+    <link href="./assets/icons/open-iconic/css/open-iconic-bootstrap.min.css?bust=22.2.20221216131212" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <title>{{'APPTITLE'|translate}</title>
 

@@ -1,1 +1,3 @@
-define(["ember","text!App/HtmlTemplates/navigation.html"],function(a,b){a.TEMPLATES.navigation=a.Handlebars.compile(b)});
+define(['ember', 'text!App/HtmlTemplates/navigation.html'], function (ember, navigationTemplate) {
+    ember.TEMPLATES['navigation'] = ember.Handlebars.compile(navigationTemplate);
+});

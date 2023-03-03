@@ -5,7 +5,7 @@ window.kursausschreibung.locale["fr-CH"] = {
     "no": "Non",
     "overview": "Aperçu des manifestations",
     "contact": "Contact",
-    "contactContent": "Erziehungsdirektion des Kantons Bern<br>Mittelschul- und Berufsbildungsamt<br>Fachbereich Informatikanwendungen<br> Kasernenstrasse 27<br>3000 Bern 22<br><a href='tel:+41 31 633 86 00'>+41 31 633 86 00</a><br><a href='mailto:mba-fbi@erz.myhelpdesk.ch'>Support</a>",
+    "contactContent": "Direction de l'instruction publique et de la culture du canton de Berne<br>Office des écoles moyennes et de la formation professionnelle<br>Unité Applications informatiques<br> Kasernenstrasse 27<br>3013 Bern<br><a href='tel:+41 31 633 86 00'>+41 31 633 86 00</a><br><a href='mailto:ticket@gemini.myhelpdesk.ch'>Service d'assistance</a>",
     "search": "Recherche...",
     "legend": "",
     "noResults": "Pas de résultats",
@@ -29,7 +29,7 @@ window.kursausschreibung.locale["fr-CH"] = {
     "yourDetails": "",
     "companyAddress": "Facturation à l'entreprise",
     "errorMessage": "Une erreur imprévue s'est produite. Veuillez réessayer.",
-    "notAvailable": "indisponible",
+
     "lessons": "Exécutions",
     "seatAvailable": "Place libre",
     "seatsAvailable": "Places libres",
@@ -38,13 +38,22 @@ window.kursausschreibung.locale["fr-CH"] = {
     "subscriptionDetailFields": "Détails d'inscription",
     "sendingData": "Envoyer",
     "subscriptionFailed": "L'inscription a échoué.",
-    "useLogin": "Votre inscription sera créée en fonction de votre login {0}.",
     "backToCourses": "Retour à l'aperçu du cours",
     "lessonExportToIcs": "Exporter pour le calendrier", 
     "noEvents": "Il n'y a actuellement aucun cours disponible.",
-    "backToSubscripton": "Formulaire d'inscription",
     "invalidInput": "",
+    "useLogin": "Votre inscription sera créée en fonction de votre login {0}.",
     "FilterTagAllEvents": "Tous",
+    "notAvailable": "indisponible",
+
+    "backToSubscripton": "Formulaire d'inscription",
+    "invalidInput": "Entrée non valide",
+    "sortDateFrom": "Trier par date de début en ordre croissant",
+    "sortLeadership": "Trier par direction de A à Z",
+    "sortLocation": "Trier par lieu de A à Z",
+    "sortSubscriptionDateTo": "Trier par ordre croissant de délai d'inscription",
+    "sortLanguageOfInstruction": "Trier par langue de A à Z",
+    "searchNoEvents": "Aucun cours n'a été trouvé avec ce filtre.",
 
     // properties of an event
     "subscriptionFrom": "Début",
@@ -87,5 +96,6 @@ window.kursausschreibung.locale["fr-CH"] = {
     "FileSizeTooBig": "Le fichier est trop volumineux. Est autorisé un maximum de ",
     "FileTypeNotAccept": "Ce type de fichier n'est pas accepté. <br>Est accepté : ",
     "FileImageResolution": "Les images doivent avoir une résolution de 300 x 400 pixels.<br> Votre image a une résolution de ",
-    "UploadErfolgreich": "Le téléchargement du fichier a réussi : "
+    "UploadErfolgreich": "Le téléchargement du fichier a réussi : ",
+    "subscriptionFilesUploadFaild": 
 };

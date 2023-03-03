@@ -1,13 +1,9 @@
 define([
-    'application',
     'ember'
-], function (app, ember) {
-    app.PhotosController = ember.Controller.extend({
-        idEvent: 33435,
-        abc: 'abc'
-
+], function (ember) {
+    ClxApp.PhotosController = ember.Controller.extend({
         // These properties are set by the view
-/*        studentHeight: null,
+        studentHeight: null,
         studentWidth: null,
         columns: null,
         updateDetailsHeight: null,
@@ -138,11 +134,11 @@ define([
             );
         }),
 
-        detailsVisible: ember.computed('activeIndex', function () {
+        detailsVisible: ember.computed('activeIndex', function() {
             return this.get('activeIndex') !== null;
         }),
 
-        activeColumn: ember.computed('activeIndex', 'columns', function () {
+        activeColumn: ember.computed('activeIndex', 'columns', function() {
             if (this.get('activeIndex') === null) {
                 return null;
             }
@@ -150,7 +146,7 @@ define([
             return this.get('activeIndex') % this.get('columns');
         }),
 
-        activeRow: ember.computed('activeIndex', 'columns', function () {
+        activeRow: ember.computed('activeIndex', 'columns', function() {
             if (this.get('activeIndex') === null || this.get('columns') === null) {
                 return null;
             }
@@ -203,11 +199,10 @@ define([
             this.set('_previousPlaceholderIndex', index);
         }),
 
-        init: function () {
+        init: function() {
             // https://guides.emberjs.com/v1.11.0/object-model/observers/#toc_unconsumed-computed-properties-do-not-trigger-observers
             this.get('activeIndex');
             this.get('activePlaceholderIndex');
         }
-*/
     });
 });

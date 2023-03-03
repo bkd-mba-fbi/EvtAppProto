@@ -1,5 +1,8 @@
 ﻿define(['constants'], function (constants) {
     return {
+        gradingRedirectUrl: '../cst_pages/suchresultat.aspx?tabkey=webtab_meineanlaessedoz&withsearchparameter=true#/events',
+        applicationScope: 'Undefined',
+        querystringName: 'idanlass',
         // define reports to display here with context as property name. those reports will be used for list and dialog.
         // if you wish to define different reports for list or dialog, define a new property
         // with context + List as name (e.g. person:[123], personList: [456]). you can also prevent reports 
@@ -8,8 +11,8 @@
         reports: {
             person: [290026],
             personList: [290050,290039],
-            personzeugnis: [220004, 230001, 230046, 220071, 220072],
-            anlass: [290045,290049,230049], //Definieren FBI
+            personzeugnis: [220004, 230046, 220072, 230070, 230071, 220074],
+            anlass: [290045], //Definieren FBI
             finalizeGrading: 290045 //Definieren FBI
         },
 
@@ -44,8 +47,7 @@
             ],
             adColumnsOnlyShowWhenGradeFail: [3959],
             showExcelButton: false,
-            showReportButton: true,
-            showInfoTextAtFooter: true
+            showReportButton: true
         },
 
         // obsolete: the types of entity that are allowed to open from a list inside a dialog. don't change this, or the application

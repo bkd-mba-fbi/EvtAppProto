@@ -53,7 +53,7 @@
       "save": "Übernehmen"
     },
     "block-lesson": {
-      "text": "Die ausgewählte Lektion ist Teil eines Blocks. Für welche Lektionen möchten Sie eine Absenz erfassen?",
+      "text": "Die ausgewählte Lektion ist Teil eines Blocks. Welche Lektionen möchten Sie bearbeiten (Absenz erfassen oder austragen)?",
       "cancel": "Abbrechen",
       "save": "Übernehmen"
     },
@@ -108,7 +108,8 @@
       "all": "Alle",
       "mail": {
         "subject": "Erinnerung offene Absenzen",
-        "body": "Bitte entschuldigen Sie folgende offenen Absenzen:"
+        "body": "Bitte entschuldigen Sie Ihre offenen Absenzen:",
+        "bodyToLargeForEmailTo": "Und weitere (Text zu lang für Verarbeitung)"
       }
     },
     "edit": {
@@ -129,6 +130,7 @@
       "student": "Name",
       "module-instance": "Fach",
       "study-class": "Klasse",
+      "teacher": "Lehrperson",
       "date-from": "Datum von",
       "date-to": "Datum bis",
       "presence-type": "Grund",
@@ -186,6 +188,7 @@
         "valid-excuse": "Entschuldigt",
         "without-excuse": "Unentschuldigt",
         "unconfirmed": "Offen",
+        "unchecked": "Zu kontrollieren",
         "incident": "Vorfälle",
         "halfday": "Halbtage"
       }
@@ -261,7 +264,7 @@
       }
     },
     "publishing": {
-      "publish": "Möchten Sie den Test «{{designation}}» publizieren? Dies löst eine Benachrichtigung aus.",
+      "publish": "Möchten Sie die Noten «{{designation}}» publizieren? Dies löst eine Benachrichtigung aus.",
       "unpublish": "Möchten Sie den Test «{{designation}}» bearbeiten?",
       "confirm": "Bestätigen",
       "cancel": "Abbrechen"
@@ -282,6 +285,7 @@
     "average": "Mittelwert",
     "no-tests": "Keine Tests vorhanden",
     "no-grades": "Keine Noten vorhanden",
+    "no-courses": "Keine Anlässe vorhanden",
     "dialog": {
       "grade": "Note",
       "points": "Punkte",
@@ -294,6 +298,7 @@
   },
   "my-absences": {
     "title": "Meine Absenzen",
+    "description": "Hier können Sie Absenzen melden und Ihre offenen Absenzen bearbeiten.",
     "show": {
       "default-absence-selection-message": "Sie müssen bei allen ausgewählten Absenzen einen Grund erfassen, bevor Sie das Entschuldigungsformular herunterladen können.",
       "confirm-presence-type": "Grund erfassen"
@@ -321,6 +326,11 @@
       }
     }
   },
+  "person-search": {
+    "title": "Personensuche",
+    "description": "Hier können Sie nach Ihren Lernenden suchen, um mit Klick auf den Namen direkt zum Dossier zu gelangen.",
+    "name": "Name"
+  },
   "my-profile": {
     "title": "Mein Profil",
     "show": {
@@ -346,7 +356,7 @@
   },
   "my-grades": {
     "title": "Meine Noten",
-    "header": "Noten aus Tests sind sichtbar, sobald der Test von der Lehrperson publiziert wurde."
+    "header": "Noten aus Tests sind sichtbar, sobald sie von der Lehrperson publiziert wurden."
   },
   "my-settings": {
     "title": "Meine Einstellungen",
@@ -355,6 +365,7 @@
       "gui": "Anzeige im Web",
       "mail": "E-Mail",
       "phoneMobile": "SMS",
+      "privacy-hint": "Hinweis: Datenschutzrelevante Informationen werden nicht per E-Mail und SMS verschickt.",
       "save": "Aktualisieren",
       "save-success": "Einstellungen zu Benachrichtigungen erfolgreich aktualisiert"
     }

@@ -210,6 +210,9 @@
         'question': 'Frage',
         'paragraph': 'Ziffer',
         'deleteAllGrades': 'Alle Noten löschen',
+        'grade_delete_question': 'Wollen Sie alle Noten löschen?',
+        'grade_set_default': 'Standardwert für alle setzen:',
+        'grade_scale': '',
 
         // temporary List of native languages
         'msAfrikanischeSprachen': 'Afrikanische Sprachen',

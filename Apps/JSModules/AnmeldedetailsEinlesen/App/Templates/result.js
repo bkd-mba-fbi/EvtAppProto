@@ -1,1 +1,3 @@
-define(["ember","text!App/HtmlTemplates/result.html"],function(a,b){a.TEMPLATES.result=a.Handlebars.compile(b)});
+define(['ember', 'text!App/HtmlTemplates/result.html'], function (ember, resultTemplate) {
+    ember.TEMPLATES['result'] = ember.Handlebars.compile(resultTemplate);
+});
