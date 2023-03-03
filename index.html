@@ -111,7 +111,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item webapp-link" href="?app=webapp-schulverwaltung#/my-profile">Profil</a>
                 <a class="dropdown-item webapp-link" href="?app=webapp-schulverwaltung#/my-settings">Einstellungen</a>
-                <a class="dropdown-item" data-toggle="modal" data-target="#schoolChange">Schule wechseln</a>
+                <a class="dropdown-item" onclick="changeInstance()">Schule wechseln</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item webapp-link" user-access="TeacherRole;ClassTeacherRole"
                   href="?app=stellvertertung#/substitutions/assign">Stellvertertung erfassen und bearbeiten</a>
@@ -143,34 +143,6 @@
     </div>
 
   </nav>
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="schoolChange" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="headerSchoolChange" class="modal-title" id="ModalLabel"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Bitte wählen Sie eine Schule aus in der Sie sich einloggen wollen.
-          <div class="mt-1">
-            <select name="instances" id="instances" class="custom-select">
-            </select>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-          <button type="button" onclick="changeInstance()" class="btn btn-primary">Übernehmen</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <div id="main" class="main-container">
 

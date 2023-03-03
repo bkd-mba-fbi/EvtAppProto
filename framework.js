@@ -127,14 +127,8 @@ function getInstanceObject() {
 }
 
 function changeInstance() {
-    var newInstance = document.getElementById('instances').value;
-
-    if(newInstance !== getInstance()) {
-        setValue(INSTANCE,newInstance);
-        logout();
-        loginFirst();
-    }
-
+    setValue(INSTANCE,'');
+    logout();
 }
 
 function changeLanguage(language){
